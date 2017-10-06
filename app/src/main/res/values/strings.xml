@@ -1,0 +1,165 @@
+<resources xmlns:xliff="http://schemas.android.com/tools">
+
+
+    <string name="app_name">BlackSmithYouthClub</string>
+
+
+    <string name="action_settings">Settings</string>
+
+
+    <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_videos">Videos</string>
+    <string name="title_activity_events">Events</string>
+    <string name="title_activity_advertisement">Advertisements</string>
+    <string name="title_activity_contact_us">ContactUs</string>
+
+
+    <!--Verification Activity-->
+    <string name="str_verification_descr1">We have sent you an access code</string>
+    <string name="str_verification_descr2">via SMS for Mobile number : </string>
+    <string name="title_activity_verification">VerificationActivity</string>
+    <string name="str_resendcode">Resend Code</string>
+    <string name="str_enter_code_here">enter code here</string>
+
+
+    <string name="title_activity_single_event">Single Event</string>
+
+    <string name="Name">Name</string>
+    <string name="Surename">Surname</string>
+    <string name="surenameother">Official Surname(If Different)</string>
+    <string name="villagename">Village Name</string>
+    <string name="Religion">Religion</string>
+    <string name="dob">Date of Birth</string>
+
+    <string name="Weight">Weight</string>
+    <string name="aboutyou">About You</string>
+    <string name="Hobby">Hobby</string>
+    <string name="fathername">Father"'"s Name</string>
+    <string name="mothersname">Mother"'"s Name</string>
+    <string name="fathersfathername">Father"'"s Father Name</string>
+    <string name="fathersmothername">Father"'"s Mother Name</string>
+    <string name="mothersfathername">Mother"'"s Father Name</string>
+    <string name="mothersmothername">Mother"'"s Mother Name</string>
+    <string name="mothersfathersurname">Mother"'"s Father"'"s Surname</string>
+    <string name="mothersfathervillage">Mother"'"s Father"'"s Village</string>
+    <string name="HusbandsName">Husband"'"s Name</string>
+    <string name="husbandsfathername">Husband"'"s Father Name</string>
+    <string name="husbandsmothername">Husband"'"s Mother Name</string>
+    <string name="wifesname">Wife"'"s Name</string>
+    <string name="wifesfathername">Wife"'"s Father"'"s Name</string>
+    <string name="wifesmothername">Wife"'"s Mother"'"s Name</string>
+    <string name="wifesfathersurname">Wife"'"s Father"'"s Surname</string>
+    <string name="wifesfathervllage">Wife"'"s Father"'"s Village</string>
+    <string name="businessname">Business Name</string>
+    <string name="occupationspecialization">Occupation Specialization</string>
+    <string name="businessaddress">Address</string>
+    <string name="occupationarea">Occupation Area</string>
+    <string name="workroletitle">Work Role Title</string>
+    <string name="OfficeContactNo1">Office Contact No 1</string>
+    <string name="OfficeContactNo2">Office Contact No 2</string>
+    <string name="worklandline1">Landline Number 1</string>
+    <string name="worklandline2">Landline Number 2</string>
+    <string name="businesswebsite">Business Website</string>
+    <string name="businesscategory">Business Category</string>
+
+    <string name="contactnumber1">Contact Number 1</string>
+    <string name="contactnumber2">Contact Number 2</string>
+    <string name="currentarea">Current Area</string>
+    <string name="address">Address</string>
+    <string name="pincode">Pincode</string>
+
+
+    <!--Activity Names-->
+    <string name="activity_select_caste">Select Caste</string>
+    <string name="activity_signin">BSYC App Login</string>
+    <string name="activity_signup">BSYC App Signup</string>
+    <string name="activity_dashboard">Black Smith Youth Club</string>
+    <string name="activity_verification">Verification</string>
+    <string name="activity_videos">Videos</string>
+    <string name="activity_event">Events</string>
+    <string name="activity_advertisements">Advertisements</string>
+    <string name="activity_contact_us">Contact Us</string>
+    <string name="activity_profile">Profile</string>
+    <string name="activity_notification">Notification</string>
+
+
+    <!--SignInActivity Strings-->
+    <string name="str_mobile">Mobile</string>
+    <string name="str_btn_login">LOGIN</string>
+    <string name="str_not_registered">Not a member yet? Sign Up now</string>
+
+
+    <!--Dashboard Related strings-->
+    <string name="str_approval_status">Approval Status</string>
+    <string name="str_approval_descr">We have received your registration form. We will approve your request after verification.\n\n Date submitted :</string>
+    <string name="str_ok">OK</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="api_error">System Error. Please try again later!</string>
+    <string name="server_error">System Error. Please try again later!</string>
+    <string name="str_error_servercode_not_200">Something is wrong,try again</string>
+
+    <string name="str_menu_directory">Directory</string>
+    <string name="str_menu_business">Business</string>
+    <string name="str_menu_profile">Profile</string>
+    <string name="str_menu_events">Events</string>
+    <string name="str_menu_advertisements">Advertisements</string>
+    <string name="str_menu_videos">Videos</string>
+    <string name="str_menu_contactus">ContactUs</string>
+    <string name="str_menu_logout">Logout</string>
+
+
+    <!--Notification Activity-->
+    <string name="str_no_notifications">Once you receive notitication.you can see notification list here.</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_language_selection">LanguageSelectionActivity</string>
+    <string name="title_activity_select_caste">SelectCasteActivity</string>
+
+    <!-- SignupActivity Related Keys-->
+    <string name="str_upload_document_Descr">* Upload Valid Document As: \n Aadhar Card/Voter Id/Driving Licence/Pancard</string>
+    <string name="str_referral_code">Refferal Code (Optional)</string>
+
+
+    <string name="title_activity_business_directory">Business Directory</string>
+
+
+    <string name="no_network">Not able to connect to App</string>
+    <string name="no_network2">Please Enable Wifi or Mobile data</string>
+    <string name="no_network3">Sorry,no Internet conenctivity detected. Please reconnect and try again.</string>
+
+    <string name="youtube_currently_installed">YouTube version installed on this device: <xliff:g id="youtube_version">%1$s</xliff:g>.</string>
+    <string name="title_activity_members_data_by_surname">Members Data</string>
+    <string name="title_activity_members_data_by_business">Business Directory</string>
+    <string name="title_activity_business_sub_category">Business Categories</string>
+
+    <!--Search Activity Related Keys-->
+    <string name="search_hint">Search for Members</string>
+
+
+    <!--SelectCaste Activity-->
+    <string name="caste_luhar">Luhar</string>
+    <string name="caste_suthar">Suthar</string>
+
+
+    <!--Activity Names-->
+    <!-- <string name="activity_select_caste">Select Caste</string>
+     <string name="activity_signin">BSYC App Login</string>
+     <string name="activity_signup">BSYC App Signup</string>
+     <string name="activity_dashboard">Black Smith Youth Club</string>
+     <string name="activity_verification">Verification</string>
+     <string name="activity_videos">Videos</string>
+     <string name="activity_event">Events</string>
+     <string name="activity_advertisements">Advertisements</string>
+     <string name="activity_contact_us">Contact Us</string>
+     <string name="activity_profile">Profile</string>-->
+
+
+    <!--fragment Profile-->
+    <string name="str_select_blood_group">Select Blood Group</string>
+    <string name="str_select_heigth">Select Height</string>
+    <string name="str_home_phone">Home Phone no</string>
+    <string name="str_business_subcategory">Business Subcategory</string>
+
+
+
+</resources>

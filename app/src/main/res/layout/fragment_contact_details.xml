@@ -1,0 +1,194 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llmain"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#EEEEEE"
+
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtHomePhoneWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtHomePhone"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|top|left"
+                        android:hint="@string/str_home_phone"
+                        android:singleLine="true"
+                        android:inputType="number"
+                        android:focusableInTouchMode="false"
+                        android:textColor="@color/black"
+                        />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtContactno2Wrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+
+                    android:visibility="gone"
+                   
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtContactno2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|top|left"
+                        android:hint="@string/contactnumber2"
+                        android:singleLine="true"
+                        android:focusableInTouchMode="false"
+                        android:textColor="@color/black"
+                        android:inputType="number" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtCurrentAreaWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtCurrentArea"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:focusableInTouchMode="false"
+                        android:gravity="center|top|left"
+                        android:hint="@string/currentarea"
+                        android:inputType="textMultiLine"
+                        android:maxLines="5"
+                        android:singleLine="false"
+                        android:textColor="@color/black" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtAddressWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                   
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtAddress"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|top|left"
+                        android:focusableInTouchMode="false"
+                        android:textColor="@color/black"
+                        android:hint="@string/address"
+                        android:singleLine="false"
+                        android:maxLines="5"
+                        android:inputType="textMultiLine"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtPincodeWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                   
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtPincode"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|top|left"
+                        android:hint="@string/pincode"
+                        android:singleLine="false"
+                        android:focusableInTouchMode="false"
+                        android:textColor="@color/black"
+                        android:maxLength="6"
+
+
+                        android:inputType="numberSigned"/>
+                </android.support.design.widget.TextInputLayout>
+
+              <!--  <Spinner
+                    android:id="@+id/spstate"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/custom_spinner">
+                </Spinner>-->
+
+                <com.blacksmithyouthclub.material_spinner.MaterialSpinner
+                    android:id="@+id/spnState"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawSelectorOnTop="true"
+
+                    app:ms_background_color="#FAFAFA"
+                    app:ms_dropdown_height="wrap_content"
+                    app:ms_dropdown_max_height="500dp"
+                    app:ms_text_color="@color/colorPrimaryText" />
+
+
+
+          <!--      <Spinner
+                    android:id="@+id/spcity"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/custom_spinner"/>-->
+
+                    <com.blacksmithyouthclub.material_spinner.MaterialSpinner
+                        android:id="@+id/spnCity"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawSelectorOnTop="true"
+                        app:ms_background_color="#FAFAFA"
+                        android:layout_marginTop="8dp"
+
+                        app:ms_dropdown_height="wrap_content"
+                        app:ms_dropdown_max_height="500dp"
+                        app:ms_text_color="@color/colorPrimaryText" />
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

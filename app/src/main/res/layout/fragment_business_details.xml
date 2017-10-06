@@ -1,0 +1,319 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llmain"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+
+    android:background="#EFEFEF"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <com.github.siyamed.shapeimageview.CircularImageView
+                    android:id="@+id/imgBusinessLogo"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/icon_userlogo"
+                    app:siBorderColor="#EFEFEF"
+                    app:siBorderWidth="1dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <com.blacksmithyouthclub.material_spinner.MaterialSpinner
+                    android:id="@+id/spnBusiness"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawSelectorOnTop="true"
+
+                    app:ms_background_color="#FAFAFA"
+                    app:ms_dropdown_height="wrap_content"
+                    app:ms_dropdown_max_height="500dp"
+                    app:ms_text_color="@color/colorPrimaryText" />
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtBusinessCategoryWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+
+
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtBusinessCategory"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:focusableInTouchMode="false"
+                        android:gravity="center|top|left"
+                        android:hint="@string/businesscategory"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:textColor="@color/black" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <io.apptik.widget.multiselectspinner.MultiSelectSpinner
+                    android:id="@+id/spnBusinesssSubcategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtBusinessSubCategoryWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+
+
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtBusinessSubCategory"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:focusableInTouchMode="false"
+                        android:gravity="center|top|left"
+
+                        android:hint="@string/str_business_subcategory"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:maxLines="5"
+                        android:minLines="3"
+
+                        android:singleLine="true"
+                        android:textColor="@color/black" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtOccupationSpecializationWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+
+android:visibility="visible"
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtOccupationSpecialization"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:focusableInTouchMode="false"
+                        android:gravity="center|top|left"
+
+                        android:hint="@string/occupationspecialization"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:maxLines="5"
+                        android:minLines="3"
+
+                        android:singleLine="true"
+                        android:textColor="@color/black" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtBusinessAddressWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+
+
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtBusinessAddress"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:focusableInTouchMode="false"
+                        android:gravity="center|top|left"
+                        android:hint="@string/businessaddress"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:maxLines="5"
+                        android:minLines="3"
+                        android:singleLine="false"
+                        android:textColor="@color/black" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtOccupationAreaWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+
+
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtOccupationArea"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:focusableInTouchMode="false"
+                        android:gravity="center|top|left"
+                        android:hint="@string/occupationarea"
+                        android:inputType="text|textCapSentences"
+                        android:singleLine="true"
+                        android:textColor="@color/black" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtWorkRoleTitleWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+
+
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtWorkRoleTitle"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:focusableInTouchMode="false"
+                        android:gravity="center|top|left"
+                        android:hint="@string/workroletitle"
+                        android:inputType="text|textCapSentences"
+                        android:singleLine="true"
+                        android:textColor="@color/black" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtOfficeno1Wrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+
+
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtOfficeno1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:focusableInTouchMode="false"
+                        android:gravity="center|top|left"
+                        android:hint="@string/OfficeContactNo1"
+                        android:inputType="number"
+                        android:maxLines="5"
+                        android:singleLine="false"
+                        android:textColor="@color/black" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtOfficeno2Wrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+
+
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtOfficeno2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:focusableInTouchMode="false"
+                        android:gravity="center|top|left"
+                        android:hint="@string/OfficeContactNo2"
+                        android:inputType="number"
+                        android:maxLines="5"
+                        android:singleLine="false"
+                        android:textColor="@color/black" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtWorkLandline1Wrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+
+
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtWorkLandline1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:focusableInTouchMode="false"
+                        android:gravity="center|top|left"
+                        android:hint="@string/worklandline1"
+                        android:inputType="number"
+                        android:maxLines="5"
+                        android:singleLine="false"
+                        android:textColor="@color/black" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtWorkLandline2Wrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+
+
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtWorkLandline2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:focusableInTouchMode="false"
+                        android:gravity="center|top|left"
+                        android:hint="@string/worklandline2"
+                        android:inputType="number"
+                        android:maxLines="5"
+                        android:singleLine="false"
+                        android:textColor="@color/black" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtBusinessWebsiteWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+
+
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtBusinessWebsite"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:focusableInTouchMode="false"
+                        android:gravity="center|top|left"
+                        android:hint="@string/businesswebsite"
+                        android:inputType="text"
+                        android:singleLine="false"
+                        android:textColor="@color/black" />
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- -->
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,459 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llmain"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+
+    android:background="#EFEFEF"
+    android:orientation="vertical">
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/edtFathersNameWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtFathersName"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+
+                        android:gravity="center|top|left"
+                        android:hint="@string/fathername"
+                        android:inputType="text|textCapSentences"
+                        android:maxLines="5"
+                        android:focusableInTouchMode="false"
+                        android:textColor="@color/black"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtMotherNameWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtMotherName"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|top|left"
+                        android:hint="@string/mothersname"
+                        android:inputType="text|textCapSentences"
+                        android:maxLines="5"
+                        android:focusableInTouchMode="false"
+                        android:textColor="@color/black"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtFathersFathernameWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtFathersFathername"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:focusableInTouchMode="false"
+                        android:textColor="@color/black"
+                        android:gravity="center|top|left"
+                        android:hint="@string/fathersfathername"
+                        android:inputType="text|textCapSentences"
+                        android:maxLines="5"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtFathersMothernameWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtFathersMothername"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|top|left"
+                        android:focusableInTouchMode="false"
+                        android:textColor="@color/black"
+                        android:hint="@string/fathersmothername"
+                        android:inputType="text|textCapSentences"
+                        android:maxLines="5"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtMothersFathernameWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtMothersFathername"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|top|left"
+                        android:hint="@string/mothersfathername"
+
+                        android:focusableInTouchMode="false"
+                        android:textColor="@color/black"
+                        android:inputType="text|textCapSentences"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtMothersMotherNameWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtMothersMotherName"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:focusableInTouchMode="false"
+                        android:textColor="@color/black"
+                        android:gravity="center|top|left"
+                        android:hint="@string/mothersmothername"
+                        android:inputType="text|textCapSentences"
+                        android:maxLines="5"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+
+
+            <!--    <Spinner
+                    android:id="@+id/spmothersfathersurname"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/custom_spinner">
+                </Spinner>-->
+
+                <com.blacksmithyouthclub.material_spinner.MaterialSpinner
+                    android:id="@+id/spnMothersFatherSurname"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:ms_background_color="#FAFAFA"
+
+                    app:ms_dropdown_height="wrap_content"
+                    app:ms_dropdown_max_height="500dp"
+                    app:ms_text_color="@color/colorPrimaryText" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/edtMothersFatherSurnameWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtMothersFatherSurname"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|top|left"
+                        android:hint="@string/wifesfathervllage"
+                        android:inputType="textMultiLine"
+                        android:maxLines="5"
+
+                        android:focusableInTouchMode="false"
+                        android:textColor="@color/black"
+                        android:singleLine="false" />
+                </android.support.design.widget.TextInputLayout>
+
+
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtMothersFatherVillageWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtMothersFatherVillage"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:focusableInTouchMode="false"
+                        android:textColor="@color/black"
+                        android:gravity="center|top|left"
+                        android:hint="@string/mothersfathervillage"
+                        android:inputType="text|textCapSentences"
+                        android:maxLines="5"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtHusbandNameWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="gone"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtHusbandName"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|top|left"
+                        android:hint="@string/HusbandsName"
+                        android:inputType="text|textCapSentences"
+                        android:maxLines="5"
+                        android:focusableInTouchMode="false"
+                        android:textColor="@color/black"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtHusbandsFatherNameWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="gone"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtHusbandsFatherName"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|top|left"
+                        android:hint="@string/husbandsfathername"
+                        android:inputType="text|textCapSentences"
+                        android:maxLines="5"
+                        android:focusableInTouchMode="false"
+                        android:textColor="@color/black"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtHusbandsMothernameWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="gone"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtHusbandsMothername"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|top|left"
+                        android:hint="@string/husbandsmothername"
+                        android:inputType="text|textCapSentences"
+                        android:maxLines="5"
+                        android:focusableInTouchMode="false"
+                        android:textColor="@color/black"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtWifesNameWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtWifesName"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|top|left"
+                        android:hint="@string/wifesname"
+                        android:inputType="text|textCapSentences"
+                        android:maxLines="5"
+                        android:focusableInTouchMode="false"
+                        android:textColor="@color/black"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtWifesFatherNameWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="gone"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtWifesFatherName"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|top|left"
+                        android:hint="@string/wifesfathername"
+                        android:inputType="text|textCapSentences"
+                        android:maxLines="5"
+                        android:focusableInTouchMode="false"
+                        android:textColor="@color/black"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtWifesMotherNameWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtWifesMotherName"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|top|left"
+                        android:hint="@string/wifesmothername"
+                        android:inputType="text|textCapSentences"
+                        android:maxLines="5"
+                        android:focusableInTouchMode="false"
+                        android:textColor="@color/black"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+                <!--<Spinner
+                    android:visibility="gone"
+                       android:id="@+id/spwifesfathersurname"
+                    android:id="@+id/spwifesfathersurname"
+                    android:layout_width="match_parent"
+                    android:layout_height="37dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/custom_spinner">
+                </Spinner>-->
+
+                <com.blacksmithyouthclub.material_spinner.MaterialSpinner
+                    android:id="@+id/spnWifesFatherSurname"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawSelectorOnTop="true"
+
+                    app:ms_background_color="#FAFAFA"
+                    app:ms_dropdown_height="wrap_content"
+                    app:ms_dropdown_max_height="500dp"
+                    app:ms_text_color="@color/colorPrimaryText" />
+                <android.support.design.widget.TextInputLayout
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/edtWifesFatherSurnameWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtWifesFatherSurname"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|top|left"
+                        android:hint="@string/wifesfathervllage"
+                        android:inputType="text|textCapSentences"
+                        android:maxLines="5"
+
+                        android:focusableInTouchMode="false"
+                        android:textColor="@color/black"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/edtWifesFatherVllageWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center|left">
+
+                    <EditText
+                        android:id="@+id/edtWifesFatherVllage"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|top|left"
+                        android:hint="@string/wifesfathervllage"
+                        android:inputType="text|textCapSentences"
+                        android:maxLines="5"
+                        android:focusableInTouchMode="false"
+                        android:textColor="@color/black"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "385517195088",
+    "firebase_url": "https://black-smith-youth-club-sathish.firebaseio.com",
+    "project_id": "black-smith-youth-club-sathish",
+    "storage_bucket": "black-smith-youth-club-sathish.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385517195088:android:ecf046ebdaf4c81e",
+        "android_client_info": {
+          "package_name": "com.blacksmithyouthclub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385517195088-ub2uu9ln2g9aq6ngr3cvoa2i43ljqn7o.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "385517195088-nrgmbuou81vule86sl993kkkvvgta4uk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.blacksmithyouthclub",
+            "certificate_hash": "1414ed699b96d40d2ab01e57f46791e13564e5b2"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqbzLg6fmBsHTeYwqaimQgdYgJEX_am-I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "385517195088-ub2uu9ln2g9aq6ngr3cvoa2i43ljqn7o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="nh">#D53855</color>
+    <color name="nhdark">#B20505</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="colorBackground">#F3F3F3</color>
+
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#757575</color>
+    <color name="green">#4CAF50</color>
+    <color name="green_Dark">#1B5E20</color>
+    <color name="red">#F44336</color>
+
+    <color name="lightgray">#e7e7e7</color>
+
+    <color name="cardBackground">#FAFAFA</color>
+
+
+    <color name="dark_blue">@color/colorPrimary</color>
+    <color name="presentdays">#219C4E</color>
+    <color name="absentdays">@color/colorPrimary</color>
+    <color name="totaldays">#773F91</color>
+    <color name="percentage">#318ECC</color>
+    <color name="yellow">#ffffcb05</color>
+    <color name="lightgray02">#bfbfbf</color>
+
+    <color name="orrange">#e33d1b</color>
+    <color name="secondary_text">#727272</color>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="black">#000000</color>
+
+
+</resources>

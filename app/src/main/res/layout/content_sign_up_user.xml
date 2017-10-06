@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.blacksmithyouthclub.SignUpUserActivity"
+    tools:showIn="@layout/activity_sign_up_user">
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="#fefefe"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+
+
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtMobileWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="0dp">
+
+
+                    <EditText
+                        android:id="@+id/edtMobile"
+                        android:inputType="numberSigned"
+                        android:maxLength="10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/str_mobile"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/edtFirstNameWrapper"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+
+                        tools:layout_editor_absoluteX="8dp"
+                        tools:layout_editor_absoluteY="0dp">
+
+
+                        <EditText
+                            android:id="@+id/edtFirstName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textCapSentences"
+                            android:hint="@string/Name"
+                            android:singleLine="true" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+
+                <!--   <Spinner
+                       android:id="@+id/spnAttachemnts"
+                       android:layout_width="fill_parent"
+                       android:layout_height="fill_parent"
+                       android:layout_marginRight="8dp"
+
+                       android:layout_marginLeft="8dp"
+                       android:layout_weight="1"
+
+                       android:background="@drawable/custom_spinner_background" />-->
+
+
+
+
+                    <com.blacksmithyouthclub.material_spinner.MaterialSpinner
+                        android:id="@+id/spnSurname"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawSelectorOnTop="true"
+
+                        app:ms_background_color="#efeeee"
+                        app:ms_dropdown_height="wrap_content"
+                        app:ms_dropdown_max_height="500dp"
+                        app:ms_text_color="@color/colorPrimaryText" />
+
+
+
+                <android.support.design.widget.TextInputLayout
+
+                    android:id="@+id/edtSurnameWrapper"
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="0dp">
+
+
+                    <EditText
+                        android:id="@+id/edtSurname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
+                        android:hint="@string/Surename" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <!--  <Spinner
+                      android:id="@+id/spnSurname"
+                      android:layout_width="match_parent"
+
+                      android:layout_height="wrap_content"
+                      android:background="@drawable/custom_spinner_background"
+                      android:drawSelectorOnTop="true"
+                      android:entries="@array/array_surname"
+                      android:layout_weight="1" />-->
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:layout_marginTop="10dp"
+                    app:cardElevation="8dp">
+
+                <RadioGroup
+                    android:id="@+id/rdGenderGroup"
+                    android:layout_width="fill_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rdMale"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Male" />
+
+                    <RadioButton
+                        android:id="@+id/rdFemale"
+                        android:layout_width="fill_parent"
+
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Female" />
+
+
+                </RadioGroup>
+                </android.support.v7.widget.CardView>
+
+
+                <com.blacksmithyouthclub.material_spinner.MaterialSpinner
+                    android:id="@+id/spnMaritalStatus"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawSelectorOnTop="true"
+
+                    app:ms_background_color="#efeeee"
+                    app:ms_dropdown_height="wrap_content"
+                    app:ms_dropdown_max_height="500dp"
+                    app:ms_text_color="@color/colorPrimaryText" />
+
+
+                <!--                <Spinner
+                                    android:id="@+id/spnMaritalStatus"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:drawSelectorOnTop="true"
+                                    android:entries="@array/array_maritalstatus"
+                                    android:layout_weight="1" />-->
+
+                <com.blacksmithyouthclub.material_spinner.MaterialSpinner
+                    android:id="@+id/spnState"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_weight="1"
+                    android:drawSelectorOnTop="true"
+
+                    app:ms_background_color="#efeeee"
+                    app:ms_dropdown_height="wrap_content"
+                    app:ms_dropdown_max_height="500dp"
+                    app:ms_text_color="@color/colorPrimaryText" />
+
+
+                <com.blacksmithyouthclub.material_spinner.MaterialSpinner
+                    android:id="@+id/spnCity"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_weight="1"
+                    android:drawSelectorOnTop="true"
+
+
+                    app:ms_dropdown_height="wrap_content"
+                    app:ms_dropdown_max_height="500dp"
+                    app:ms_text_color="@color/colorPrimaryText" />
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtAreaWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="0dp">
+
+
+                    <EditText
+                        android:id="@+id/edtArea"
+                        android:inputType="textCapSentences"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/currentarea" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtFatherWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="0dp">
+
+
+                    <EditText
+                        android:id="@+id/edtFather"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
+                        android:hint="@string/fathername" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtMotherNameWrapper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="0dp">
+
+
+                    <EditText
+                        android:id="@+id/edtMotherName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
+                        android:hint="@string/mothersname" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtVillageNameWrapper"
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="0dp">
+
+
+                    <EditText
+                        android:id="@+id/edtVillageName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
+                        android:hint="@string/villagename" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/str_upload_document_Descr" />
+
+
+                    <LinearLayout
+                        android:id="@+id/llDocument"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvDocument"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:drawableLeft="@drawable/icon_attachment"
+                            android:gravity="center"
+                            android:paddingLeft="8dp"
+
+                            android:text="Upload Document" />
+
+                        <Button
+                            android:id="@+id/btnBrowse"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="4dp"
+                            android:layout_weight="1.8"
+                            android:background="@color/colorPrimary"
+                            android:drawableLeft="@drawable/icon_attachment"
+                            android:drawableTint="@color/white"
+                            android:paddingLeft="8dp"
+                            android:text="Browse"
+                            android:textColor="@color/white" />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/imgDocument"
+                        android:layout_width="fill_parent"
+                        android:layout_height="200dp"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edtReferalCodeWrapper"
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="0dp">
+
+
+                    <EditText
+                        android:id="@+id/edtReferalCode"
+                        android:layout_width="match_parent"
+                        android:inputType="textCapCharacters"
+                        android:textAllCaps="true"
+
+                        android:layout_height="wrap_content"
+                        android:hint="@string/str_referral_code" />
+                </android.support.design.widget.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btnRegister"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/colorPrimary"
+                    android:text="Register"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

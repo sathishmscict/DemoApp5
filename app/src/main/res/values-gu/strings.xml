@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/tools">
+
+    <string name="app_name">બ્લેકસ્મિથ યૌથક્લબ</string>
+
+    <string name="title_activity_business_directory">Business Directory</string>
+
+
+
+    <string name="title_activity_members_data_by_surname">Members Data</string>
+    <string name="title_activity_members_data_by_business">Business Directory</string>
+    <string name="title_activity_business_sub_category">Business Categories</string>
+
+    <!--Search Activity Related Keys-->
+    <string name="search_hint">Search for Members</string>
+
+    <!--fragment Profile-->
+    <string name="str_select_blood_group">Select Blood Group</string>
+    <string name="str_select_heigth">Select Height</string>
+
+
+
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_videos">Videos</string>
+    <string name="title_activity_events">Events</string>
+    <string name="title_activity_advertisement">Advertisements</string>
+    <string name="title_activity_contact_us">ContactUs</string>
+
+
+    <string name="no_network">Not able to connect to App</string>
+    <string name="no_network2">Please Enable Wifi or Mobile data</string>
+    <string name="no_network3">Sorry,no Internet conenctivity detected. Please reconnect and try again.</string>
+
+    <string name="youtube_currently_installed">YouTube version installed on this device: <xliff:g id="youtube_version">%1$s</xliff:g>.</string>
+    <string name="title_activity_single_event">Single Event</string>
+
+
+    <!--Dashboard Related strings-->
+    <string name="str_approval_status">મંજૂરીની સ્થિતિ</string>
+    <string name="str_approval_descr">અમને તમારું રજીસ્ટ્રેશન ફોર્મ મળ્યું છે ચકાસણી બાદ અમે તમારી વિનંતિને મંજૂર કરીશું.\n\n Date submitted :</string>
+    <string name="str_ok">ઠીક છે</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="api_error">System Error. Please try again later!</string>
+    <string name="server_error">System Error. Please try again later!</string>
+    <string name="str_error_servercode_not_200">Something is wrong,try again</string>
+
+
+
+    <string name="str_menu_directory" >ડિરેક્ટરી</string>
+    <string name="str_menu_business">વ્યાપાર</string>
+    <string name="str_menu_profile">પ્રોફાઇલ</string>
+    <string name="str_menu_events">ઘટનાઓ</string>
+    <string name="str_menu_advertisements">જાહેરાતો</string>
+    <string name="str_menu_videos">વિડિઓઝ</string>
+    <string name="str_menu_contactus">અમારો સંપર્ક કરો</string>
+    <string name="str_menu_logout">લૉગઆઉટ</string>
+
+
+
+
+
+
+
+
+    <!--SelectCaste Activity-->
+    <string name="caste_luhar">લુહાર</string>
+    <string name="caste_suthar">સુથાર</string>
+
+
+    <!--Verification Activity-->
+    <string name="str_verification_descr1">અમે તમને એક્સેસ કોડ મોકલ્યો છે</string>
+    <string name="str_verification_descr2">મોબાઇલ નંબર માટે એસએમએસ દ્વારા:  </string>
+    <string name="str_resendcode">કોડ ફરીથી મોકલો</string>
+    <string name="str_enter_code_here">કોડ અહીં દાખલ કરો</string>
+    <string name="title_activity_verification">VerificationActivity</string>
+
+
+
+
+
+    <string name="Name">નામ</string>
+    <string name="Surename">અટક</string>
+    <string name="surenameother">સત્તાવાર અટક (અલગ હોય તો)</string>
+    <string name="villagename">ગામનું નામ</string>
+    <string name="Religion">ધર્મ</string>
+    <string name="dob">જન્મ તારીખ</string>
+    <string name="Weight">વજન</string>
+    <string name="aboutyou">તમારા વિશે</string>
+    <string name="Hobby">હોબી</string>
+    <string name="fathername">પિતાનું નામ</string>
+    <string name="mothersname">માતાનું નામ</string>
+    <string name="fathersfathername">દાદાનું નામ</string>
+    <string name="fathersmothername">દાદીનું નામ</string>
+    <string name="mothersfathername">નાનાનું નામ</string>
+    <string name="mothersmothername">નાનીનું નામ</string>
+    <string name="mothersfathersurname">નાનાની અટક</string>
+    <string name="mothersfathervillage">નાનાનું ગામ</string>
+    <string name="HusbandsName">પતિનું નામ</string>
+    <string name="husbandsfathername">પતિના પિતાનું નામ</string>
+    <string name="husbandsmothername">પતિના માતાનું નામ</string>
+    <string name="wifesname">પત્નીનું નામ</string>
+    <string name="wifesfathername">પત્નીના પિતાનું નામ</string>
+    <string name="wifesmothername">પત્નીના માતાનું નામ</string>
+    <string name="wifesfathersurname">પત્નીના પિતાની અટક</string>
+    <string name="wifesfathervllage">પત્નીના પિતાનું ગામ</string>
+    <string name="businessname">વ્યવસાયનું નામ</string>
+    <string name="occupationspecialization">વ્યવસાય વિશેષતા</string>
+    <string name="businessaddress">સરનામું</string>
+    <string name="occupationarea">વ્યવસાય વિસ્તાર</string>
+    <string name="workroletitle">કામ ભૂમિકા શીર્ષક</string>
+    <string name="OfficeContactNo1">ઓફિસ સંપર્ક નં .1</string>
+    <string name="OfficeContactNo2">ઓફિસ સંપર્ક નં .2</string>
+    <string name="worklandline1">લેન્ડલાઇન નંબર 1</string>
+    <string name="worklandline2">લેન્ડલાઇન નંબર 2</string>
+    <string name="businesswebsite">વ્યવસાય વેબસાઇટ</string>
+    <string name="businesscategory">વ્યવસાય કેટેગરી</string>
+
+    <string name="contactnumber1">સંપર્ક નંબર 1</string>
+    <string name="contactnumber2">સંપર્ક નંબર 2</string>
+    <string name="currentarea">વર્તમાન ક્ષેત્ર</string>
+    <string name="address">સરનામું</string>
+    <string name="pincode">પિનકોડ</string>
+
+
+    <!--Signin Activity-->
+    <string name="str_mobile">મોબાઇલ</string>
+    <string name="str_btn_login">લૉગિન</string>
+    <string name="str_not_registered">હજી સુધી સભ્ય નથી? હમણાં સાઇન અપ કરો</string>
+
+    <!-- SignupActivity Related Keys-->
+    <string name="str_referral_code">રેફરલ કોડ (વૈકલ્પિક)</string>
+    <string name="str_upload_document_Descr">* માન્ય દસ્તાવેજ તરીકે અપલોડ કરો: \ n આધાર કાર્ડ / વોટર આઈડી / ડ્રાઇવિંગ લાઈસન્સ / પેનકાર્ડ</string>
+
+
+
+
+
+    <!--Notification Activity-->
+    <string name="str_no_notifications">Once you receive notitication.you can see notification list here.</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_language_selection">LanguageSelectionActivity</string>
+    <string name="title_activity_select_caste">SelectCasteActivity</string>
+
+
+
+
+
+    <!--Activity Names-->
+    <string name="activity_select_caste">જાતિ પસંદ કરો</string>
+    <string name="activity_signin">BSYC એપ્લિકેશન લૉગિન</string>
+    <string name="activity_signup">BSYC એપ્લિકેશન સાઇનઅપ</string>
+    <string name="activity_dashboard">બ્લેક સ્મિથ યુથ ક્લબ</string>
+    <string name="activity_verification">ચકાસણી</string>
+    <string name="activity_videos">વિડિઓઝ</string>
+    <string name="activity_event">ઘટનાઓ</string>
+    <string name="activity_advertisements">જાહેરાતો</string>
+    <string name="activity_contact_us">અમારો સંપર્ક કરો</string>
+    <string name="activity_profile">પ્રોફાઇલ</string>
+    <string name="activity_notification">Notification</string>
+    <string name="str_home_phone">Home Phone no</string>
+    <string name="str_business_subcategory">Business Subcategory</string>
+
+
+</resources>
