@@ -5,6 +5,7 @@ package com.blacksmithyouthclub.api;
 import com.blacksmithyouthclub.model.BusinessSubCategoryData;
 import com.blacksmithyouthclub.model.BussinessCategoryData;
 import com.blacksmithyouthclub.model.CityData;
+import com.blacksmithyouthclub.model.ComboDataResponse;
 import com.blacksmithyouthclub.model.CommonReponse;
 import com.blacksmithyouthclub.model.ImageData;
 import com.blacksmithyouthclub.model.MembersDataBySurname;

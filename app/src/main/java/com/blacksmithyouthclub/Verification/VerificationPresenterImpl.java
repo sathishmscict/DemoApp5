@@ -110,7 +110,11 @@ public class VerificationPresenterImpl implements VerificationPresenter,Verifica
         if(verificationView!=null)
         {
             verificationView.hideProgress();
-            verificationView.showMessage(message);
+            try {
+                verificationView.showMessage(message);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }
     }

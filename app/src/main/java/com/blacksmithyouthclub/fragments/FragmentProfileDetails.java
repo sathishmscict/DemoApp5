@@ -359,11 +359,16 @@ public class FragmentProfileDetails extends Fragment {
             }
         });
 
-        if (userData.getGender().toLowerCase().equals("female")) {
-            rdFemale.setChecked(true);
-        } else {
-            rdMale.setChecked(true);
+        try {
+            if (userData.getGender().toLowerCase().equals("female")) {
+                rdFemale.setChecked(true);
+            } else {
+                rdMale.setChecked(true);
 
+            }
+        } catch (Exception e) {
+            rdMale.setChecked(true);
+            e.printStackTrace();
         }
 
         edtSurname.setVisibility(View.GONE);
@@ -882,12 +887,12 @@ public class FragmentProfileDetails extends Fragment {
                     } else {
 
                         CommonMethods.hideDialog(spotsDialog);
-                        Toast.makeText(context, "" + str_error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "" + str_error, Toast.LENGTH_SHORT).show();
                     }
 
 
                 } else {
-                    CommonMethods.showErrorMessageWhenStatusNot200(context, response.code());
+                    CommonMethods.showErrorMessageWhenStatusNot200(getActivity(), response.code());
                 }
 
 
@@ -898,7 +903,7 @@ public class FragmentProfileDetails extends Fragment {
             @Override
             public void onFailure(Call<UserDataResponse> call, Throwable t) {
 
-                CommonMethods.onFailure(context, TAG, t);
+                CommonMethods.onFailure(getActivity(), TAG, t);
 
                 CommonMethods.hideDialog(spotsDialog);
             }

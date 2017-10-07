@@ -402,7 +402,11 @@ public class FragmentBusinessDetails extends Fragment {
                 if(position != 0)
                 {
 
-                 getAllBusinessSubCategoryDetailsFromServer();
+                    try {
+                        getAllBusinessSubCategoryDetailsFromServer();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -461,8 +465,8 @@ public class FragmentBusinessDetails extends Fragment {
 
                             }
 
-                            list_BusinessCategory.add("Other");
-                            list_BusinessCategoryId.add("Other");
+                            //list_BusinessCategory.add("Other");
+                           // list_BusinessCategoryId.add("Other");
 
 
                             spnBusiness.setItems(list_BusinessCategory);

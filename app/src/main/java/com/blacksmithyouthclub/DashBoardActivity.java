@@ -310,7 +310,12 @@ public class DashBoardActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
-        SetUserProfilePictireFromBase64EnodedString();
+        try {
+            SetUserProfilePictireFromBase64EnodedString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d(TAG , "Error in setup Profile Picture");
+        }
 
         imgProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -351,15 +356,16 @@ public class DashBoardActivity extends AppCompatActivity
                 e.printStackTrace();
             }
 
-            getAllSurnameData();
+
             if (!userDetails.get(SessionManager.KEY_IS_ACTIVE).equals("0")) {
 
-              //  getAllSurnameData();
+               getAllSurnameData();
 
 
             } else {
 
 
+                getAllSurnameData();
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle(getString(R.string.str_approval_status));
                 builder.setMessage(getString(R.string.str_approval_descr) + " " + userData.getCreatedDate());
@@ -520,6 +526,7 @@ public class DashBoardActivity extends AppCompatActivity
                                 // setUserDetails(String str_userid, String str_username, String str_email, String str_mobile, String str_avatar) {
                                 sessionManager.setUserDetails(String.valueOf(userId), userMobile, arr.get(i).getAppovalStatus());
                                 sessionManager.setReferalcode(arr.get(i).getReferalCode());
+                                sessionManager.setUserActivationStatus();
 
                                 userDetails = sessionManager.getSessionDetails();
 
@@ -530,7 +537,7 @@ public class DashBoardActivity extends AppCompatActivity
 
                                     try {
                                         realm.beginTransaction();
-                                        realm.deleteAll();
+                                        realm.delete(UserMaster.class);
                                         realm.commitTransaction();
                                     } catch (Exception e) {
                                         e.printStackTrace();
@@ -538,7 +545,7 @@ public class DashBoardActivity extends AppCompatActivity
 
 
                                     //get realm instance
-                                    realm = Realm.getDefaultInstance();
+                                   // realm = Realm.getDefaultInstance();
 
                                     //realm.refresh();
 
@@ -622,12 +629,6 @@ public class DashBoardActivity extends AppCompatActivity
                                 } catch (NumberFormatException e) {
                                     e.printStackTrace();
                                 }
-
-
-
-
-
-
                             }
 
 
@@ -656,33 +657,36 @@ public class DashBoardActivity extends AppCompatActivity
             @Override
             public void onFailure(Call<SurnamesData> call, Throwable t) {
 
-                CommonMethods.onFailure(context, TAG, t);
+                try {
+                    CommonMethods.onFailure(context, TAG, t);
 
-                CommonMethods.hideDialog(spotsDialog);
+                    CommonMethods.hideDialog(spotsDialog);
 
-                if(t.getMessage().contains("Unable to resolve host"))
-                {
+                    if(t.getMessage().contains("Unable to resolve host"))
+                    {
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setTitle("No Internet Connection");
-                    builder.setMessage(getString(R.string.no_network3));
-                    builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setTitle("No Internet Connection");
+                        builder.setMessage(getString(R.string.no_network3));
+                        builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
 
-                            dialogInterface.dismiss();
-                            dialogInterface.cancel();
+                                dialogInterface.dismiss();
+                                dialogInterface.cancel();
 
-                            Intent intent = new Intent(context, DashBoardActivity.class);
-                            startActivity(intent);
-                            finish();
-                            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-                        }
-                    });
-                    builder.show();
+                                Intent intent = new Intent(context, DashBoardActivity.class);
+                                startActivity(intent);
+                                finish();
+                                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                            }
+                        });
+                        builder.show();
 
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
 
 
             }

@@ -303,7 +303,11 @@ public class SearchActivity extends AppCompatActivity {
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             }
             RowItemBinding rowItemBinding = DataBindingUtil.inflate(inflater, R.layout.row_item, parent, false);
-            rowItemBinding.stringName.setText(mData.get(position));
+            try {
+                rowItemBinding.stringName.setText(mData.get(position));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             rowItemBinding.stringName.setOnClickListener(new View.OnClickListener() {
                 @Override

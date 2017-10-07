@@ -304,12 +304,12 @@ public class FragmentContactDetails extends Fragment {
                     } else {
 
                         CommonMethods.hideDialog(spotsDialog);
-                        Toast.makeText(context, "" + str_error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "" + str_error, Toast.LENGTH_SHORT).show();
                     }
 
 
                 } else {
-                    CommonMethods.showErrorMessageWhenStatusNot200(context, response.code());
+                    CommonMethods.showErrorMessageWhenStatusNot200(getActivity(), response.code());
                 }
 
 
@@ -320,7 +320,7 @@ public class FragmentContactDetails extends Fragment {
             @Override
             public void onFailure(Call<SpinnersData> call, Throwable t) {
 
-                CommonMethods.onFailure(context, TAG, t);
+                CommonMethods.onFailure(getActivity(), TAG, t);
 
                 CommonMethods.hideDialog(spotsDialog);
             }
@@ -397,12 +397,12 @@ public class FragmentContactDetails extends Fragment {
                     } else {
 
                         CommonMethods.hideDialog(spotsDialog);
-                        Toast.makeText(context, "" + str_error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "" + str_error, Toast.LENGTH_SHORT).show();
                     }
 
 
                 } else {
-                    CommonMethods.showErrorMessageWhenStatusNot200(context, response.code());
+                    CommonMethods.showErrorMessageWhenStatusNot200(getActivity(), response.code());
                 }
 
 
@@ -413,7 +413,7 @@ public class FragmentContactDetails extends Fragment {
             @Override
             public void onFailure(Call<CityData> call, Throwable t) {
 
-                CommonMethods.onFailure(context, TAG, t);
+                CommonMethods.onFailure(getActivity(), TAG, t);
 
                 CommonMethods.hideDialog(spotsDialog);
             }
@@ -629,7 +629,7 @@ public class FragmentContactDetails extends Fragment {
             @Override
             public void onFailure(Call<UserDataResponse> call, Throwable t) {
 
-                CommonMethods.onFailure(context, TAG, t);
+                CommonMethods.onFailure(getActivity(), TAG, t);
 
                 CommonMethods.hideDialog(spotsDialog);
             }

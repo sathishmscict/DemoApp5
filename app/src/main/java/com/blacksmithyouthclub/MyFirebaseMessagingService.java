@@ -52,7 +52,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             e.printStackTrace();
             Log.d(TAG, "Error FCM : " + e.getMessage());
         }
-        Log.i(TAG, "Received message");
+        Log.d(TAG, "Received message");
 
 
 

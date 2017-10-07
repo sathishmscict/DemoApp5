@@ -114,6 +114,7 @@ public class VerificationActivity extends AppCompatActivity implements  Verifica
             @Override
             public void onClick(View view) {
 
+
                 presenter.validationCerificationCode(edt1.getText().toString()+edt2.getText().toString()+edt3.getText().toString()+edt4.getText().toString());
 
 
