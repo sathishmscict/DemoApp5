@@ -4,6 +4,7 @@
     <string name="app_name">BlackSmithYouthClub</string>
 
 
+
     <string name="action_settings">Settings</string>
 
 
@@ -109,8 +110,8 @@
     <string name="str_menu_logout">Logout</string>
 
 
-    <!--Notification Activity-->
-    <string name="str_no_notifications">Once you receive notitication.you can see notification list here.</string>
+    <!--NotificationMaster Activity-->
+    <string name="str_no_notifications">Once you receive notitication.you can see notificationMaster list here.</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_language_selection">LanguageSelectionActivity</string>
     <string name="title_activity_select_caste">SelectCasteActivity</string>

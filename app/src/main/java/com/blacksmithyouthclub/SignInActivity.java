@@ -6,8 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,7 +22,6 @@ import com.blacksmithyouthclub.api.ApiClient;
 import com.blacksmithyouthclub.api.ApiInterface;
 import com.blacksmithyouthclub.helper.CommonMethods;
 import com.blacksmithyouthclub.model.UserDataResponse;
-import com.blacksmithyouthclub.realm.model.Notification;
 import com.blacksmithyouthclub.realm.model.UserMaster;
 import com.blacksmithyouthclub.session.SessionManager;
 

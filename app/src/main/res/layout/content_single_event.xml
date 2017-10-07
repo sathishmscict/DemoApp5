@@ -13,58 +13,81 @@
         android:layout_height="fill_parent">
 
         <ScrollView
-            android:scrollbars="none"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:scrollbars="none">
 
             <LinearLayout
-                android:layout_marginTop="5dp"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/imgeventimg"
-                    android:layout_marginTop="5dp"
-                    android:scaleType="fitXY"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" />
+                    android:layout_height="200dp"
+                    android:layout_marginTop="5dp"
+                    android:scaleType="fitXY" />
 
                 <View
-                    android:layout_marginTop="10dp"
-                    android:background="#000"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"></View>
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/black_overlay"></View>
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/txttitle"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+
+                        android:layout_weight="1"
+                        android:text="title"
+                        android:textColor="#000"
+                        android:textSize="16dp" />
+
+
+                    <TextView
+                        android:id="@+id/txtdate"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+
+                        android:layout_marginRight="5dp"
+
+
+                        android:text="date"
+                        android:textSize="15dp" />
+
+
+                </LinearLayout>
+
 
                 <TextView
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:id="@+id/txttitle"
-                    android:textColor="#000"
-                    android:textSize="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="3dp"
-                    android:id="@+id/txtdate"
-                    android:textSize="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_marginBottom="10dp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:textSize="16dp"
-                    android:layout_marginTop="10dp"
                     android:id="@+id/txtlongdesc"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp"
+
+
+                     />
 
             </LinearLayout>
 

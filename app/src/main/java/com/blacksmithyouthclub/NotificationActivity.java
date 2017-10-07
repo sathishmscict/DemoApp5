@@ -21,12 +21,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.blacksmithyouthclub.adapter.NotificaitonAdapterRecyclerView;
 import com.blacksmithyouthclub.helper.CommonMethods;
-import com.blacksmithyouthclub.realm.model.Notification;
+import com.blacksmithyouthclub.realm.model.NotificationMaster;
 import com.blacksmithyouthclub.session.SessionManager;
 import com.squareup.picasso.Picasso;
 
@@ -46,7 +45,7 @@ public class NotificationActivity extends AppCompatActivity {
     @BindView(R.id.tvNodata)
     TextView tvNodata;
     private Realm realm;
-    private RealmResults<Notification> notificationsData;
+    private RealmResults<NotificationMaster> notificationsData;
     private String TAG = NotificationActivity.class.getSimpleName();
     private Context context = this;
     private SessionManager sessionManager;
@@ -220,12 +219,12 @@ public class NotificationActivity extends AppCompatActivity {
 
         realm.beginTransaction();
 
-        notificationsData = realm.where(Notification.class).findAllSorted("id", Sort.DESCENDING);
+        notificationsData = realm.where(NotificationMaster.class).findAllSorted("id", Sort.DESCENDING);
         //personsData.deleteAllFromRealm();
         realm.commitTransaction();
 
 
-        Log.d(TAG, "Total " + notificationsData.size() + " Records Found in Notification master");
+        Log.d(TAG, "Total " + notificationsData.size() + " Records Found in NotificationMaster master");
 
 
         if (notificationsData.size() > 0) {

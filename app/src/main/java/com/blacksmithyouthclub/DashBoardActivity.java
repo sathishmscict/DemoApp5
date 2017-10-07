@@ -2,6 +2,8 @@ package com.blacksmithyouthclub;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,11 +12,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +37,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.support.v7.app.NotificationCompat;
 import com.blacksmithyouthclub.Verification.VerificationActivity;
 import com.blacksmithyouthclub.adapter.SurnameAdapterRecyclerView;
 import com.blacksmithyouthclub.api.ApiClient;
@@ -42,7 +49,8 @@ import com.blacksmithyouthclub.helper.Utils;
 import com.blacksmithyouthclub.model.MembersDataBySurname;
 import com.blacksmithyouthclub.model.SurnamesData;
 import com.blacksmithyouthclub.model.UserDataResponse;
-import com.blacksmithyouthclub.realm.model.Notification;
+
+import com.blacksmithyouthclub.realm.model.NotificationMaster;
 import com.blacksmithyouthclub.realm.model.UserMaster;
 import com.blacksmithyouthclub.session.SessionManager;
 import com.bumptech.glide.Glide;
@@ -100,7 +108,7 @@ public class DashBoardActivity extends AppCompatActivity
     private Realm realm;
     private UserMaster userData;
     UserMaster u = new UserMaster();
-    private RealmResults<Notification> notificationsData;
+    private RealmResults<NotificationMaster> notificationsData;
     private TextView tvUserName;
     private TextView tvEmail;
     private CircularImageView imgProfilePic;
@@ -146,6 +154,19 @@ public class DashBoardActivity extends AppCompatActivity
         rvSurnames.setLayoutManager(lManager);
 
 
+
+
+
+        //Check app forst time install or not. if first time install then send welcome notification
+        try {
+          //  Notify("" + getString(R.string.app_name), "Wel come Sathish Gadde" );
+            if (getIntent().getBooleanExtra("IS_FIRSTTIME",false) == true) {
+                Notify("" + getString(R.string.app_name), "Wel come  " + userData.getFirstName()+" "+userData.getSurname());
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
 
@@ -658,9 +679,9 @@ public class DashBoardActivity extends AppCompatActivity
             public void onFailure(Call<SurnamesData> call, Throwable t) {
 
                 try {
+                    CommonMethods.hideDialog(spotsDialog);
                     CommonMethods.onFailure(context, TAG, t);
 
-                    CommonMethods.hideDialog(spotsDialog);
 
                     if(t.getMessage().contains("Unable to resolve host"))
                     {
@@ -746,8 +767,8 @@ public class DashBoardActivity extends AppCompatActivity
 
             realm.beginTransaction();
 
-            //notificationsData = realm.where(Notification.class).findAllSorted("id", Sort.DESCENDING);
-            notificationsData = realm.where(Notification.class).equalTo("isReaded", false).findAllSorted("id", Sort.DESCENDING);
+            //notificationsData = realm.where(NotificationMaster.class).findAllSorted("id", Sort.DESCENDING);
+            notificationsData = realm.where(NotificationMaster.class).equalTo("isReaded", false).findAllSorted("id", Sort.DESCENDING);
             //personsData.deleteAllFromRealm();
             realm.commitTransaction();
 
@@ -879,4 +900,114 @@ public class DashBoardActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+    /**
+     * Send Push NotificationMaster To User On First Installation Time
+     */
+    @SuppressLint("NewApi")
+    private void Notify(String title, String textMessage)
+    {
+        try {
+            /**
+             * Simple NotificationMaster
+             */
+
+            //BigTextStyle, InboxStyle,BigPictureStyle,MediaStyle
+            NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(this).setAutoCancel(true);
+
+
+            //NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(this).setAutoCancel(true);
+
+
+            //builder.setAutoCancel(true);
+
+            //Set Sound
+            builder.setSound(
+                    RingtoneManager
+                            .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+
+            //Set Vibration
+            //Vibration
+            builder.setVibrate(new long[]{300, 300, 200, 300});
+
+
+            //Set Color
+            int color = getResources().getColor(R.color.colorPrimaryDark);
+            builder.setColor(color);
+
+            //Set Profile picture
+            Drawable drawable = this.getResources().getDrawable(R.mipmap.ic_launcher);
+            Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+            builder.setLargeIcon(bitmap);
+
+
+            //Set Intent to notification action
+            int mNotificationId = 1;
+            Intent notificationIntent = null;
+            try {
+
+                notificationIntent = new Intent(context,
+                        DashBoardActivity.class);
+
+                /*notificationIntent.putExtra("rowid", mNotificationId);
+                notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);*/
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            PendingIntent resultPendingIntent = PendingIntent.getActivity(context,
+                    mNotificationId, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            builder.setContentIntent(resultPendingIntent);
+            builder.addAction(R.drawable.ic_eye, "Show", resultPendingIntent);
+            builder.setAutoCancel(true);
+            builder.setWhen(0);
+
+            builder.setContentText(textMessage);
+
+            //Set BigText Style  Display as multiline notification
+            builder.setStyle(new NotificationCompat.BigTextStyle().bigText(textMessage));
+
+
+
+            builder.setAutoCancel(true);
+
+            builder.setSmallIcon(R.mipmap.ic_launcher);
+            builder.setContentTitle(title)
+                    .setContentText(textMessage);
+            builder.setContentIntent(resultPendingIntent);
+
+
+            Notification notification1 = builder.build();
+
+
+/*
+            NotificationManagerCompat.from(this).notify(mNotificationId, notification1);
+            notification1.flags |= NotificationMaster.FLAG_AUTO_CANCEL;
+*/
+
+
+            NotificationManager notificationManager = (NotificationManager) context
+                    .getSystemService(Context.NOTIFICATION_SERVICE);
+            //notificationManager.cancel(mNotificationId);
+            // hide the notification after its selected
+            notification1.flags |= Notification.FLAG_AUTO_CANCEL;
+            notificationManager.notify(mNotificationId, notification1);
+            // notification1.flags |= NotificationMaster.FLAG_AUTO_CANCEL;
+
+
+            /**
+             * Complete Simple NotificationMaster
+             *
+             */
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

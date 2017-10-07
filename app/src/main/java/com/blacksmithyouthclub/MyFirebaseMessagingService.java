@@ -11,7 +11,7 @@ import android.util.Log;
 import com.blacksmithyouthclub.helper.CommonMethods;
 import com.blacksmithyouthclub.helper.Config;
 import com.blacksmithyouthclub.helper.NotificationUtils;
-import com.blacksmithyouthclub.realm.model.Notification;
+import com.blacksmithyouthclub.realm.model.NotificationMaster;
 import com.blacksmithyouthclub.session.SessionManager;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -45,9 +45,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         try {
-            Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
+            Log.d(TAG, "NotificationMaster Message Body: " + remoteMessage.getNotification().getBody());
             Log.d(TAG, "From: " + remoteMessage.getFrom());
-            Log.d(TAG, "Notification Message Body: " + remoteMessage.getData().get("notification"));
+            Log.d(TAG, "NotificationMaster Message Body: " + remoteMessage.getData().get("notification"));
         } catch (Exception e) {
             e.printStackTrace();
             Log.d(TAG, "Error FCM : " + e.getMessage());
@@ -78,21 +78,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             realm.beginTransaction();
 
-            Notification notification = new Notification();
-            notification.setId(realm.where(Notification.class).findAll().size() + 1);
-            notification.setDate(CommonMethods.getDateCurrentDate());
-            notification.setDescr(message);
-            notification.setTitle(title);
-            notification.setImageURL(img_url);
-            notification.setType(type);
-            notification.setIntenttype(intenttype);
+            NotificationMaster notificationMaster = new NotificationMaster();
+            notificationMaster.setId(realm.where(NotificationMaster.class).findAll().size() + 1);
+            notificationMaster.setDate(CommonMethods.getDateCurrentDate());
+            notificationMaster.setDescr(message);
+            notificationMaster.setTitle(title);
+            notificationMaster.setImageURL(img_url);
+            notificationMaster.setType(type);
+            notificationMaster.setIntenttype(intenttype);
 
-            notification.setNotificationid(Integer.parseInt(notification_id));
-            notification.setReaded(false);
+            notificationMaster.setNotificationid(Integer.parseInt(notification_id));
+            notificationMaster.setReaded(false);
 
-            realm.copyToRealm(notification);
+            realm.copyToRealm(notificationMaster);
             realm.commitTransaction();
-            Log.d(TAG, "Notification has been added in database");
+            Log.d(TAG, "NotificationMaster has been added in database");
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
@@ -109,7 +109,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             // Check if message contains a notification payload.
             if (remoteMessage.getNotification() != null) {
-                Log.e(TAG, "Notification Body: " + remoteMessage.getNotification().getBody());
+                Log.e(TAG, "NotificationMaster Body: " + remoteMessage.getNotification().getBody());
                 handleNotification(remoteMessage.getNotification().getBody());
             }
 

@@ -6,7 +6,7 @@ import android.app.Application;
 import android.support.v4.app.Fragment;
 
 
-import com.blacksmithyouthclub.realm.model.Notification;
+import com.blacksmithyouthclub.realm.model.NotificationMaster;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -70,15 +70,15 @@ public class RealmController {
     }*/
 
     //find all objects in the Book.class
-    public RealmResults<Notification> getNotifications() {
+    public RealmResults<NotificationMaster> getNotifications() {
 
-        return realm.where(Notification.class).findAll();
+        return realm.where(NotificationMaster.class).findAll();
     }
 
     //query a single item with the given id
-    public Notification getBook(String id) {
+    public NotificationMaster getBook(String id) {
 
-        return realm.where(Notification.class).equalTo("id", id).findFirst();
+        return realm.where(NotificationMaster.class).equalTo("id", id).findFirst();
     }
 
     //check if Book.class is empty
@@ -88,9 +88,9 @@ public class RealmController {
     }*/
 
     //query example
-    public RealmResults<Notification> queryedNotifications() {
+    public RealmResults<NotificationMaster> queryedNotifications() {
 
-        return realm.where(Notification.class)
+        return realm.where(NotificationMaster.class)
                 .contains("date", "10-08-2017")
                 .or()
                 .contains("message", "offer")

@@ -57,7 +57,7 @@ public class VerificationPresenterImpl implements VerificationPresenter,Verifica
         if(verificationView!=null)
         {
 
-            verificationView.showProgress();
+           // verificationView.showProgress();
 
             userDetails = sessionManager.getSessionDetails();
             verificationInteractor.checkVerificationCode(userDetails.get(SessionManager.KEY_CODE),verificationCode,this);

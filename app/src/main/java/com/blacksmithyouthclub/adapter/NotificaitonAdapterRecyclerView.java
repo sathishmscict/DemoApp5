@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blacksmithyouthclub.R;
-import com.blacksmithyouthclub.realm.model.Notification;
+import com.blacksmithyouthclub.realm.model.NotificationMaster;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
 public class NotificaitonAdapterRecyclerView extends RecyclerView.Adapter<NotificaitonAdapterRecyclerView.MyViewHolder> {
 
     private final Context _context;
-    private List<Notification> notifiationList;
+    private List<NotificationMaster> notifiationList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private final ImageView ivLogo;
@@ -43,9 +43,9 @@ public class NotificaitonAdapterRecyclerView extends RecyclerView.Adapter<Notifi
     }
 
 
-    public NotificaitonAdapterRecyclerView(Context context , List<Notification> notificationList) {
+    public NotificaitonAdapterRecyclerView(Context context , List<NotificationMaster> notificationMasterList) {
         this._context = context;
-        this.notifiationList = notificationList;
+        this.notifiationList = notificationMasterList;
     }
 
     @Override
@@ -58,14 +58,14 @@ public class NotificaitonAdapterRecyclerView extends RecyclerView.Adapter<Notifi
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Notification noti = notifiationList.get(position);
+        NotificationMaster noti = notifiationList.get(position);
 
 
         holder.txttitle.setText(""+noti.getTitle());
         holder.txtmessage.setText(""+noti.getDescr());
         holder.txtdate.setText(""+noti.getDate());
 
-
+        holder.txtmessage.setVisibility(View.GONE);
         if(noti.isReaded())
         {
 

@@ -431,6 +431,7 @@ public class VerificationActivity extends AppCompatActivity implements  Verifica
 
 
         Intent intent = new Intent(context, DashBoardActivity.class);
+        intent.putExtra("IS_FIRSTTIME",true);
         startActivity(intent);
         finish();
 
