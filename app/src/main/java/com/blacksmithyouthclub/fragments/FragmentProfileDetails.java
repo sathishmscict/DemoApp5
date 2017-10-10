@@ -142,6 +142,13 @@ public class FragmentProfileDetails extends Fragment {
     TextInputLayout edtDOBWrapper;
 
 
+    @BindView(R.id.edtDOA)
+    EditText edtDOA;
+
+    @BindView(R.id.edtDOAWrapper)
+    TextInputLayout edtDOAWrapper;
+
+
     @BindView(R.id.edtWeight)
     EditText edtWeight;
 
@@ -273,10 +280,9 @@ public class FragmentProfileDetails extends Fragment {
         userData = u.getUserData(realm, Long.parseLong(userDetails.get(SessionManager.KEY_USER_ID)));
 
 
-
         try {
             //Glide.with(getActivity()).load(userData.getAvatar()).error(R.mipmap.ic_launcher).into(imgProfile);
-            PROFILE_PICTURE_URL =userData.getAvatar();
+            PROFILE_PICTURE_URL = userData.getAvatar();
             Picasso.with(getActivity())
                     .load(userData.getAvatar())
                     .placeholder(R.drawable.app_logo)
@@ -332,14 +338,24 @@ public class FragmentProfileDetails extends Fragment {
         // Inflate the layout for this fragment
 
 
-    FillDataOnControls();
+        FillDataOnControls();
 
 
         edtDOB.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    ShowDate();
+                    ShowDate(edtDOB);
+                }
+                return false;
+            }
+        });
+
+        edtDOA.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    ShowDate(edtDOA);
                 }
                 return false;
             }
@@ -371,7 +387,7 @@ public class FragmentProfileDetails extends Fragment {
             e.printStackTrace();
         }
 
-        edtSurname.setVisibility(View.GONE);
+        //  edtSurnameWrapper.setVisibility(View.GONE);
         spnSurname.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override
@@ -383,13 +399,15 @@ public class FragmentProfileDetails extends Fragment {
 
                 if (!item.toLowerCase().equals("other") && !item.toLowerCase().equals("select surname")) {
 
-                    edtSurname.setVisibility(View.GONE);
+                    edtSurnameWrapper.setVisibility(View.GONE);
                     edtSurname.setText(item);
 
                 } else if (item.toLowerCase().equals("other")) {
 
                     edtSurname.setText("");
-                    edtSurname.setVisibility(View.VISIBLE);
+                    edtSurnameWrapper.setVisibility(View.VISIBLE);
+                } else {
+                    //edtSurnameWrapper.setVisibility(View.GONE);
                 }
             }
         });
@@ -402,6 +420,36 @@ public class FragmentProfileDetails extends Fragment {
         });
 
 
+        spnMaritalStatus.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+
+                //Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+                Log.d(TAG, "Selected Surname :" + item);
+
+
+                if (!item.toLowerCase().contains("widowed") || !item.toLowerCase().equals("married")) {
+
+                    edtDOAWrapper.setVisibility(View.VISIBLE);
+                    edtDOA.setFocusableInTouchMode(true);
+                } else  {
+
+                    edtDOAWrapper.setVisibility(View.GONE);
+
+
+                }
+            }
+        });
+       /* spnMaritalStatus.setOnNothingSelectedListener(new MaterialSpinner.OnNothingSelectedListener() {
+
+            @Override
+            public void onNothingSelected(MaterialSpinner spinner) {
+                Snackbar.make(spinner, "Nothing selected", Snackbar.LENGTH_LONG).show();
+            }
+        });*/
+
+
         getAllComboDetailFromServer();
 
         return rootView;
@@ -410,13 +458,15 @@ public class FragmentProfileDetails extends Fragment {
     private void FillDataOnControls() {
         try {
             edtName.setText(userData.getFirstName().toString());
-            edtSurname.setText(userData.getSurname().toString());
+            //edtSurname.setText(userData.getSurname().toString());
             edtVillageName.setText(userData.getVillage().toString());
             edtReligion.setText(userData.getReligion().toString());
             edtDOB.setText(userData.getDob().toString());
+            edtDOA.setText(userData.getDoa().toString());
             edtWeight.setText(userData.getWeight().toString());
             edtAbout.setText(userData.getAbout().toString());
             edtHobby.setText(userData.getHobbyId().toString());
+            edtSurname.setText(userData.getSurnameName().toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -424,8 +474,7 @@ public class FragmentProfileDetails extends Fragment {
 //onCreate completed
 
 
-    private void getAllComboDetailFromServer()
-    {
+    private void getAllComboDetailFromServer() {
 
 
         CommonMethods.showDialog(spotsDialog);
@@ -433,7 +482,7 @@ public class FragmentProfileDetails extends Fragment {
 
         ApiInterface apiClient = ApiClient.getClient().create(ApiInterface.class);
         Log.d(TAG, "URL getserviceForSpinnersData : " + CommonMethods.WEBSITE + "getserviceForSpinnersData?type=spinner&countryid=1");
-        apiClient.getserviceForSpinnersData("spinner", "1",userDetails.get(SessionManager.KEY_SELECTED_CASTE)).enqueue(new Callback<SpinnersData>() {
+        apiClient.getserviceForSpinnersData("spinner", "1", userDetails.get(SessionManager.KEY_SELECTED_CASTE)).enqueue(new Callback<SpinnersData>() {
             @Override
             public void onResponse(Call<SpinnersData> call, Response<SpinnersData> response) {
 
@@ -492,13 +541,11 @@ public class FragmentProfileDetails extends Fragment {
 
                             try {
                                 //String sur = userData.getSurname().toString();
-                                int pos =  list_Surname.indexOf(userData.getSurname().toString());
+                                int pos = list_Surname.indexOf(userData.getSurnameName().toString());
 
-                                if(pos > 0)
-                                {
+                                if (pos > 0) {
                                     spnSurname.setSelectedIndex(pos);
                                 }
-
 
 
                             } catch (NumberFormatException e) {
@@ -522,13 +569,11 @@ public class FragmentProfileDetails extends Fragment {
 
                             try {
                                 //String sur = userData.getSurname().toString();
-                                int pos =  list_MaritalStatusId.indexOf(userData.getMaritalStatusId().toString());
+                                int pos = list_MaritalStatusId.indexOf(userData.getMaritalStatusId().toString());
 
-                                if(pos > 0)
-                                {
+                                if (pos > 0) {
                                     spnMaritalStatus.setSelectedIndex(pos);
                                 }
-
 
 
                             } catch (NumberFormatException e) {
@@ -549,23 +594,18 @@ public class FragmentProfileDetails extends Fragment {
 
                             }
                             spnBloodGroup.setItems(list_BloodGroup);
-                            try
-                            {
+                            try {
                                 int bldgrpid = userData.getBloodGrpId();
-                                int pos =  list_BloodGroupId.indexOf(userData.getBloodGrpId().toString());
+                                int pos = list_BloodGroupId.indexOf(userData.getBloodGrpId().toString());
 
-                                if(pos > 0)
-                                {
+                                if (pos > 0) {
                                     spnBloodGroup.setSelectedIndex(pos);
                                 }
-
 
 
                             } catch (NumberFormatException e) {
                                 e.printStackTrace();
                             }
-
-
 
 
                             //Set Surname SPinner Data
@@ -581,22 +621,19 @@ public class FragmentProfileDetails extends Fragment {
 
                             }
                             //ArrayAdapter<String> heightAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,list_HeightMaster);
-                           // spnHeight.setAdapter(heightAdapter);
-
+                            // spnHeight.setAdapter(heightAdapter);
 
 
                             spnHeight.setItems(list_HeightMaster);
 
                             try {
                                 int heigthpid = userData.getHeightId();
-                                int pos =  list_HeightMasterId.indexOf(userData.getHeightId().toString());
+                                int pos = list_HeightMasterId.indexOf(userData.getHeightId().toString());
 
-                                if(pos > 0)
-                                {
+                                if (pos > 0) {
                                     spnHeight.setSelectedIndex(pos);
-                                //    spnHeight.setSelection(pos);
+                                    //    spnHeight.setSelection(pos);
                                 }
-
 
 
                             } catch (NumberFormatException e) {
@@ -604,10 +641,9 @@ public class FragmentProfileDetails extends Fragment {
                             }
 
 
-
                             CommonMethods.hideDialog(spotsDialog);
 
-                           // FillDataOnControls();
+                            // FillDataOnControls();
 
                         }
                     } else {
@@ -658,7 +694,7 @@ public class FragmentProfileDetails extends Fragment {
         //spgender=(MaterialSpinner)rootView.findViewById(R.id.spgender);
     }*/
 
-    private void ShowDate() {
+    private void ShowDate(final EditText edt) {
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
@@ -673,14 +709,13 @@ public class FragmentProfileDetails extends Fragment {
                         String txtdate = (year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
 
 
-
                         txtdate = (year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-                        txtdate = CommonMethods.setCurrentDate(year,month,dayOfMonth);
+                        txtdate = CommonMethods.setCurrentDate(year, monthOfYear, dayOfMonth);
 
                         Year = year;
                         month = monthOfYear;
                         day = dayOfMonth;
-                        edtDOB.setText(txtdate);
+                        edt.setText(txtdate);
                     }
                 }, mYear, mMonth, mDay);
         dpd.show();
@@ -694,6 +729,7 @@ public class FragmentProfileDetails extends Fragment {
 
         profile_update = (MenuItem) menu.findItem(R.id.action_update);
         profile_update.setVisible(false);
+        profile_edit.setVisible(true);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -706,24 +742,38 @@ public class FragmentProfileDetails extends Fragment {
 
             ShowAllControlsEditableAndVisible();
         } else if (item.getItemId() == R.id.action_update) {
-            profile_edit.setVisible(true);
-            profile_update.setVisible(false);
+            //profile_edit.setVisible(true);
+            //profile_update.setVisible(false);
             //HideControls();
 
 
-            updateDetailsSendToServer();
+            if (spnSurname.getSelectedIndex() == 0) {
+
+                CommonMethods.showAlertDialog(getActivity(), "Profile update info", "Please select Surname");
+
+            } else if (edtSurname.getText().toString().equals("")) {
+                edtSurnameWrapper.setErrorEnabled(true);
+                edtSurnameWrapper.setError("Please enter surname");
+                CommonMethods.showAlertDialog(getActivity(), "Profile update info", "Please enter surname");
+
+
+                edtSurname.requestFocus();
+
+            } else {
+                updateDetailsSendToServer();
+            }
+
+
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void updateDetailsSendToServer()
-    {
+    private void updateDetailsSendToServer() {
 
         //updatePersonalDetails?type=string&fname=string&surname=string&originalsurname=string&dob=string&village=string&maritalStatus=string&bloodgrpid=string&heightid=string&contact=string&weight=string&avatar=string&about=string&religion=string&hobby=string&casteid=string&gender=string&updateddate=string
 
 
-        if(edtWeight.getText().toString().equals(""))
-        {
+        if (edtWeight.getText().toString().equals("")) {
             edtWeight.setText("0");
 
         }
@@ -731,22 +781,21 @@ public class FragmentProfileDetails extends Fragment {
         ApiInterface apiClient = null;
         try {
             apiClient = ApiClient.getClient().create(ApiInterface.class);
-            Log.d(TAG, "URL updatePersonalDetails : " + CommonMethods.WEBSITE + "?updatePersonalDetails?type=personaldetails&fname=" + edtName.getText().toString() + "&surname=" + edtSurname.getText().toString() + "&originalsurname=" + edtSurname.getText().toString() + "&dob=" + CommonMethods.convertToJsonDateFormat(edtDOB.getText().toString()) + "&village=" + edtVillageName.getText().toString() + "&maritalStatus=" + list_MaritalStatusId.get(spnMaritalStatus.getSelectedIndex()) + "&bloodgrpid=" + list_BloodGroupId.get(spnBloodGroup.getSelectedIndex()) + "&heightid=" + list_HeightMasterId.get(spnHeight.getSelectedIndex()) + "&contact=" + userDetails.get(SessionManager.KEY_USER_MOBILE) + "&weight=" + Integer.parseInt(edtWeight.getText().toString()) + "&avatar=" + PROFILE_PICTURE_URL + "&about=" + edtAbout.getText().toString() + "&religion=" + edtReligion.getText().toString() + "&hobby=" + edtHobby.getText().toString() + "&casteid=" + Integer.parseInt(userDetails.get(SessionManager.KEY_SELECTED_CASTE)) + "&gender=" + SELECTED_GENDER + "&updateddate=" + CommonMethods.getDateTime() + "");
+            Log.d(TAG, "URL updatePersonalDetails : " + CommonMethods.WEBSITE + "?updatePersonalDetails?type=personaldetails&fname=" + edtName.getText().toString() + "&surname=" + edtSurname.getText().toString() + "&originalsurname=" + edtSurname.getText().toString() + "&dob=" + CommonMethods.convertToJsonDateFormat(edtDOB.getText().toString()) + "&village=" + edtVillageName.getText().toString() + "&maritalStatus=" + list_MaritalStatusId.get(spnMaritalStatus.getSelectedIndex()) + "&bloodgrpid=" + list_BloodGroupId.get(spnBloodGroup.getSelectedIndex()) + "&heightid=" + list_HeightMasterId.get(spnHeight.getSelectedIndex()) + "&contact=" + userDetails.get(SessionManager.KEY_USER_MOBILE) + "&weight=" + Integer.parseInt(edtWeight.getText().toString()) + "&avatar=" + PROFILE_PICTURE_URL + "&about=" + edtAbout.getText().toString() + "&religion=" + edtReligion.getText().toString() + "&hobby=" + edtHobby.getText().toString() + "&casteid=" + Integer.parseInt(userDetails.get(SessionManager.KEY_SELECTED_CASTE)) + "&gender=" + SELECTED_GENDER + "&updateddate=" + CommonMethods.getDateTime() + "&doa=" + CommonMethods.convertToJsonDateFormat(edtDOA.getText().toString()) + "");
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
 
-        PROFILE_PICTURE_URL = PROFILE_PICTURE_URL.replace("http://blacksmith.studyfield.com/","");
+        PROFILE_PICTURE_URL = PROFILE_PICTURE_URL.replace("http://blacksmith.studyfield.com/", "");
 
-        apiClient.updatePersonalDetails("personaldetails",edtName.getText().toString() ,edtSurname.getText().toString() , edtSurname.getText().toString(),CommonMethods.convertToJsonDateFormat(edtDOB.getText().toString()) , edtVillageName.getText().toString() , Integer.parseInt(list_MaritalStatusId.get(spnMaritalStatus.getSelectedIndex())) , list_BloodGroupId.get(spnBloodGroup.getSelectedIndex()) , Integer.parseInt(list_HeightMasterId.get(spnHeight.getSelectedIndex())) ,userDetails.get(SessionManager.KEY_USER_MOBILE) ,Integer.parseInt(edtWeight.getText().toString()) , PROFILE_PICTURE_URL , edtAbout.getText().toString() , edtReligion.getText().toString() , edtHobby.getText().toString() , Integer.parseInt(userDetails.get(SessionManager.KEY_SELECTED_CASTE)) , SELECTED_GENDER , CommonMethods.getDateTime()).enqueue(new Callback<UserDataResponse>() {
+        apiClient.updatePersonalDetails("personaldetails", edtName.getText().toString(), edtSurname.getText().toString(), edtSurname.getText().toString(), CommonMethods.convertToJsonDateFormat(edtDOB.getText().toString()), edtVillageName.getText().toString(), Integer.parseInt(list_MaritalStatusId.get(spnMaritalStatus.getSelectedIndex())), list_BloodGroupId.get(spnBloodGroup.getSelectedIndex()), Integer.parseInt(list_HeightMasterId.get(spnHeight.getSelectedIndex())), userDetails.get(SessionManager.KEY_USER_MOBILE), Integer.parseInt(edtWeight.getText().toString()), PROFILE_PICTURE_URL, edtAbout.getText().toString(), edtReligion.getText().toString(), edtHobby.getText().toString(), Integer.parseInt(userDetails.get(SessionManager.KEY_SELECTED_CASTE)), SELECTED_GENDER, CommonMethods.getDateTime(), CommonMethods.convertToJsonDateFormat(edtDOA.getText().toString())).enqueue(new Callback<UserDataResponse>() {
             @Override
             public void onResponse(Call<UserDataResponse> call, Response<UserDataResponse> response) {
 
 
                 Log.d(TAG, "updatePersonalDetails Response Code : " + response.code());
 
-                if (response.code() == 200)
-                {
+                if (response.code() == 200) {
 
 
                     String str_error = response.body().getMESSAGE();
@@ -754,24 +803,22 @@ public class FragmentProfileDetails extends Fragment {
                     boolean error_status = response.body().getERRORSTATUS();
                     boolean record_status = response.body().getRECORDS();
 
-                    if (error_status == false)
-                    {
+                    if (error_status == false) {
+                        //If details has been updated successfully then option menu title has been changed
+                        profile_edit.setVisible(true);
+                        profile_update.setVisible(false);
 
                         List<UserDataResponse.DATum> arr = response.body().getDATA();
 
-                        for (int i = 0; i < arr.size(); i++)
-                        {
+                        for (int i = 0; i < arr.size(); i++) {
 
                             int userId = arr.get(i).getId();
 
                             String userMobile = arr.get(i).getMobile();
 
 
-
-
                             // setUserDetails(String str_userid, String str_username, String str_email, String str_mobile, String str_avatar) {
                             sessionManager.setUserDetails(String.valueOf(userId), userMobile, arr.get(i).getAppovalStatus());
-
 
 
                             try {
@@ -786,11 +833,11 @@ public class FragmentProfileDetails extends Fragment {
                                 userMaster = userData;
 
 
-
                                 //userMaster.setUserid(arr.get(i).getId());
                                 userMaster.setCasteName(arr.get(i).getCasteName());
                                 userMaster.setFirstName(arr.get(i).getFirstName());
                                 userMaster.setSurname(arr.get(i).getSurname());
+
                                 userMaster.setOriginalSurname(arr.get(i).getOriginalSurname());
                                 userMaster.setVillage(arr.get(i).getVillage());
                                 userMaster.setMaritalStatusId(arr.get(i).getMaritalStatusId());
@@ -845,7 +892,7 @@ public class FragmentProfileDetails extends Fragment {
                                 userMaster.setBusinessAddress(arr.get(i).getBusinessAddress());
                                 userMaster.setBusinessLogo(arr.get(i).getBusinessLogo());
                                 userMaster.setHeightName(arr.get(i).getHeightName());
-                                userMaster.setSurname(arr.get(i).getSurnameName());
+                                userMaster.setSurnameName(arr.get(i).getSurnameName());
                                 userMaster.setMob1(arr.get(i).getMob1());
                                 userMaster.setMob2(arr.get(i).getMob2());
                                 userMaster.setLandLine1(arr.get(i).getLandLine1());
@@ -864,24 +911,16 @@ public class FragmentProfileDetails extends Fragment {
                                 HideControls();
 
 
-                                CommonMethods.showAlertDialog(getActivity(),"Profile Update Info","Your profile details has been successfully updated.");
+                                CommonMethods.showAlertDialog(getActivity(), "Profile Update Info", "Your profile details has been successfully updated.");
                             } catch (NumberFormatException e) {
                                 e.printStackTrace();
                             }
 
 
-
-
-
-
                         }
 
 
-
-
-
-
-                    CommonMethods.hideDialog(spotsDialog);
+                        CommonMethods.hideDialog(spotsDialog);
 
 
                     } else {
@@ -917,6 +956,11 @@ public class FragmentProfileDetails extends Fragment {
         imgProfile.setEnabled(true);
         edtName.setEnabled(true);
         edtSurname.setEnabled(true);
+        spnSurname.setEnabled(true);
+
+        //spnSurname.setVisibility(View.GONE);
+        edtSurnameWrapper.setVisibility(View.GONE);
+        spnSurname.setVisibility(View.VISIBLE);
 
         //edtsurenameother.setEnabled(true);
         edtVillageName.setEnabled(true);
@@ -931,6 +975,9 @@ public class FragmentProfileDetails extends Fragment {
         spnMaritalStatus.setEnabled(true);
         //spgender.setEnabled(true);
         rdGenderGroup.setEnabled(true);
+
+        spnSurname.setFocusableInTouchMode(true);
+        edtSurname.setFocusableInTouchMode(true);
 
 
         edtName.setFocusableInTouchMode(true);
@@ -948,25 +995,34 @@ public class FragmentProfileDetails extends Fragment {
         rdGenderGroup.setFocusableInTouchMode(true);
 
 
+        if (userData.getMaritalStatusId().toString().toLowerCase().equals("3") || userData.getMaritalStatusId().toString().toLowerCase().equals("4")) {
 
+            edtDOAWrapper.setVisibility(View.VISIBLE);
+            edtDOA.setFocusableInTouchMode(true);
+            edtDOA.setEnabled(true);
+        } else {
+            edtDOAWrapper.setVisibility(View.GONE);
+        }
 
 
     }
 
     private void HideControls() {
 
-       edtName.setEnabled(false);
+        edtName.setEnabled(false);
         imgProfile.setEnabled(false);
 
 //        edtName.setCursorVisible(false);
- //       edtName.setClickable(false);
+        //       edtName.setClickable(false);
 
 
+        spnSurname.setEnabled(false);
+
+        spnSurname.setVisibility(View.GONE);
+        edtSurnameWrapper.setVisibility(View.VISIBLE);
 
 
-
-
-        edtSurname.setEnabled(false);
+        edtSurnameWrapper.setEnabled(false);
 
 //        edtsurenameother.setEnabled(false);
         edtVillageName.setEnabled(false);
@@ -982,8 +1038,17 @@ public class FragmentProfileDetails extends Fragment {
         spnMaritalStatus.setEnabled(false);
         //spgender.setEnabled(false);
         rdGenderGroup.setEnabled(false);
-    }
 
+        edtDOA.setEnabled(false);
+
+        if (userData.getMaritalStatusId().toString().toLowerCase().equals("3") || userData.getMaritalStatusId().toString().toLowerCase().equals("4")) {
+
+            edtDOAWrapper.setVisibility(View.VISIBLE);
+            edtDOA.setEnabled(false);
+        } else {
+            edtDOAWrapper.setVisibility(View.GONE);
+        }
+    }
 
 
     private void selectImage() {
@@ -1300,7 +1365,7 @@ public class FragmentProfileDetails extends Fragment {
                     if (error_status == false) {
                         if (record_status == true) {
 
-sessionManager.setEncodedImage(BASE64STRING);
+                            sessionManager.setEncodedImage(BASE64STRING);
                             PROFILE_PICTURE_URL = response.body().getDATA().get(0).getImageurl();
 
                             Log.d(TAG, "IMAGE URL : " + PROFILE_PICTURE_URL);
@@ -1329,7 +1394,6 @@ sessionManager.setEncodedImage(BASE64STRING);
                                         userMaster = userData;
 
 
-
                                         //userMaster.setUserid(arr.get(i).getId());
                                         userMaster.setBusinessLogo(PROFILE_PICTURE_URL);
 
@@ -1345,12 +1409,9 @@ sessionManager.setEncodedImage(BASE64STRING);
                                         // CommonMethods.showAlertDialog(getActivity(),"Contact Details Update Info","Your contact details has been successfully updated.");
 
 
-
                                     } catch (NumberFormatException e) {
                                         e.printStackTrace();
                                     }
-
-
 
 
                                     imgProfile.setImageBitmap(bitmap);

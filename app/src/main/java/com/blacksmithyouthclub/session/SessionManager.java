@@ -258,8 +258,17 @@ public class SessionManager {
 
     }
 
-    public void setUserActivationStatus() {
-        editor.putString(KEY_IS_ACTIVE , "1");
+    public void setUserActivationStatus(Boolean isactive) {
+        if(isactive)
+        {
+            editor.putString(KEY_IS_ACTIVE, "1");
+        }
+        else
+        {
+            editor.putString(KEY_IS_ACTIVE, "0");
+        }
+
+
         editor.commit();
     }
 }

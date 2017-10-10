@@ -33,6 +33,7 @@
     <string name="villagename">Village Name</string>
     <string name="Religion">Religion</string>
     <string name="dob">Date of Birth</string>
+    <string name="doa">Date of Anniversary</string>
 
     <string name="Weight">Weight</string>
     <string name="aboutyou">About You</string>

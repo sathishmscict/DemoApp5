@@ -296,7 +296,7 @@ public class SignInActivity extends AppCompatActivity {
                                     userMaster.setBusinessAddress(arr.get(i).getBusinessAddress());
                                     userMaster.setBusinessLogo(arr.get(i).getBusinessLogo());
                                     userMaster.setHeightName(arr.get(i).getHeightName());
-                                    userMaster.setSurname(arr.get(i).getSurnameName());
+                                    userMaster.setSurnameName(arr.get(i).getSurnameName());
                                     userMaster.setMob1(arr.get(i).getMob1());
                                     userMaster.setMob2(arr.get(i).getMob2());
                                     userMaster.setLandLine1(arr.get(i).getLandLine1());

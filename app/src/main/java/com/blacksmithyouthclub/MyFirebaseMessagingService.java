@@ -150,7 +150,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         if(intenttype.equals("activation"))
         {
-            sessionManager.setUserActivationStatus();
+            sessionManager.setUserActivationStatus(true);
         }
 
 

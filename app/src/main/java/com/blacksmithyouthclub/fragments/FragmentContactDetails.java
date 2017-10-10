@@ -443,8 +443,8 @@ public class FragmentContactDetails extends Fragment {
 
             ShowAllControlsEditableAndVisible();
         } else if (item.getItemId() == R.id.action_update) {
-            profile_edit.setVisible(true);
-            profile_update.setVisible(false);
+           // profile_edit.setVisible(true);
+          //  profile_update.setVisible(false);
 
 
             updateDetailsSendToServer();
@@ -484,6 +484,11 @@ public class FragmentContactDetails extends Fragment {
                     if (error_status == false)
                     {
 
+                        //If details has been updated successfully then option menu title has been changed
+                        profile_edit.setVisible(true);
+                        profile_update.setVisible(false);
+
+
                         List<UserDataResponse.DATum> arr = response.body().getDATA();
 
                         for (int i = 0; i < arr.size(); i++)
@@ -518,6 +523,7 @@ public class FragmentContactDetails extends Fragment {
                                 userMaster.setCasteName(arr.get(i).getCasteName());
                                 userMaster.setFirstName(arr.get(i).getFirstName());
                                 userMaster.setSurname(arr.get(i).getSurname());
+
                                 userMaster.setOriginalSurname(arr.get(i).getOriginalSurname());
                                 userMaster.setVillage(arr.get(i).getVillage());
                                 userMaster.setMaritalStatusId(arr.get(i).getMaritalStatusId());
@@ -572,7 +578,7 @@ public class FragmentContactDetails extends Fragment {
                                 userMaster.setBusinessAddress(arr.get(i).getBusinessAddress());
                                 userMaster.setBusinessLogo(arr.get(i).getBusinessLogo());
                                 userMaster.setHeightName(arr.get(i).getHeightName());
-                                userMaster.setSurname(arr.get(i).getSurnameName());
+                                userMaster.setSurnameName(arr.get(i).getSurnameName());
                                 userMaster.setMob1(arr.get(i).getMob1());
                                 userMaster.setMob2(arr.get(i).getMob2());
                                 userMaster.setLandLine1(arr.get(i).getLandLine1());

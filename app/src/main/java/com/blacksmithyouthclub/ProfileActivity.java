@@ -60,6 +60,8 @@ public class ProfileActivity extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         }
 
+
+        setTitle(getResources().getString(R.string.activity_profile));
         coordinatorLayout = (CoordinatorLayout)findViewById(R.id.coordinateLayout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

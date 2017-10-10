@@ -98,7 +98,7 @@ public interface ApiInterface {
 
     @POST("updatePersonalDetails")
     @FormUrlEncoded
-    Call<UserDataResponse> updatePersonalDetails(@Field("type") String type, @Field("fname") String name, @Field("surname") String surname, @Field("originalsurname") String originalsurname, @Field("dob") String dob, @Field("village") String village, @Field("maritalStatus") int maritalStatus, @Field("bloodgrpid") String bloodgrpid, @Field("heightid") int heightid, @Field("contact") String contact, @Field("weight") int weight, @Field("avatar") String avatar, @Field("about") String about, @Field("religion") String religion, @Field("hobby") String hobby, @Field("casteid") int casteid, @Field("gender") String gender, @Field("updateddate") String updateddate);
+    Call<UserDataResponse> updatePersonalDetails(@Field("type") String type, @Field("fname") String name, @Field("surname") String surname, @Field("originalsurname") String originalsurname, @Field("dob") String dob, @Field("village") String village, @Field("maritalStatus") int maritalStatus, @Field("bloodgrpid") String bloodgrpid, @Field("heightid") int heightid, @Field("contact") String contact, @Field("weight") int weight, @Field("avatar") String avatar, @Field("about") String about, @Field("religion") String religion, @Field("hobby") String hobby, @Field("casteid") int casteid, @Field("gender") String gender, @Field("updateddate") String updateddate,@Field("doa") String doa);
 
 
     @POST("updateAddressDetails")

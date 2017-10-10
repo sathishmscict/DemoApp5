@@ -65,7 +65,7 @@ public class NotificaitonAdapterRecyclerView extends RecyclerView.Adapter<Notifi
         holder.txtmessage.setText(""+noti.getDescr());
         holder.txtdate.setText(""+noti.getDate());
 
-        holder.txtmessage.setVisibility(View.GONE);
+      //  holder.txtmessage.setVisibility(View.GONE);
         if(noti.isReaded())
         {
 

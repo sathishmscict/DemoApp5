@@ -209,7 +209,7 @@ public class FragmentBusinessDetails extends Fragment {
     private String BUSINESS_LOGO_URL = "";
     private List<BusinessSubCategoryData.DATum> list_BusinessSubCategoryData = new ArrayList<BusinessSubCategoryData.DATum>();
 
-    private ArrayList<String> getSelectedSubCategoryItems= new ArrayList<String>();
+    private ArrayList<String> getSelectedSubCategoryItems = new ArrayList<String>();
 
     public FragmentBusinessDetails() {
         // Required empty public constructor
@@ -261,10 +261,9 @@ public class FragmentBusinessDetails extends Fragment {
         userData = u.getUserData(realm, Long.parseLong(userDetails.get(SessionManager.KEY_USER_ID)));
 
 
-
         try {
             //Glide.with(getActivity()).load(userData.getBusinessLogo()).error(R.mipmap.ic_launcher).into(imgBusinessLogo);
-            Log.d(TAG,"Business Logo : "+userData.getBusinessLogo());
+            Log.d(TAG, "Business Logo : " + userData.getBusinessLogo());
             BUSINESS_LOGO_URL = userData.getBusinessLogo();
             Picasso.with(getActivity())
                     .load(userData.getBusinessLogo())
@@ -285,7 +284,6 @@ public class FragmentBusinessDetails extends Fragment {
                 .setCompression(50)
                 .setImageHeight(1000)// it will try to achieve this height as close as possible maintaining the aspect ratio;
                 .build(this);
-
 
 
         imgBusinessLogo.setOnClickListener(new View.OnClickListener() {
@@ -320,7 +318,6 @@ public class FragmentBusinessDetails extends Fragment {
         FillDataOnControls();
 
 
-
         spnBusinessSubCategory.setVisibility(View.GONE);
         spnBusinessSubCategory.setItems(getSelectedSubCategoryItems)
 
@@ -347,8 +344,8 @@ public class FragmentBusinessDetails extends Fragment {
                                 edtBusinessSubCategory.setText(str_selected_subcategories);
                             }*/
 
-                       // Toast.makeText(getActivity(), "Selected ITems"+spnBusinessSubCategory.getSelectedItem(), Toast.LENGTH_SHORT).show();
-                            edtBusinessSubCategory.setText(spnBusinessSubCategory.getSelectedItem().toString());
+                        // Toast.makeText(getActivity(), "Selected ITems"+spnBusinessSubCategory.getSelectedItem(), Toast.LENGTH_SHORT).show();
+                        edtBusinessSubCategory.setText(spnBusinessSubCategory.getSelectedItem().toString());
                         //Toast.makeText(getActivity(), "Total Count "+getSelectedSubCategoryItems.size(), Toast.LENGTH_SHORT).show();
 
 /*
@@ -363,14 +360,13 @@ public class FragmentBusinessDetails extends Fragment {
                 .setAllCheckedText("All types")
                 .setAllUncheckedText("none selected")
 
-                ;
+        ;
 
         edtBusinessSubCategory.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
 
-                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN)
-                {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                     spnBusinessSubCategory.performClick();
 
                 }
@@ -399,8 +395,7 @@ public class FragmentBusinessDetails extends Fragment {
                     edtBusinessCategory.setText("");
                     edtBusinessCategory.setVisibility(View.VISIBLE);
                 }
-                if(position != 0)
-                {
+                if (position != 0) {
 
                     try {
                         getAllBusinessSubCategoryDetailsFromServer();
@@ -466,7 +461,7 @@ public class FragmentBusinessDetails extends Fragment {
                             }
 
                             //list_BusinessCategory.add("Other");
-                           // list_BusinessCategoryId.add("Other");
+                            // list_BusinessCategoryId.add("Other");
 
 
                             spnBusiness.setItems(list_BusinessCategory);
@@ -549,7 +544,7 @@ public class FragmentBusinessDetails extends Fragment {
                             ;
 
 
-                           // Dialog dialog = new Dial
+                            // Dialog dialog = new Dial
                             //student_adapter = new StudentsDataAdapterRecyclerView(getActivity()/*, list_studentdata*/);
                             //rvb.setAdapter(student_adapter);
 
@@ -572,29 +567,27 @@ public class FragmentBusinessDetails extends Fragment {
 
 
                             try {
-                                 getSelectedSubCategoryItems = new ArrayList<String>(Arrays.asList(userData.getBusinesssubcategoryids().split(",")));
+                                getSelectedSubCategoryItems = new ArrayList<String>(Arrays.asList(userData.getBusinesssubcategoryids().split(",")));
 
                                 String str_selected_subcategories = "";
-                                for(int i=0;i<getSelectedSubCategoryItems.size();i++)
-                                {
+                                for (int i = 0; i < getSelectedSubCategoryItems.size(); i++) {
                                     try {
                                         int index = list_BusinessSubCategoryId.indexOf(getSelectedSubCategoryItems.get(i));
-                                        spnBusinessSubCategory.selectItem(index,true);
-                                        str_selected_subcategories = str_selected_subcategories+list_BusinessSubCategory.get(index)+",";
+                                        spnBusinessSubCategory.selectItem(index, true);
+                                        str_selected_subcategories = str_selected_subcategories + list_BusinessSubCategory.get(index) + ",";
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
                                 }
-                                if(!str_selected_subcategories.isEmpty())
-                                {
-                                    str_selected_subcategories = str_selected_subcategories.substring(0,str_selected_subcategories.lastIndexOf(","));
-edtBusinessSubCategory.setText(str_selected_subcategories);
+                                if (!str_selected_subcategories.isEmpty()) {
+                                    str_selected_subcategories = str_selected_subcategories.substring(0, str_selected_subcategories.lastIndexOf(","));
+                                    edtBusinessSubCategory.setText(str_selected_subcategories);
                                 }
 
 
                             } catch (Exception e) {
                                 e.printStackTrace();
-                                Log.d(TAG, "Error in Selected Items : "+e.getMessage());
+                                Log.d(TAG, "Error in Selected Items : " + e.getMessage());
                             }
 
 
@@ -667,8 +660,8 @@ edtBusinessSubCategory.setText(str_selected_subcategories);
 
             ShowAllControlsEditableAndVisible();
         } else if (item.getItemId() == R.id.action_update) {
-            profile_edit.setVisible(true);
-            profile_update.setVisible(false);
+           // profile_edit.setVisible(true);
+            //profile_update.setVisible(false);
             //HideControls();
 
             updateDetailsSendToServer();
@@ -741,28 +734,25 @@ edtBusinessSubCategory.setText(str_selected_subcategories);
     }
 
 
-    private void updateDetailsSendToServer()
-    {
+    private void updateDetailsSendToServer() {
 
-CommonMethods.showDialog(spotsDialog);
+        CommonMethods.showDialog(spotsDialog);
         ApiInterface apiClient = ApiClient.getClient().create(ApiInterface.class);
 
 
         //getString  Business subcategory ids
 
-        String subcategoryStringItems="";
+        String subcategoryStringItems = "";
 
         List<String> myList = new ArrayList<String>(Arrays.asList(spnBusinessSubCategory.getSelectedItem().toString().split(",")));
-        if(myList.size() != 0)
-        {
+        if (myList.size() != 0) {
 
             try {
 
-                for(int i=0;i<myList.size();i++)
-                {
+                for (int i = 0; i < myList.size(); i++) {
                     try {
                         int indexOf = list_BusinessSubCategory.indexOf(myList.get(i).trim());
-                        subcategoryStringItems = subcategoryStringItems+list_BusinessSubCategoryId.get(indexOf)+",";
+                        subcategoryStringItems = subcategoryStringItems + list_BusinessSubCategoryId.get(indexOf) + ",";
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -770,17 +760,15 @@ CommonMethods.showDialog(spotsDialog);
                 //subcategoryStringItems = myList.toString();
                 //subcategoryStringItems = subcategoryStringItems.substring(0,subcategoryStringItems.lastIndexOf("]"));
                 //subcategoryStringItems = subcategoryStringItems.substring(subcategoryStringItems.indexOf("["),subcategoryStringItems.length());
-                subcategoryStringItems = subcategoryStringItems.substring(0,subcategoryStringItems.lastIndexOf(","));
-                Log.d(TAG , "subcategoryStringItems : "+subcategoryStringItems);
+                subcategoryStringItems = subcategoryStringItems.substring(0, subcategoryStringItems.lastIndexOf(","));
+                Log.d(TAG, "subcategoryStringItems : " + subcategoryStringItems);
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
 
-        }
-        else
-        {
-            subcategoryStringItems="0";
+        } else {
+            subcategoryStringItems = "0";
         }
 
 
@@ -797,7 +785,7 @@ CommonMethods.showDialog(spotsDialog);
 
 ///
 //pdateBusinessDetails?type=businessdetails&contact=string&businessname=string&occupationspecialization=string&businessaddress=string&businesslogo=string&occupationarea=string&workroletitle=string&workmob1=string&workmob2=string&worklandline1=string&worklandline2=string&businesswebsite=string&businesscategory=string&date=string
-        BUSINESS_LOGO_URL = BUSINESS_LOGO_URL.replace("http://blacksmith.studyfield.com/","");
+        BUSINESS_LOGO_URL = BUSINESS_LOGO_URL.replace("http://blacksmith.studyfield.com/", "");
 
         apiClient.updateBusinessDetails("businessdetails", userDetails.get(SessionManager.KEY_USER_MOBILE), edtBusinessCategory.getText().toString(), edtOccupationSpecialization.getText().toString(), edtBusinessAddress.getText().toString(), BUSINESS_LOGO_URL, edtOccupationArea.getText().toString(), edtWorkRoleTitle.getText().toString(), edtOfficeno1.getText().toString(), edtOfficeno2.getText().toString(), edtWorkLandline1.getText().toString(), edtWorkLandline2.getText().toString(), edtBusinessWebsite.getText().toString(), subcategoryStringItems, CommonMethods.convertToJsonDateFormat(CommonMethods.getDateCurrentDate())).enqueue(new Callback<UserDataResponse>() {
             @Override
@@ -809,12 +797,18 @@ CommonMethods.showDialog(spotsDialog);
                 if (response.code() == 200) {
 
 
+
+
                     String str_error = response.body().getMESSAGE();
                     String str_error_original = response.body().getORIGINALMESSAGE();
                     boolean error_status = response.body().getERRORSTATUS();
                     boolean record_status = response.body().getRECORDS();
 
                     if (error_status == false) {
+
+                        //If details has been updated successfully then option menu title has been changed
+                        profile_edit.setVisible(true);
+                        profile_update.setVisible(false);
 
                         List<UserDataResponse.DATum> arr = response.body().getDATA();
 
@@ -826,7 +820,7 @@ CommonMethods.showDialog(spotsDialog);
 
 
                             // setUserDetails(String str_userid, String str_username, String str_email, String str_mobile, String str_avatar) {
-                          //  sessionManager.setUserDetails(String.valueOf(userId), userMobile, arr.get(i).getAppovalStatus());
+                            //  sessionManager.setUserDetails(String.valueOf(userId), userMobile, arr.get(i).getAppovalStatus());
 
 
                             try {
@@ -899,7 +893,7 @@ CommonMethods.showDialog(spotsDialog);
                                 userMaster.setBusinessAddress(arr.get(i).getBusinessAddress());
                                 userMaster.setBusinessLogo(arr.get(i).getBusinessLogo());
                                 userMaster.setHeightName(arr.get(i).getHeightName());
-                                userMaster.setSurname(arr.get(i).getSurnameName());
+                                userMaster.setSurnameName(arr.get(i).getSurnameName());
                                 userMaster.setMob1(arr.get(i).getMob1());
                                 userMaster.setMob2(arr.get(i).getMob2());
                                 userMaster.setLandLine1(arr.get(i).getLandLine1());
@@ -975,11 +969,10 @@ CommonMethods.showDialog(spotsDialog);
         }
     }
 
-    public class StudentData
-    {
+    public class StudentData {
 
         int id;
-        String  subcategoryname;
+        String subcategoryname;
         boolean selectedStatus;
 
 
@@ -1358,7 +1351,6 @@ CommonMethods.showDialog(spotsDialog);
                                         userMaster = userData;
 
 
-
                                         //userMaster.setUserid(arr.get(i).getId());
                                         userMaster.setBusinessLogo(BUSINESS_LOGO_URL);
 
@@ -1367,19 +1359,16 @@ CommonMethods.showDialog(spotsDialog);
                                         //realm.insertOrUpdate(userMaster);
                                         realm.commitTransaction();
                                         Log.d(TAG, "Userdata has been added in database");
-                                       // FillDataOnControls();
+                                        // FillDataOnControls();
 
                                         //HideControls();
 
-                                       // CommonMethods.showAlertDialog(getActivity(),"Contact Details Update Info","Your contact details has been successfully updated.");
-
+                                        // CommonMethods.showAlertDialog(getActivity(),"Contact Details Update Info","Your contact details has been successfully updated.");
 
 
                                     } catch (NumberFormatException e) {
                                         e.printStackTrace();
                                     }
-
-
 
 
                                     imgBusinessLogo.setImageBitmap(bitmap);
@@ -1427,7 +1416,6 @@ CommonMethods.showDialog(spotsDialog);
             }
         });
     }
-
 
 
     //Adapter for display business details

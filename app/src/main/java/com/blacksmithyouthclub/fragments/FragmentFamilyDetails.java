@@ -116,8 +116,6 @@ public class FragmentFamilyDetails extends Fragment {
     TextInputLayout edtWifesFatherSurnameWrapper;
 
 
-
-
     @BindView(R.id.edtWifesName)
     EditText edtWifesName;
 
@@ -249,36 +247,35 @@ public class FragmentFamilyDetails extends Fragment {
         userData = u.getUserData(realm, Long.parseLong(userDetails.get(SessionManager.KEY_USER_ID)));
 
         try {
-            MaritalStatusId =userData.getMaritalStatusId().toString();
+            MaritalStatusId = userData.getMaritalStatusId().toString();
             gender = userData.getGender().toString();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-        edtWifesFatherSurname.setVisibility(View.GONE);
+        edtWifesFatherSurnameWrapper.setVisibility(View.VISIBLE);
         spnWifesFatherSurname.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
 
                 //Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
-                Log.d(TAG , "Selected Surname :"+item);
+                Log.d(TAG, "Selected Surname :" + item);
 
 
-                if(!item.toLowerCase().equals("other") && !item.toLowerCase().equals("select surname"))
-                {
+                if (!item.toLowerCase().equals("other") && !item.toLowerCase().equals("select wifes father surname")) {
 
-                    edtWifesFatherSurname.setVisibility(View.GONE);
+                    edtWifesFatherSurnameWrapper.setVisibility(View.GONE);
                     edtWifesFatherSurname.setText(item);
 
-                }
-                else if(item.toLowerCase().equals("other"))
-                {
+
+                } else if (item.toLowerCase().equals("other")) {
 
                     edtWifesFatherSurname.setText("");
-                    edtWifesFatherSurname.setVisibility(View.VISIBLE);
+                    edtWifesFatherSurnameWrapper.setVisibility(View.VISIBLE);
                 }
+
             }
         });
         spnWifesFatherSurname.setOnNothingSelectedListener(new MaterialSpinner.OnNothingSelectedListener() {
@@ -290,7 +287,7 @@ public class FragmentFamilyDetails extends Fragment {
         });
 
 
-        edtMothersFatherSurname.setVisibility(View.GONE);
+        edtMothersFatherSurnameWrapper.setVisibility(View.VISIBLE);
 
         spnMothersFatherSurname.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
@@ -298,25 +295,24 @@ public class FragmentFamilyDetails extends Fragment {
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
 
                 //Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
-                Log.d(TAG , "Selected Surname :"+item);
+                Log.d(TAG, "Selected Surname :" + item);
 
 
-                if(!item.toLowerCase().equals("other") && !item.toLowerCase().equals("select surname"))
-                {
+                if (!item.toLowerCase().equals("other") && !item.toLowerCase().equals("select mother father surname")) {
 
-                    edtMothersFatherSurname.setVisibility(View.GONE);
+                    edtMothersFatherSurnameWrapper.setVisibility(View.GONE);
+
                     edtMothersFatherSurname.setText(item);
 
-                }
-                else if(item.toLowerCase().equals("other"))
-                {
+                } else if (item.toLowerCase().equals("other")) {
 
                     edtMothersFatherSurname.setText("");
-                    edtMothersFatherSurname.setVisibility(View.VISIBLE);
+                    edtMothersFatherSurnameWrapper.setVisibility(View.VISIBLE);
                 }
+
             }
         });
-        spnWifesFatherSurname.setOnNothingSelectedListener(new MaterialSpinner.OnNothingSelectedListener() {
+        spnMothersFatherSurname.setOnNothingSelectedListener(new MaterialSpinner.OnNothingSelectedListener() {
 
             @Override
             public void onNothingSelected(MaterialSpinner spinner) {
@@ -326,10 +322,8 @@ public class FragmentFamilyDetails extends Fragment {
 
 
 
-
-
-        HideControls();
-        if (MaritalStatusId.toString().equals("3") || MaritalStatusId.toString().equals("4")) {
+      /*  if (userData.getMaritalStatusId() == 3 || userData.getMaritalStatusId() == 4)
+        {
             if (gender.toString().toLowerCase().equals("male")) {
 
                 edtWifesNameWrapper.setVisibility(View.VISIBLE);
@@ -337,11 +331,12 @@ public class FragmentFamilyDetails extends Fragment {
                 edtWifesMotherNameWrapper.setVisibility(View.VISIBLE);
                 spnWifesFatherSurname.setVisibility(View.VISIBLE);
                 edtWifesFatherVllageWrapper.setVisibility(View.VISIBLE);
+
             } else if (gender.toString().toLowerCase().equals("female")) {
 
-                /*edthusbandname_wrapper.setVisibility(View.VISIBLE);
+                *//*edthusbandname_wrapper.setVisibility(View.VISIBLE);
                 edthusbandsfathername_wrapper.setVisibility(View.VISIBLE);
-                edthusbandsmothername_wrapper.setVisibility(View.VISIBLE);*/
+                edthusbandsmothername_wrapper.setVisibility(View.VISIBLE);*//*
 
                 edtHusbandNameWrapper.setVisibility(View.VISIBLE);
                 edtHusbandsFatherNameWrapper.setVisibility(View.VISIBLE);
@@ -354,9 +349,9 @@ public class FragmentFamilyDetails extends Fragment {
                 //edtHus.setVisibility(View.VISIBLE);
 
 
-
             }
-        }
+        }*/
+        HideControls();
         FillDataOnControls();
         getAllComboDetailFromServer();
         // Inflate the layout for this fragment
@@ -367,34 +362,40 @@ public class FragmentFamilyDetails extends Fragment {
     private void FillDataOnControls() {
 
 
+        try {
+            edtFathersName.setText(userData.getFathersName().toString());
+            edtMotherName.setText(userData.getMothersName().toString());
 
-        edtFathersName.setText(userData.getFathersName().toString());
-        edtMotherName.setText(userData.getMothersName().toString());
+            edtFathersFathername.setText(userData.getFathersFathersName().toString());
+            edtFathersMothername.setText(userData.getFathersMothersName().toString());
 
-        edtFathersFathername.setText(userData.getFathersFathersName().toString());
-        edtFathersMothername.setText(userData.getFathersMothersName().toString());
+            edtMothersFathername.setText(userData.getMothersFathersName().toString());
 
-        edtMothersFathername.setText(userData.getMothersFathersName().toString());
+            edtMothersMotherName.setText(userData.getMothersMothersName().toString());
+            edtMothersFatherVillage.setText(userData.getMothersFathersVillage().toString());
 
-        edtMothersMotherName.setText(userData.getMothersMothersName().toString());
-        edtMothersFatherVillage.setText(userData.getMothersFathersVillage().toString());
+            edtHusbandName.setText(userData.getHusbandsName().toString());
 
-        edtHusbandName.setText(userData.getHusbandsName().toString());
+            edtWifesName.setText(userData.getWifesName().toString());
+            edtWifesFatherName.setText(userData.getWifesFathersName().toString());
+            edtWifesMotherName.setText(userData.getWifesMothersName().toString());
+            edtWifesFatherVllage.setText(userData.getWifesFathersVillage().toString());
 
-        edtWifesName.setText(userData.getWifesName().toString());
-        edtWifesFatherName.setText(userData.getWifesFathersName().toString());
-        edtWifesMotherName.setText(userData.getWifesMothersName().toString());
-        edtWifesFatherVllage.setText(userData.getWifesFathersVillage().toString());
+            edtFathersFathername.setText(userData.getFathersFathersName().toString());
+            edtFathersMothername.setText(userData.getFathersMothersName().toString());
+            edtMothersFathername.setText(userData.getMothersFathersName().toString());
+            //edtMothersMotherName.setText(userData.getMothersMothersName().toString());
 
-        edtFathersFathername.setText(userData.getFathersFathersName().toString());
-        edtFathersMothername.setText(userData.getFathersMothersName().toString());
-        edtMothersFathername.setText(userData.getMothersFathersName().toString());
-        edtMothersMotherName.setText(userData.getMothersMothersName().toString());
-
-        edtMothersFatherVillage.setText(userData.getMothersFathersVillage().toString());
-        edtHusbandName.setText(userData.getHusbandsName().toString());
-        edtHusbandsFatherName.setText(userData.getHusbandsFathersName().toString());
-        edtHusbandsMothername.setText(userData.getHusbandsMothersName().toString());
+            edtMothersFatherVillage.setText(userData.getMothersFathersVillage().toString());
+            edtHusbandName.setText(userData.getHusbandsName().toString());
+            edtHusbandsFatherName.setText(userData.getHusbandsFathersName().toString());
+            edtHusbandsMothername.setText(userData.getHusbandsMothersName().toString());
+            edtMothersFatherSurname.setText(userData.getMothersFathersSurname().toString());
+            edtWifesFatherSurname.setText(userData.getWifesFathersSurname().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        Toast.makeText(context, "Error in FillData", Toast.LENGTH_SHORT).show();
+        }
 
 
 
@@ -407,11 +408,7 @@ public class FragmentFamilyDetails extends Fragment {
         edtWifesFatherVllage.setEnabled(false);*/
 
 
-
-
     }
-
-
 
 
     private void HideControls() {
@@ -423,7 +420,7 @@ public class FragmentFamilyDetails extends Fragment {
 
         edtMothersFathername.setEnabled(false);
 
-        edtMothersMotherName.setEnabled(true);
+        edtMothersMotherName.setEnabled(false);
         edtMothersFatherVillage.setEnabled(true);
 
         edtMothersFatherVillage.setEnabled(false);
@@ -436,9 +433,94 @@ public class FragmentFamilyDetails extends Fragment {
         edtWifesFatherName.setEnabled(false);
         edtWifesMotherName.setEnabled(false);
         edtWifesFatherVllage.setEnabled(false);
+        spnMothersFatherSurname.setEnabled(false);
+        spnWifesFatherSurname.setEnabled(false);
+
+        edtMothersFatherSurname.setEnabled(false);
+        edtMothersFatherSurnameWrapper.setVisibility(View.VISIBLE);
+        spnMothersFatherSurname.setVisibility(View.GONE);
+
+
+
+
+        try {
+            if(userData.getGender().toString().toLowerCase().equals("male"))
+            {
+
+
+
+                if (userData.getMaritalStatusId() == 3 || userData.getMaritalStatusId() == 4)
+                {
+                    if (gender.toString().toLowerCase().equals("male")) {
+
+                        edtWifesNameWrapper.setVisibility(View.VISIBLE);
+                        edtWifesFatherNameWrapper.setVisibility(View.VISIBLE);
+                        edtWifesMotherNameWrapper.setVisibility(View.VISIBLE);
+                        spnWifesFatherSurname.setVisibility(View.VISIBLE);
+                        edtWifesFatherVllageWrapper.setVisibility(View.VISIBLE);
+                        edtWifesFatherSurnameWrapper.setEnabled(false);
+                        edtWifesFatherSurnameWrapper.setVisibility(View.VISIBLE);
+                        spnWifesFatherSurname.setVisibility(View.GONE);
+
+
+                        edtHusbandNameWrapper.setVisibility(View.GONE);
+                        edtHusbandsFatherNameWrapper.setVisibility(View.GONE);
+                        edtHusbandsFatherNameWrapper.setVisibility(View.GONE);
+
+                        edtHusbandNameWrapper.setVisibility(View.GONE);
+                        edtHusbandsFatherNameWrapper.setVisibility(View.GONE);
+                        edtHusbandsMothernameWrapper.setVisibility(View.GONE);
+
+
+
+
+                    }
+                }
+
+
+
+            }
+            else if(userData.getGender().toString().toLowerCase().equals("female"))
+            {
+
+
+                if (userData.getMaritalStatusId() == 3 || userData.getMaritalStatusId() == 4)
+                {
+                  if (gender.toString().toLowerCase().equals("female")) {
+
+                /*edthusbandname_wrapper.setVisibility(View.VISIBLE);
+                edthusbandsfathername_wrapper.setVisibility(View.VISIBLE);
+                edthusbandsmothername_wrapper.setVisibility(View.VISIBLE);*/
+
+                        edtWifesNameWrapper.setVisibility(View.GONE);
+                        edtWifesFatherNameWrapper.setVisibility(View.GONE);
+                        edtWifesMotherNameWrapper.setVisibility(View.GONE);
+                        spnWifesFatherSurname.setVisibility(View.GONE);
+                        edtWifesFatherVllageWrapper.setVisibility(View.GONE);
+                      edtWifesFatherSurnameWrapper.setEnabled(false);
+                      edtWifesFatherSurnameWrapper.setVisibility(View.GONE);
+                      spnWifesFatherSurname.setVisibility(View.GONE);
+
+
+
+
+                        edtHusbandNameWrapper.setVisibility(View.VISIBLE);
+                        edtHusbandsFatherNameWrapper.setVisibility(View.VISIBLE);
+                        edtHusbandsMothernameWrapper.setVisibility(View.VISIBLE);
+                        //spn.setVisibility(View.VISIBLE);
+                        //edtHus.setVisibility(View.VISIBLE);
+
+
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private void ShowAllControlsEditableAndVisible() {
+    private void ShowControls() {
         edtFathersName.setEnabled(true);
         edtMotherName.setEnabled(true);
 
@@ -452,6 +534,7 @@ public class FragmentFamilyDetails extends Fragment {
         edtMothersFatherVillage.setEnabled(true);
 
         edtMothersFatherVillage.setEnabled(true);
+        edtMothersFatherSurname.setEnabled(true);
 
         edtHusbandName.setEnabled(true);
         edtHusbandsFatherName.setEnabled(true);
@@ -474,7 +557,7 @@ public class FragmentFamilyDetails extends Fragment {
         edtMothersMotherName.setFocusableInTouchMode(true);
         edtMothersFatherVillage.setFocusableInTouchMode(true);
 
-        edtMothersFatherVillage.setFocusableInTouchMode(true);
+        edtMothersFatherSurname.setFocusableInTouchMode(true);
 
         edtHusbandName.setFocusableInTouchMode(true);
         edtHusbandsFatherName.setFocusableInTouchMode(true);
@@ -485,6 +568,92 @@ public class FragmentFamilyDetails extends Fragment {
         edtWifesMotherName.setFocusableInTouchMode(true);
         edtWifesFatherVllage.setFocusableInTouchMode(true);
 
+
+        edtMothersFatherSurnameWrapper.setVisibility(View.GONE);
+        spnMothersFatherSurname.setEnabled(true);
+        spnMothersFatherSurname.setVisibility(View.VISIBLE);
+
+        edtWifesFatherSurnameWrapper.setVisibility(View.GONE);
+        spnWifesFatherSurname.setEnabled(true);
+        spnWifesFatherSurname.setVisibility(View.VISIBLE);
+
+
+
+        try {
+            if(userData.getGender().toString().toLowerCase().equals("male"))
+            {
+
+
+
+                if (userData.getMaritalStatusId() == 3 || userData.getMaritalStatusId() == 4)
+                {
+
+
+                        edtWifesNameWrapper.setVisibility(View.VISIBLE);
+                        edtWifesFatherNameWrapper.setVisibility(View.VISIBLE);
+                        edtWifesMotherNameWrapper.setVisibility(View.VISIBLE);
+                        spnWifesFatherSurname.setVisibility(View.VISIBLE);
+                        edtWifesFatherVllageWrapper.setVisibility(View.VISIBLE);
+                        edtWifesFatherSurnameWrapper.setEnabled(false);
+                        edtWifesFatherSurnameWrapper.setVisibility(View.GONE);
+
+
+
+                        edtHusbandNameWrapper.setVisibility(View.GONE);
+                        edtHusbandsFatherNameWrapper.setVisibility(View.GONE);
+                        edtHusbandsFatherNameWrapper.setVisibility(View.GONE);
+
+                        edtHusbandNameWrapper.setVisibility(View.GONE);
+                        edtHusbandsFatherNameWrapper.setVisibility(View.GONE);
+                        edtHusbandsMothernameWrapper.setVisibility(View.GONE);
+
+
+
+
+
+                }
+
+
+
+            }
+            else if(userData.getGender().toString().toLowerCase().equals("female"))
+            {
+
+
+                if (userData.getMaritalStatusId() == 3 || userData.getMaritalStatusId() == 4)
+                {
+
+
+                /*edthusbandname_wrapper.setVisibility(View.VISIBLE);
+                edthusbandsfathername_wrapper.setVisibility(View.VISIBLE);
+                edthusbandsmothername_wrapper.setVisibility(View.VISIBLE);*/
+
+                        edtWifesNameWrapper.setVisibility(View.GONE);
+                        edtWifesFatherNameWrapper.setVisibility(View.GONE);
+                        edtWifesMotherNameWrapper.setVisibility(View.GONE);
+                        spnWifesFatherSurname.setVisibility(View.GONE);
+                        edtWifesFatherVllageWrapper.setVisibility(View.GONE);
+                        edtWifesFatherSurnameWrapper.setEnabled(false);
+                        edtWifesFatherSurnameWrapper.setVisibility(View.GONE);
+                        spnWifesFatherSurname.setVisibility(View.GONE);
+
+
+
+
+                        edtHusbandNameWrapper.setVisibility(View.VISIBLE);
+                        edtHusbandsFatherNameWrapper.setVisibility(View.VISIBLE);
+                        edtHusbandsMothernameWrapper.setVisibility(View.VISIBLE);
+                        //spn.setVisibility(View.VISIBLE);
+                        //edtHus.setVisibility(View.VISIBLE);
+
+
+
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
 
@@ -508,13 +677,103 @@ public class FragmentFamilyDetails extends Fragment {
             profile_update.setVisible(true);
             profile_edit.setVisible(false);
 
-            ShowAllControlsEditableAndVisible();
+            ShowControls();
         } else if (item.getItemId() == R.id.action_update) {
-            profile_edit.setVisible(true);
-            profile_update.setVisible(false);
+            //  profile_edit.setVisible(true);
+            // profile_update.setVisible(false);
             //HideControls();
 
-            updateDetailsSendToServer();
+
+            try {
+                if (userData.getGender().toLowerCase().equals("male"))
+                {
+
+
+                    if (spnMothersFatherSurname.getSelectedIndex() == 0) {
+
+                        CommonMethods.showAlertDialog(getActivity(), "Family Details update info", "Please select Mother's father Surname");
+
+                    } else if (edtMothersFatherSurname.getText().toString().equals("")) {
+                        edtMothersFatherSurnameWrapper.setErrorEnabled(true);
+                        edtMothersFatherSurnameWrapper.setError("Please enter mother's father surname");
+                        CommonMethods.showAlertDialog(getActivity(), "Family Details update info", "Please select Mother's father Surname");
+
+
+                        edtMothersFatherSurname.requestFocus();
+
+                    } else {
+
+                        if (userData.getMaritalStatusId() == 3 || userData.getMaritalStatusId() == 4)
+                        {
+
+                            if (spnWifesFatherSurname.getSelectedIndex() == 0) {
+
+                                CommonMethods.showAlertDialog(getActivity(), "Family Details update info", "Please select Wife's father surname");
+
+                            } else if (edtWifesFatherSurname.getText().toString().equals("")) {
+                                edtWifesFatherSurnameWrapper.setErrorEnabled(true);
+                                edtWifesFatherSurnameWrapper.setError("Please enter mother's father surname");
+                                CommonMethods.showAlertDialog(getActivity(), "Family Details update info", "Please select Wife's father Surname");
+
+
+                                edtWifesFatherSurname.requestFocus();
+
+                            } else {
+                                updateDetailsSendToServer();
+                            }
+
+
+                        }
+                        else
+                        {
+
+                        updateDetailsSendToServer();
+                        }
+
+
+                    }
+
+
+
+
+
+                } else if (userData.getGender().toLowerCase().equals("female"))
+                {
+
+                    if (userData.getMaritalStatusId() == 3 || userData.getMaritalStatusId() == 4)
+                    {
+
+                        if (spnMothersFatherSurname.getSelectedIndex() == 0) {
+
+                            CommonMethods.showAlertDialog(getActivity(), "Family Details update info", "Please select Mother's father Surname");
+
+                        } else if (edtMothersFatherSurname.getText().toString().equals("")) {
+                            edtMothersFatherSurnameWrapper.setErrorEnabled(true);
+                            edtMothersFatherSurnameWrapper.setError("Please enter mother's father surname");
+                            CommonMethods.showAlertDialog(getActivity(), "Family Details update info", "Please select Mother's father Surname");
+
+
+                            edtMothersFatherSurname.requestFocus();
+
+                        } else {
+                            updateDetailsSendToServer();
+
+                        }
+
+
+                    } else {
+
+                        updateDetailsSendToServer();
+
+                    }
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(context, "Try again...", Toast.LENGTH_SHORT).show();
+            }
+
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -528,7 +787,7 @@ public class FragmentFamilyDetails extends Fragment {
 
         ApiInterface apiClient = ApiClient.getClient().create(ApiInterface.class);
         Log.d(TAG, "URL getserviceForSpinnersData : " + CommonMethods.WEBSITE + "getserviceForSpinnersData?type=spinner&countryid=1");
-        apiClient.getserviceForSpinnersData("spinner", "1",userDetails.get(SessionManager.KEY_SELECTED_CASTE)).enqueue(new Callback<SpinnersData>() {
+        apiClient.getserviceForSpinnersData("spinner", "1", userDetails.get(SessionManager.KEY_SELECTED_CASTE)).enqueue(new Callback<SpinnersData>() {
             @Override
             public void onResponse(Call<SpinnersData> call, Response<SpinnersData> response) {
 
@@ -598,23 +857,23 @@ public class FragmentFamilyDetails extends Fragment {
                             spnWifesFatherSurname.setItems(list_Surname);
 
 
-
-
                             try {
                                 //String sur = userData.getMothersFathersSurname().toString();
-                                if(userData.getMothersFathersSurname()!= null)
-                                {
-                                    int pos = list_MothersFatherSurnameId.indexOf(userData.getMothersFathersSurname().toString());
+                                if (userData.getMothersFathersSurname() != null) {
+                                    int pos = list_MothersFatherSurname.indexOf(userData.getMothersFathersSurname().toString());
 
                                     if (pos > 0) {
 
                                         spnMothersFatherSurname.setSelectedIndex(pos);
+                                        if(pos!=0)
+                                        {
+
                                         edtMothersFatherSurname.setText(list_MothersFatherSurname.get(pos));
+                                        }
                                     }
 
 
                                 }
-
 
 
                             } catch (NumberFormatException e) {
@@ -623,26 +882,26 @@ public class FragmentFamilyDetails extends Fragment {
 
                             try {
                                 //String sur = userData.getMothersFathersSurname().toString();
-                                if( userData.getWifesFathersSurname()!= null)
-                                {
-                                    int pos = list_SurnameId.indexOf(userData.getWifesFathersSurname().toString());
+                                if (userData.getWifesFathersSurname() != null) {
+                                    int pos = list_Surname.indexOf(userData.getWifesFathersSurname().toString());
 
                                     if (pos > 0) {
 
                                         spnWifesFatherSurname.setSelectedIndex(pos);
-                                        edtWifesFatherSurname.setText(list_Surname.get(pos));
+                                        if(pos != 0)
+                                        {
+                                            edtWifesFatherSurname.setText(list_Surname.get(pos));
+                                        }
+
                                     }
 
 
                                 }
 
 
-
                             } catch (NumberFormatException e) {
                                 e.printStackTrace();
                             }
-
-
 
 
                             //Set MArital Status SPinner Data
@@ -708,27 +967,24 @@ public class FragmentFamilyDetails extends Fragment {
 
     }
 
-    private void updateDetailsSendToServer()
-    {
+    private void updateDetailsSendToServer() {
 
         CommonMethods.showDialog(spotsDialog);
+
         ApiInterface apiClient = ApiClient.getClient().create(ApiInterface.class);
 
 
         //getString  Business subcategory ids
 
 
-        Log.d(TAG, "URL updateFamilyDetails : " + CommonMethods.WEBSITE + "updateFamilyDetails?type=familydetails&fathersname="+ edtFathersName.getText().toString() +"&mothersname="+ edtMotherName.getText().toString()+"&fathersfathername="+ edtFathersFathername.getText().toString() +"&fathersmothername="+ edtFathersMothername.getText().toString() +"&mothersfathername="+  edtMothersFathername.getText().toString()+"&mothersmothername="+ edtMothersMotherName.getText().toString() +"&casteid="+ userDetails.get(SessionManager.KEY_SELECTED_CASTE) +"&mothersfathersurname="+ list_Surname.get(spnMothersFatherSurname.getSelectedIndex()) +"&mothersfathervillage="+ edtMothersFatherVillage.getText().toString() +"&husbandname="+ edtHusbandName.getText().toString() +"&husbandsfathername="+ edtHusbandsFatherName.getText().toString() +"&husbandsmothername="+ edtHusbandsMothername.getText().toString()  +"&wifesname="+ edtWifesName.getText().toString() +"&wifesfathername="+ edtWifesFatherName.getText().toString() +"&wifesmothername="+ edtWifesMotherName.getText().toString() +"&wifesfathersurname="+ list_Surname.get(spnWifesFatherSurname.getSelectedIndex()) +"&wifesfathervllage="+ edtWifesFatherVllage.getText().toString() +"&updateddate="+ CommonMethods.convertToJsonDateFormat(CommonMethods.getDateCurrentDate()) +"&contact="+ userDetails.get(SessionManager.KEY_USER_MOBILE) +"");
-
-
-
+        Log.d(TAG, "URL updateFamilyDetails : " + CommonMethods.WEBSITE + "updateFamilyDetails?type=familydetails&fathersname=" + edtFathersName.getText().toString() + "&mothersname=" + edtMotherName.getText().toString() + "&fathersfathername=" + edtFathersFathername.getText().toString() + "&fathersmothername=" + edtFathersMothername.getText().toString() + "&mothersfathername=" + edtMothersFathername.getText().toString() + "&mothersmothername=" + edtMothersMotherName.getText().toString() + "&casteid=" + userDetails.get(SessionManager.KEY_SELECTED_CASTE) + "&mothersfathersurname=" + list_Surname.get(spnMothersFatherSurname.getSelectedIndex()) + "&mothersfathervillage=" + edtMothersFatherVillage.getText().toString() + "&husbandname=" + edtHusbandName.getText().toString() + "&husbandsfathername=" + edtHusbandsFatherName.getText().toString() + "&husbandsmothername=" + edtHusbandsMothername.getText().toString() + "&wifesname=" + edtWifesName.getText().toString() + "&wifesfathername=" + edtWifesFatherName.getText().toString() + "&wifesmothername=" + edtWifesMotherName.getText().toString() + "&wifesfathersurname=" + list_Surname.get(spnWifesFatherSurname.getSelectedIndex()) + "&wifesfathervllage=" + edtWifesFatherVllage.getText().toString() + "&updateddate=" + CommonMethods.convertToJsonDateFormat(CommonMethods.getDateCurrentDate()) + "&contact=" + userDetails.get(SessionManager.KEY_USER_MOBILE) + "");
 
 
 ///
 //updateFamilyDetails?type=string&fathersname=string&mothersname=string&fathersfathername=string&fathersmothername=string&mothersfathername=string&mothersmothername=string&mothersfathersurname=string&mothersfathervillage=string&husbandname=string&husbandsfathername=string&husbandsmothername=string&wifesname=string&wifesfathername=string&wifesmothername=string&wifesfathersurname=string&wifesfathervllage=string&updateddate=string&contact=string
-       // BUSINESS_LOGO_URL = BUSINESS_LOGO_URL.replace("http://blacksmith.studyfield.com/","");
+        // BUSINESS_LOGO_URL = BUSINESS_LOGO_URL.replace("http://blacksmith.studyfield.com/","");
 
-        apiClient.updateFamilyDetails("familydetails", edtFathersName.getText().toString() , edtMotherName.getText().toString(),edtFathersFathername.getText().toString() ,edtFathersMothername.getText().toString() ,  edtMothersFathername.getText().toString(), edtMothersMotherName.getText().toString() ,userDetails.get(SessionManager.KEY_SELECTED_CASTE),edtMothersFatherSurname.getText().toString() ,edtMothersFatherVillage.getText().toString() , edtHusbandName.getText().toString() , edtHusbandsFatherName.getText().toString(),edtHusbandsMothername.getText().toString()  , edtWifesName.getText().toString() ,edtWifesFatherName.getText().toString() , edtWifesMotherName.getText().toString() , edtWifesFatherSurname.getText().toString() ,edtWifesFatherVllage.getText().toString(), CommonMethods.convertToJsonDateFormat(CommonMethods.getDateCurrentDate()) , userDetails.get(SessionManager.KEY_USER_MOBILE)).enqueue(new Callback<UserDataResponse>() {
+        apiClient.updateFamilyDetails("familydetails", edtFathersName.getText().toString(), edtMotherName.getText().toString(), edtFathersFathername.getText().toString(), edtFathersMothername.getText().toString(), edtMothersFathername.getText().toString(), edtMothersMotherName.getText().toString(), userDetails.get(SessionManager.KEY_SELECTED_CASTE), edtMothersFatherSurname.getText().toString(), edtMothersFatherVillage.getText().toString(), edtHusbandName.getText().toString(), edtHusbandsFatherName.getText().toString(), edtHusbandsMothername.getText().toString(), edtWifesName.getText().toString(), edtWifesFatherName.getText().toString(), edtWifesMotherName.getText().toString(), edtWifesFatherSurname.getText().toString(), edtWifesFatherVllage.getText().toString(), CommonMethods.convertToJsonDateFormat(CommonMethods.getDateCurrentDate()), userDetails.get(SessionManager.KEY_USER_MOBILE)).enqueue(new Callback<UserDataResponse>() {
             @Override
             public void onResponse(Call<UserDataResponse> call, Response<UserDataResponse> response) {
 
@@ -744,6 +1000,10 @@ public class FragmentFamilyDetails extends Fragment {
                     boolean record_status = response.body().getRECORDS();
 
                     if (error_status == false) {
+
+                        //If details has been updated successfully then option menu title has been changed
+                        profile_edit.setVisible(true);
+                        profile_update.setVisible(false);
 
                         List<UserDataResponse.DATum> arr = response.body().getDATA();
 
@@ -828,7 +1088,7 @@ public class FragmentFamilyDetails extends Fragment {
                                 userMaster.setBusinessAddress(arr.get(i).getBusinessAddress());
                                 userMaster.setBusinessLogo(arr.get(i).getBusinessLogo());
                                 userMaster.setHeightName(arr.get(i).getHeightName());
-                                userMaster.setSurname(arr.get(i).getSurnameName());
+                                userMaster.setSurnameName(arr.get(i).getSurnameName());
                                 userMaster.setMob1(arr.get(i).getMob1());
                                 userMaster.setMob2(arr.get(i).getMob2());
                                 userMaster.setLandLine1(arr.get(i).getLandLine1());
@@ -886,4 +1146,4 @@ public class FragmentFamilyDetails extends Fragment {
         });
     }
 
-  }
+}

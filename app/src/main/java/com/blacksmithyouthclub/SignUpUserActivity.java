@@ -276,15 +276,16 @@ public class SignUpUserActivity extends AppCompatActivity {
                 if(!item.toLowerCase().equals("other") && !item.toLowerCase().equals("select surname"))
                 {
 
-                    edtSurname.setVisibility(View.GONE);
+                    edtSurnameWrapper.setVisibility(View.GONE);
                     edtSurname.setText(item);
 
                 }
                 else if(item.toLowerCase().equals("other"))
                 {
+                    edtSurnameWrapper.setVisibility(View.VISIBLE);
 
                     edtSurname.setText("");
-                    edtSurname.setVisibility(View.VISIBLE);
+                    //edtSurname.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -419,6 +420,18 @@ public class SignUpUserActivity extends AppCompatActivity {
                 if (spnSurname.getSelectedIndex() == 0) {
 
                     error = error + "\nSelect Surname,";
+                }
+                else
+                {
+                    if(edtSurname.getText().toString().equals(""))
+                    {
+                        edtSurnameWrapper.setErrorEnabled(true);
+                        edtSurnameWrapper.setError("Please enter surname");
+                        error = error + "\nEnter Surname,";
+
+                        edtSurname.requestFocus();
+
+                    }
                 }
 
 
@@ -651,7 +664,7 @@ public class SignUpUserActivity extends AppCompatActivity {
                                     userMaster.setBusinessAddress(arr.get(i).getBusinessAddress());
                                     userMaster.setBusinessLogo(arr.get(i).getBusinessLogo());
                                     userMaster.setHeightName(arr.get(i).getHeightName());
-                                    userMaster.setSurname(arr.get(i).getSurnameName());
+                                    userMaster.setSurnameName(arr.get(i).getSurnameName());
                                     userMaster.setMob1(arr.get(i).getMob1());
                                     userMaster.setMob2(arr.get(i).getMob2());
                                     userMaster.setLandLine1(arr.get(i).getLandLine1());

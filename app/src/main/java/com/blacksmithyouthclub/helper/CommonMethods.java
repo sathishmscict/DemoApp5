@@ -40,7 +40,7 @@ import dmax.dialog.SpotsDialog;
 
 public class CommonMethods {
 
-    public static final String WEBSITE="http://blacksmith.studyfield.com/service.asmx/";
+    public static final String WEBSITE="http://blacksmith.studyfield.com/ServiceV2.asmx/";
 
 
 

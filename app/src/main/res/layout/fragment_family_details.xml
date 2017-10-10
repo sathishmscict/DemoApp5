@@ -174,7 +174,8 @@
 
                 <com.blacksmithyouthclub.material_spinner.MaterialSpinner
                     android:id="@+id/spnMothersFatherSurname"
-
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -189,7 +190,7 @@
                     android:id="@+id/edtMothersFatherSurnameWrapper"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:gravity="center|left">
@@ -199,14 +200,15 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center|top|left"
-                        android:hint="@string/wifesfathervllage"
-                        android:inputType="textMultiLine"
-                        android:maxLines="5"
 
                         android:focusableInTouchMode="false"
-                        android:textColor="@color/black"
-                        android:singleLine="false" />
+                        android:gravity="center|top|left"
+                        android:hint="@string/mothersfathersurname"
+
+
+                        android:inputType="textMultiLine"
+                        android:singleLine="true"
+                        android:textColor="@color/black" />
                 </android.support.design.widget.TextInputLayout>
 
 
@@ -393,7 +395,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawSelectorOnTop="true"
-
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
                     app:ms_background_color="#FAFAFA"
                     app:ms_dropdown_height="wrap_content"
                     app:ms_dropdown_max_height="500dp"
@@ -403,7 +406,7 @@
                     android:id="@+id/edtWifesFatherSurnameWrapper"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:gravity="center|left">
@@ -414,7 +417,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center|top|left"
-                        android:hint="@string/wifesfathervllage"
+                        android:hint="@string/wifesfathersurname"
                         android:inputType="text|textCapSentences"
                         android:maxLines="5"
 

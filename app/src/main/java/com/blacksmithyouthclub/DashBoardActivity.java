@@ -371,7 +371,7 @@ public class DashBoardActivity extends AppCompatActivity
         } else {
 
             try {
-                tvUserName.setText(userData.getFirstName()+" "+userData.getSurname());
+                tvUserName.setText(userData.getFirstName()+" "+userData.getSurnameName());
                 tvEmail.setText(userData.getEmail());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -547,7 +547,7 @@ public class DashBoardActivity extends AppCompatActivity
                                 // setUserDetails(String str_userid, String str_username, String str_email, String str_mobile, String str_avatar) {
                                 sessionManager.setUserDetails(String.valueOf(userId), userMobile, arr.get(i).getAppovalStatus());
                                 sessionManager.setReferalcode(arr.get(i).getReferalCode());
-                                sessionManager.setUserActivationStatus();
+                                sessionManager.setUserActivationStatus(arr.get(i).getAppovalStatus());
 
                                 userDetails = sessionManager.getSessionDetails();
 
@@ -632,7 +632,7 @@ public class DashBoardActivity extends AppCompatActivity
                                     userMaster.setBusinessAddress(arr.get(i).getBusinessAddress());
                                     userMaster.setBusinessLogo(arr.get(i).getBusinessLogo());
                                     userMaster.setHeightName(arr.get(i).getHeightName());
-                                    userMaster.setSurname(arr.get(i).getSurnameName());
+                                    userMaster.setSurnameName(arr.get(i).getSurnameName());
                                     userMaster.setMob1(arr.get(i).getMob1());
                                     userMaster.setMob2(arr.get(i).getMob2());
                                     userMaster.setLandLine1(arr.get(i).getLandLine1());
