@@ -37,7 +37,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-
+                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center|top|left"
                         android:hint="@string/fathername"
                         android:inputType="text|textCapSentences"
@@ -63,6 +63,7 @@
                         android:layout_weight="1"
                         android:gravity="center|top|left"
                         android:hint="@string/mothersname"
+                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:inputType="text|textCapSentences"
                         android:maxLines="5"
                         android:focusableInTouchMode="false"
@@ -84,6 +85,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:focusableInTouchMode="false"
+                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:textColor="@color/black"
                         android:gravity="center|top|left"
                         android:hint="@string/fathersfathername"
@@ -106,6 +108,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center|top|left"
+                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:focusableInTouchMode="false"
                         android:textColor="@color/black"
                         android:hint="@string/fathersmothername"
@@ -130,6 +133,7 @@
                         android:layout_weight="1"
                         android:gravity="center|top|left"
                         android:hint="@string/mothersfathername"
+                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
                         android:focusableInTouchMode="false"
                         android:textColor="@color/black"
@@ -156,6 +160,7 @@
                         android:gravity="center|top|left"
                         android:hint="@string/mothersmothername"
                         android:inputType="text|textCapSentences"
+                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:maxLines="5"
                         android:singleLine="true" />
                 </android.support.design.widget.TextInputLayout>
@@ -204,7 +209,7 @@
                         android:focusableInTouchMode="false"
                         android:gravity="center|top|left"
                         android:hint="@string/mothersfathersurname"
-
+                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
                         android:inputType="textMultiLine"
                         android:singleLine="true"
@@ -230,6 +235,7 @@
                         android:focusableInTouchMode="false"
                         android:textColor="@color/black"
                         android:gravity="center|top|left"
+                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:hint="@string/mothersfathervillage"
                         android:inputType="text|textCapSentences"
                         android:maxLines="5"
@@ -420,7 +426,7 @@
                         android:hint="@string/wifesfathersurname"
                         android:inputType="text|textCapSentences"
                         android:maxLines="5"
-
+                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:focusableInTouchMode="false"
                         android:textColor="@color/black"
                         android:singleLine="true" />

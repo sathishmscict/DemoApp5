@@ -345,7 +345,30 @@ public class FragmentBusinessDetails extends Fragment {
                             }*/
 
                         // Toast.makeText(getActivity(), "Selected ITems"+spnBusinessSubCategory.getSelectedItem(), Toast.LENGTH_SHORT).show();
-                        edtBusinessSubCategory.setText(spnBusinessSubCategory.getSelectedItem().toString());
+
+                        String str = spnBusinessSubCategory.getSelectedItem().toString();
+                        if(spnBusinessSubCategory.getSelectedItem().toString().toLowerCase().contains("select business subcategory"))
+                        {
+                            str = str.replace("Select Business SubCategory, ","");
+                        }
+                        else if(str.toLowerCase().contains("all types"))
+                        {
+                            str = list_BusinessSubCategory.toString();
+                            if(str.toString().toLowerCase().contains("select business subcategory")) {
+                                str = str.replace("Select Business SubCategory, ", "");
+
+                            }
+
+                            str = str.replace("[","");
+                            str = str.replace("]","");
+
+
+                        }
+                        else
+                        {
+                            str = spnBusinessSubCategory.getSelectedItem().toString();
+                        }
+                        edtBusinessSubCategory.setText(str);
                         //Toast.makeText(getActivity(), "Total Count "+getSelectedSubCategoryItems.size(), Toast.LENGTH_SHORT).show();
 
 /*
@@ -357,10 +380,9 @@ public class FragmentBusinessDetails extends Fragment {
 
                     }
                 })
-                .setAllCheckedText("All types")
-                .setAllUncheckedText("none selected")
 
-        ;
+                .setAllCheckedText("All types")
+                .setAllUncheckedText("none selected");
 
         edtBusinessSubCategory.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -536,34 +558,37 @@ public class FragmentBusinessDetails extends Fragment {
 
                     if (error_status == false) {
                         if (record_status == true) {
-
-                            List<BusinessSubCategoryData.DATum> temp_list_BusniessData = response.body().getDATA();
-
-
-                            list_BusinessSubCategoryData = response.body().getDATA();
-                            ;
+                            try {
+                                List<BusinessSubCategoryData.DATum> temp_list_BusniessData = response.body().getDATA();
 
 
-                            // Dialog dialog = new Dial
-                            //student_adapter = new StudentsDataAdapterRecyclerView(getActivity()/*, list_studentdata*/);
-                            //rvb.setAdapter(student_adapter);
+                                list_BusinessSubCategoryData = response.body().getDATA();
+                                ;
 
-                            //Set State SPinner Data.clear();
-                            list_BusinessSubCategory.clear();
-                            list_BusinessSubCategoryId.clear();
-                            //list_BusinessSubCategory.add("Select Business SubCategory");
-                            //list_BusinessSubCategoryId.add("0");
 
-                            for (int i = 0; i < temp_list_BusniessData.size(); i++) {
+                                // Dialog dialog = new Dial
+                                //student_adapter = new StudentsDataAdapterRecyclerView(getActivity()/*, list_studentdata*/);
+                                //rvb.setAdapter(student_adapter);
 
-                                list_BusinessSubCategory.add(temp_list_BusniessData.get(i).getBusinessCategoryName());
-                                list_BusinessSubCategoryId.add(temp_list_BusniessData.get(i).getId().toString());
+                                //Set State SPinner Data.clear();
+                                list_BusinessSubCategory.clear();
+                                list_BusinessSubCategoryId.clear();
+                               // list_BusinessSubCategory.add("Select Business SubCategory");
+                               // list_BusinessSubCategoryId.add("0");
 
+                                for (int i = 0; i < temp_list_BusniessData.size(); i++) {
+
+                                    list_BusinessSubCategory.add(temp_list_BusniessData.get(i).getBusinessCategoryName());
+                                    list_BusinessSubCategoryId.add(temp_list_BusniessData.get(i).getId().toString());
+
+                                }
+                                //spnBusiness.setItems(list_BusinessCategory);
+
+
+                                spnBusinessSubCategory.setItems(list_BusinessSubCategory);
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                            //spnBusiness.setItems(list_BusinessCategory);
-
-
-                            spnBusinessSubCategory.setItems(list_BusinessSubCategory);
 
 
                             try {
@@ -660,11 +685,19 @@ public class FragmentBusinessDetails extends Fragment {
 
             ShowAllControlsEditableAndVisible();
         } else if (item.getItemId() == R.id.action_update) {
-           // profile_edit.setVisible(true);
+            // profile_edit.setVisible(true);
             //profile_update.setVisible(false);
             //HideControls();
 
-            updateDetailsSendToServer();
+            if(edtBusinessSubCategory.getText().toString().length() == 0 || edtBusinessSubCategory.getText().toString().contains("none selected"))
+            {
+                CommonMethods.showAlertDialog(getActivity()  ,"Business details update info", "Please select business subcategory");
+            }
+            else
+            {
+                updateDetailsSendToServer();
+            }
+
 
         }
         return super.onOptionsItemSelected(item);
@@ -710,6 +743,7 @@ public class FragmentBusinessDetails extends Fragment {
 
         try {
             edtBusinessCategory.setEnabled(false);
+            edtBusinessSubCategory.setEnabled(false);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -740,11 +774,30 @@ public class FragmentBusinessDetails extends Fragment {
         ApiInterface apiClient = ApiClient.getClient().create(ApiInterface.class);
 
 
+
         //getString  Business subcategory ids
 
         String subcategoryStringItems = "";
 
-        List<String> myList = new ArrayList<String>(Arrays.asList(spnBusinessSubCategory.getSelectedItem().toString().split(",")));
+
+        List<String> myList = null;
+
+        if(edtBusinessSubCategory.getText().toString().toLowerCase().contains("all types"))
+        {
+            myList = list_BusinessSubCategory;
+        }
+        else if(edtBusinessSubCategory.getText().toString().length() == 0)
+        {
+            CommonMethods.showAlertDialog(getActivity() ,"Business details update info","Please select business subcategory details");
+            CommonMethods.hideDialog(spotsDialog);
+            return;
+        }
+        else
+        {
+            myList = new ArrayList<String>(Arrays.asList(edtBusinessSubCategory.getText().toString().split(",")));
+        }
+
+
         if (myList.size() != 0) {
 
             try {
@@ -795,8 +848,6 @@ public class FragmentBusinessDetails extends Fragment {
                 Log.d(TAG, "updateAddressDetails Response Code : " + response.code());
 
                 if (response.code() == 200) {
-
-
 
 
                     String str_error = response.body().getMESSAGE();
@@ -928,7 +979,7 @@ public class FragmentBusinessDetails extends Fragment {
                     } else {
 
                         CommonMethods.hideDialog(spotsDialog);
-                        Toast.makeText(getActivity(), "" + str_error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "" + getString(R.string.server_error), Toast.LENGTH_SHORT).show();
                     }
 
 

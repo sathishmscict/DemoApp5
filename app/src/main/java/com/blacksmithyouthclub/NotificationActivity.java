@@ -127,21 +127,32 @@ public class NotificationActivity extends AppCompatActivity {
                     TextView tvDate = (TextView) dialog.findViewById(R.id.tvDate);
                     EditText edtTitle = (EditText) dialog.findViewById(R.id.edtTitle);
                     EditText edtDescr = (EditText) dialog.findViewById(R.id.edtDescr);
-
                     ImageView ivIcon = (ImageView) dialog.findViewById(R.id.ivIcon);
 
                     try {
-                        Log.d(TAG , "Image Data : "+notificationsData.get(position).getImageURL());
+                        Log.d(TAG , "Notification Image Data : "+notificationsData.get(position).getImageURL());
                         //Glide.with(context).load(userData.getAvatar()).error(R.mipmap.ic_launcher).into(imgProfilePic);
-                        Picasso.with(context)
-                                .load(notificationsData.get(position).getImageURL())
-                                .placeholder(R.drawable.app_logo)
-                                .error(R.drawable.app_logo)
-                                .into(ivIcon);
+
+                        if(notificationsData.get(position).getImageURL().contains("."))
+                        {
+                            Picasso.with(context)
+                                    .load(notificationsData.get(position).getImageURL())
+                                    .placeholder(R.drawable.app_logo)
+                                    .error(R.drawable.app_logo)
+                                    .into(ivIcon);
+                            ivIcon.setVisibility(View.VISIBLE);
+                        }
+                        else
+                        {
+                            ivIcon.setVisibility(View.GONE);
+                        }
+
 
                         //sessionManager.setEncodedImage(CommonMethods.getStringImage(myBitmapAgain));
+
                     } catch (Exception e) {
                         e.printStackTrace();
+                        ivIcon.setVisibility(View.GONE);
                     }
 
                     final Button btnOk = (Button) dialog.findViewById(R.id.btnok);

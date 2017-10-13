@@ -65,6 +65,7 @@ public class MembersDataByBusinessActivity extends AppCompatActivity {
 
 
 
+
         LinearLayoutManager lManager = new LinearLayoutManager(context);
         rvMemebers.setLayoutManager(lManager);
 
@@ -72,6 +73,7 @@ public class MembersDataByBusinessActivity extends AppCompatActivity {
         sessionManager = new SessionManager(context);
         userDetails = sessionManager.getSessionDetails();
 
+        setTitle(userDetails.get(SessionManager.KEY_SELECTED_BUSINESS_SUBCATEGORY));
 
         spotsDialog = new SpotsDialog(context);
         spotsDialog.setCancelable(false);
@@ -91,7 +93,7 @@ public class MembersDataByBusinessActivity extends AppCompatActivity {
 
 
         ApiInterface apiClient = ApiClient.getClient().create(ApiInterface.class);
-        Log.d(TAG, "URL getAllUsersByBusinessSubCategoryId : " + CommonMethods.WEBSITE + "getAllSurname?type=user&surnameid=" + userDetails.get(SessionManager.KEY_SELECTED_BUSINESS_SUBCATEGORY_ID) + "");
+        Log.d(TAG, "URL getAllUsersByBusinessSubCategoryId : " + CommonMethods.WEBSITE + "getAllUsersByBusinessSubCategoryId?type=user&categoryid=" + userDetails.get(SessionManager.KEY_SELECTED_BUSINESS_SUBCATEGORY_ID) + "");
         apiClient.getAllUsersByBusinessSubCategoryId("user", userDetails.get(SessionManager.KEY_SELECTED_BUSINESS_SUBCATEGORY_ID)).enqueue(new Callback<MembersDataBySurname>() {
             @Override
             public void onResponse(Call<MembersDataBySurname> call, Response<MembersDataBySurname> response) {
@@ -113,7 +115,7 @@ public class MembersDataByBusinessActivity extends AppCompatActivity {
                             List<MembersDataBySurname.DATum> arr = response.body().getDATA();
 
 
-                            adapter = new SurnameWiseMemberDataAdapterRecyclerView(context, arr);
+                            adapter = new SurnameWiseMemberDataAdapterRecyclerView(context, arr,TAG);
                             rvMemebers.setAdapter(adapter);
 
                             CommonMethods.hideDialog(spotsDialog);
@@ -158,6 +160,7 @@ public class MembersDataByBusinessActivity extends AppCompatActivity {
             cart.setVisible(false);
 
             MenuItem search = (MenuItem) menu.findItem(R.id.menu_search);
+            search.setVisible(false);
 
 
 //int orderid=db.getMaxOrderId();

@@ -1,11 +1,15 @@
 package com.blacksmithyouthclub;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -27,12 +31,14 @@ import com.blacksmithyouthclub.databinding.RowItemBinding;
 import com.blacksmithyouthclub.helper.CommonMethods;
 import com.blacksmithyouthclub.model.MembersDataBySurname;
 import com.blacksmithyouthclub.model.SearchData;
+import com.blacksmithyouthclub.parcel.UserData;
 import com.blacksmithyouthclub.session.SessionManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -84,10 +90,30 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.content_search);
 
+
+        spotsDialog = new SpotsDialog(context);
+        spotsDialog.setCancelable(false);
+
+        sessionmanager = new SessionManager(context);
+        userDetails = sessionmanager.getSessionDetails();
+
+
+        ivBack = (ImageView) findViewById(R.id.ivBack);
+
+
         activityMainBinding.search.setActivated(true);
-        activityMainBinding.search.setQueryHint(getResources().getString(R.string.search_hint));
+
+        if (userDetails.get(SessionManager.KEY_SEARH_TYPE).equals("surname")) {
+            activityMainBinding.search.setQueryHint(getResources().getString(R.string.search_hint_surname));
+        } else if (userDetails.get(SessionManager.KEY_SEARH_TYPE).equals("businesscategory")) {
+            activityMainBinding.search.setQueryHint(getResources().getString(R.string.search_hint_business_category));
+        } else {
+            activityMainBinding.search.setQueryHint(getResources().getString(R.string.search_hint));
+        }
+
         activityMainBinding.search.onActionViewExpanded();
         activityMainBinding.search.setIconified(false);
         activityMainBinding.search.clearFocus();
@@ -103,7 +129,7 @@ public class SearchActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
 
                 try {
-                    getProductDataFromServer(query);
+                    getMembersDataFromServer(query);
 
                     if (adapter != null) {
 
@@ -119,12 +145,11 @@ public class SearchActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
 
                 try {
-                    getProductDataFromServer(newText);
+                    // getMembersDataFromServer(newText);
 
-                    if(adapter!=null)
-                    {
+                    if (adapter != null) {
 
-                    adapter.getFilter().filter(newText);
+                        adapter.getFilter().filter(newText);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -137,22 +162,28 @@ public class SearchActivity extends AppCompatActivity {
 
         ;
 
-        spotsDialog = new SpotsDialog(context);
-        spotsDialog.setCancelable(false);
-
-        sessionmanager = new SessionManager(context);
-        userDetails = sessionmanager.getSessionDetails();
-
-
-        ivBack = (ImageView) findViewById(R.id.ivBack);
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intet = new Intent(context, DashBoardActivity.class);
-                startActivity(intet);
-                finish();
+                try {
+                    Log.d(TAG, context.getPackageName() + "." + getIntent().getStringExtra(CommonMethods.ACTIVITY_NAME));
+                    //Log.d(TAG, context.getPackageName() + "." + userDetails.get(SessionManager.KEY_ACTIVITY_NAME));
+                    Intent i = null;
+                    try {
+                        i = new Intent(context, Class.forName(context.getPackageName() + "." + getIntent().getStringExtra(CommonMethods.ACTIVITY_NAME)));
+                        i.putExtra("ActivityName", getIntent().getStringExtra(CommonMethods.ACTIVITY_NAME));
+                    } catch (ClassNotFoundException e) {
+                        i = new Intent(context, DashBoardActivity.class);
+                        e.printStackTrace();
+                    }
+                    //sessionmanager.setActivityName(TAG);
+                    startActivity(i);
+                    finish();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -185,15 +216,15 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 
-    private void getProductDataFromServer(final String str) {
+    private void getMembersDataFromServer(final String str) {
 
 
         CommonMethods.showDialog(spotsDialog);
 
 
         ApiInterface apiClient = ApiClient.getClient().create(ApiInterface.class);
-        Log.d(TAG, "URL getDetailsBySearch : " + CommonMethods.WEBSITE + "getDetailsBySearch?type=search&search=" + str + "");
-        apiClient.getDetailsBySearch("search", str).enqueue(new Callback<MembersDataBySurname>() {
+        Log.d(TAG, "URL getDetailsBySearch : " + CommonMethods.WEBSITE + "getDetailsBySearch?type=" + userDetails.get(SessionManager.KEY_SEARH_TYPE) + "&search=" + str + "");
+        apiClient.getDetailsBySearch(userDetails.get(SessionManager.KEY_SEARH_TYPE), str).enqueue(new Callback<MembersDataBySurname>() {
             @Override
             public void onResponse(Call<MembersDataBySurname> call, Response<MembersDataBySurname> response) {
 
@@ -217,13 +248,29 @@ public class SearchActivity extends AppCompatActivity {
 
                             for (int i = 0; i < arr.size(); i++) {
 
-                                arrayList.add(arr.get(i).getFirstName());
+                                if (userDetails.get(SessionManager.KEY_SEARH_TYPE).equals(CommonMethods.SEARCH_BUSINESS_SUBCATEGORY) ) {
+                                    arrayList.add(arr.get(i).getBusinesssubcategorytitle());
+                                    SearchData sc = new SearchData(arr.get(i).getUserId().toString(), arr.get(i).getBusinesssubcategorytitle(), arr.get(i).getOriginalSurname(), arr.get(i).getVillage(), arr.get(i).getMobile(), arr.get(i).getAddress(), arr.get(i).getAvatar(), arr.get(i).getFatherName(), arr.get(i).getSurnamename(), arr.get(i).getBusinesssubcategoryname(), arr.get(i).getMembercount(), arr.get(i).getBusinesssubcategorytitle(), arr.get(i).getBusinesssubcategoryid(), arr.get(i).getBusinesscategoryid(), arr.get(i).getBusinesscategorytitle());
+
+                                    list_SearchData.add(sc);
+                                }
+                                else if (userDetails.get(SessionManager.KEY_SEARH_TYPE).equals(CommonMethods.SEARCH_BUSINESS_CATEGORY)) {
+
+                                    arrayList.add(arr.get(i).getBusinesscategorytitle());
+                                    SearchData sc = new SearchData(arr.get(i).getUserId().toString(), arr.get(i).getBusinesscategorytitle(), arr.get(i).getOriginalSurname(), arr.get(i).getVillage(), arr.get(i).getMobile(), arr.get(i).getAddress(), arr.get(i).getAvatar(), arr.get(i).getFatherName(), arr.get(i).getSurnamename(), arr.get(i).getBusinesssubcategoryname(), arr.get(i).getMembercount(), arr.get(i).getBusinesssubcategorytitle(), arr.get(i).getBusinesssubcategoryid(), arr.get(i).getBusinesscategoryid(), arr.get(i).getBusinesscategorytitle());
+
+                                    list_SearchData.add(sc);
+                                }
+                                else {
+                                    arrayList.add(arr.get(i).getFirstName() + " " + arr.get(i).getSurnamename());
+                                    SearchData sc = new SearchData(arr.get(i).getUserId().toString(), arr.get(i).getFirstName() + " " + arr.get(i).getSurnamename(), arr.get(i).getOriginalSurname(), arr.get(i).getVillage(), arr.get(i).getMobile(), arr.get(i).getAddress(), arr.get(i).getAvatar(), arr.get(i).getFatherName(), arr.get(i).getSurnamename(), arr.get(i).getBusinesssubcategoryname(), arr.get(i).getMembercount(), arr.get(i).getBusinesssubcategorytitle(), arr.get(i).getBusinesssubcategoryid(), arr.get(i).getBusinesscategoryid(), arr.get(i).getBusinesscategorytitle());
+
+                                    list_SearchData.add(sc);
+                                }
+
 
                                 //SearchData(String userId, String firstName, String originalSurname, String village, String mobile, String address, String avatar, String fatherName)
 
-                                SearchData sc = new SearchData(arr.get(i).getUserId().toString(), arr.get(i).getFirstName(), arr.get(i).getOriginalSurname(), arr.get(i).getVillage(), arr.get(i).getMobile(), arr.get(i).getAddress(), arr.get(i).getAvatar(), arr.get(i).getFatherName());
-
-                                list_SearchData.add(sc);
 
                             }
 
@@ -321,40 +368,85 @@ public class SearchActivity extends AppCompatActivity {
 
                     try {
                         //Toast.makeText(_context, "Name : " + pd.getProductname() + " Id : " + pd.getProductid(), Toast.LENGTH_SHORT).show();
+
+
                         Log.d(TAG, "Clicked On Name : " + list_SearchData.get(position).getFirstName() + " Id : " + list_SearchData.get(position).getUserId());
-                        Intent intent = new Intent(context,
-
-                                SingleMemberDetailsDisplayActivity.class);
+                        if (userDetails.get(SessionManager.KEY_SEARH_TYPE).equals(CommonMethods.SEARCH_BUSINESS_SUBCATEGORY)) {
 
 
 
-                        intent.putExtra(CommonMethods.KEY_FIRST_NAME,list_SearchData.get(position).getFirstName()+" "+list_SearchData.get(position).getOriginalSurname());
-                        intent.putExtra(CommonMethods.KEY_MOBILE,list_SearchData.get(position).getMobile());
-                        intent.putExtra(CommonMethods.KEY_AVATAR,list_SearchData.get(position).getAvatar());
-                        intent.putExtra(CommonMethods.KEY_FATHERNAME,list_SearchData.get(position).getFatherName());
-                        intent.putExtra(CommonMethods.KEY_VILLAGE , list_SearchData.get(position).getVillage());
+                            if(list_SearchData.get(position).getMembercount().equals("0"))
+                            {
+                                try {
+
+
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                    builder.setTitle(Html.fromHtml("<font color=\"#000000\"> Data information </f>"));
+
+
+                                    builder.setMessage(Html.fromHtml("<font color=\"#000000\"> Sorry, we have not found any members in  \"" + list_SearchData.get(position).getBusinesssubcategorytitle() + "\" category </f>"));
+                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                                            dialogInterface.cancel();
+                                            dialogInterface.dismiss();
+                                        }
+                                    });
+                                    builder.show();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+                            else
+                            {
+
+                                Intent intent = new Intent(context,
+
+                                        MembersDataByBusinessActivity.class);
+                                sessionmanager.setSelectedBusinessSubCategoryDetails(String.valueOf(list_SearchData.get(position).getBusinesssubcategoryid()), list_SearchData.get(position).getBusinesssubcategoryname());
+                                startActivity(intent);
+                                finish();
+                                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+
+                            }
 
 
 
+                        }
+                        else if (userDetails.get(SessionManager.KEY_SEARH_TYPE).equals(CommonMethods.SEARCH_BUSINESS_CATEGORY)) {
 
-                        sessionmanager.setSearchUserDetails(list_SearchData.get(position).getUserId(), list_SearchData.get(position).getFirstName());
+                            Intent intent = new Intent(context,
+
+                                    BusinessSubCategoryActivity.class);
+                            sessionmanager.setSelectedBusinessCategoryDetails(String.valueOf(list_SearchData.get(position).getBusinesscategoryid()), list_SearchData.get(position).getBusinesscategorytitle());
+                            startActivity(intent);
+                            finish();
+                            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                        }
+                        else {
+                            Intent intent = new Intent(context,
+
+                                    SingleMemberDetailsDisplayActivity.class);
+                            UserData sd = new UserData(list_SearchData.get(position),userDetails.get(SessionManager.KEY_SELECTED_SURNAME));
+
+                            intent.putExtra(CommonMethods.MEMBER_DATA, sd);
 
 
-                        //  Toast.makeText(context, "Company id : "+list_SearchData.get(position).getCompnayid(), Toast.LENGTH_SHORT).show();
-                        //sessionmanager.setCompnayTypeAndIdDetails(list_SearchData.get(position).getCompnayid(), dbhandler.getCompanyNameByCompnayId(Integer.parseInt(list_SearchData.get(position).getCompnayid())));
+                            sessionmanager.setSearchUserDetails(list_SearchData.get(position).getUserId(), list_SearchData.get(position).getFirstName());
 
+                            //intent.putExtra("ProductId", pd.getProductid());
+                            intent.putExtra(CommonMethods.ACTIVITY_NAME, TAG);
 
-                        //sessionmanager.setCategoryTypeAndIdDetails(categoryType, categoryId, categoryName);
+                            //sessionmanager.setActivityName(TAG);
 
+                            //sessionmanager.setActivityName("");
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                        }
 
-                        //intent.putExtra("ProductId", pd.getProductid());
-                        intent.putExtra("ActivityName", TAG);
-
-                        //sessionmanager.setActivityName(TAG);
-
-                        //sessionmanager.setActivityName("");
-                        context.startActivity(intent);
-                        //finish();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -423,9 +515,35 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Intent i = new Intent(context, DashBoardActivity.class);
-        startActivity(i);
-        finish();
+        //super.onBackPressed();
+
+        try {
+            Log.d(TAG, context.getPackageName() + "." + getIntent().getStringExtra(CommonMethods.ACTIVITY_NAME));
+            //Log.d(TAG, context.getPackageName() + "." + userDetails.get(SessionManager.KEY_ACTIVITY_NAME));
+            Intent i = null;
+            try {
+                i = new Intent(context, Class.forName(context.getPackageName() + "." + getIntent().getStringExtra(CommonMethods.ACTIVITY_NAME)));
+
+                if(!getIntent().getStringExtra(CommonMethods.ACTIVITY_NAME).contains(TAG))
+                {
+
+                i = new Intent(context, Class.forName(context.getPackageName() + "." + getIntent().getStringExtra(CommonMethods.ACTIVITY_NAME)));
+                }
+                else
+                {
+                    i = new Intent(context, DashBoardActivity.class);
+                }
+                i.putExtra("ActivityName", getIntent().getStringExtra(CommonMethods.ACTIVITY_NAME));
+            } catch (ClassNotFoundException e) {
+                i = new Intent(context, DashBoardActivity.class);
+                e.printStackTrace();
+            }
+            //sessionmanager.setActivityName(TAG);
+            startActivity(i);
+            finish();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

@@ -80,6 +80,32 @@ public class MembersDataBySurname {
         @SerializedName("originalSurname")
         @Expose
         private String originalSurname;
+
+
+        @SerializedName("surnamename")
+        @Expose
+        private String surnamename;
+
+        @SerializedName("businesssubcategoryname")
+        @Expose
+        private String businesssubcategoryname;
+
+        @SerializedName("businesssubcategorytitle")
+        @Expose
+        private String businesssubcategorytitle;
+
+
+        @SerializedName("membercount")
+        @Expose
+        private String membercount;
+
+        @SerializedName("businesssubcategoryid")
+        @Expose
+        private String businesssubcategoryid;
+
+
+
+
         @SerializedName("village")
         @Expose
         private String village;
@@ -95,6 +121,18 @@ public class MembersDataBySurname {
         @SerializedName("fatherName")
         @Expose
         private String fatherName;
+
+        @SerializedName("businesscategoryid")
+        @Expose
+        private String businesscategoryid;
+
+        @SerializedName("businesscategorytitle")
+        @Expose
+        private String businesscategorytitle;
+
+
+
+
 
         public Integer getUserId() {
             return userId;
@@ -160,6 +198,61 @@ public class MembersDataBySurname {
             this.fatherName = fatherName;
         }
 
+        public String getSurnamename() {
+            return surnamename;
+        }
+
+        public void setSurnamename(String surnamename) {
+            this.surnamename = surnamename;
+        }
+
+        public String getBusinesssubcategoryname() {
+            return businesssubcategoryname;
+        }
+
+        public void setBusinesssubcategoryname(String businesssubcategoryname) {
+            this.businesssubcategoryname = businesssubcategoryname;
+        }
+
+        public String getBusinesssubcategorytitle() {
+            return businesssubcategorytitle;
+        }
+
+        public void setBusinesssubcategorytitle(String businesssubcategorytitle) {
+            this.businesssubcategorytitle = businesssubcategorytitle;
+        }
+
+        public String getMembercount() {
+            return membercount;
+        }
+
+        public void setMembercount(String membercount) {
+            this.membercount = membercount;
+        }
+
+        public String getBusinesssubcategoryid() {
+            return businesssubcategoryid;
+        }
+
+        public void setBusinesssubcategoryid(String businesssubcategoryid) {
+            this.businesssubcategoryid = businesssubcategoryid;
+        }
+
+        public String getBusinesscategoryid() {
+            return businesscategoryid;
+        }
+
+        public void setBusinesscategoryid(String businesscategoryid) {
+            this.businesscategoryid = businesscategoryid;
+        }
+
+        public String getBusinesscategorytitle() {
+            return businesscategorytitle;
+        }
+
+        public void setBusinesscategorytitle(String businesscategorytitle) {
+            this.businesscategorytitle = businesscategorytitle;
+        }
     }
 
 

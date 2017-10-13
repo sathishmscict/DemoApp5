@@ -40,6 +40,7 @@ import android.widget.Toast;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.support.v7.app.NotificationCompat;
+
 import com.blacksmithyouthclub.Verification.VerificationActivity;
 import com.blacksmithyouthclub.adapter.SurnameAdapterRecyclerView;
 import com.blacksmithyouthclub.api.ApiClient;
@@ -154,21 +155,16 @@ public class DashBoardActivity extends AppCompatActivity
         rvSurnames.setLayoutManager(lManager);
 
 
-
-
-
         //Check app forst time install or not. if first time install then send welcome notification
         try {
-          //  Notify("" + getString(R.string.app_name), "Wel come Sathish Gadde" );
-            if (getIntent().getBooleanExtra("IS_FIRSTTIME",false) == true) {
-                Notify("" + getString(R.string.app_name), "Wel come  " + userData.getFirstName()+" "+userData.getSurname());
+            //  Notify("" + getString(R.string.app_name), "Wel come Sathish Gadde" );
+            if (getIntent().getBooleanExtra("IS_FIRSTTIME", false) == true) {
+                Notify("" + getString(R.string.app_name), "Wel come  " + userData.getFirstName() + " " + userData.getSurname());
 
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
 
 
         fab_share.setOnClickListener(new View.OnClickListener() {
@@ -180,15 +176,13 @@ public class DashBoardActivity extends AppCompatActivity
                     CommonMethods.showDialog(spotsDialog);
 
 
-
-
                     Dexter.withActivity(DashBoardActivity.this)
                             .withPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                             .withListener(new PermissionListener() {
                                 @Override
                                 public void onPermissionGranted(PermissionGrantedResponse response) {
                                     try {
-                                        final String shareDescr = "Inviting you to connect with  Luhar Suthar Family  on BlackSmith Youth Club App.Use my referral code : "+ userDetails.get(sessionManager.KEY_USER_REFERAL_CODE) +" . Download app from https://goo.gl/gMVxym";
+                                        final String shareDescr = "Inviting you to connect with  Luhar Suthar Family  on BlackSmith Youth Club App.Use my referral code : " + userDetails.get(sessionManager.KEY_USER_REFERAL_CODE) + " . Download app from https://goo.gl/gMVxym";
 
 
                               /*  Intent sendIntent = new Intent();
@@ -198,8 +192,7 @@ public class DashBoardActivity extends AppCompatActivity
                                 sendIntent.setType("text/plain");
                                 startActivity(sendIntent);
 */
-                                        Picasso.with(getApplicationContext()).load("http://blacksmith.studyfield.com/Resources/app_logo.png").into(new Target()
-                                        {
+                                        Picasso.with(getApplicationContext()).load("http://blacksmith.studyfield.com/Resources/app_logo.png").into(new Target() {
                                             @Override
                                             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                                                 Intent i = new Intent(Intent.ACTION_SEND);
@@ -234,12 +227,14 @@ public class DashBoardActivity extends AppCompatActivity
 
                                 @Override
                                 public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */
-                                    CommonMethods.hideDialog(spotsDialog);}
+                                    CommonMethods.hideDialog(spotsDialog);
+                                }
 
                                 @Override
                                 public void onPermissionRationaleShouldBeShown(PermissionRequest
                                                                                        permission, PermissionToken token) {/* ... */
-                                    CommonMethods.hideDialog(spotsDialog);}
+                                    CommonMethods.hideDialog(spotsDialog);
+                                }
                             }).check();
 
 
@@ -252,7 +247,6 @@ public class DashBoardActivity extends AppCompatActivity
         });
 
 
-
         rvSurnames.addOnItemTouchListener(new CommonMethods.RecyclerTouchListener(this, rvSurnames, new CommonMethods.ClickListener() {
             @SuppressLint("LongLogTag")
             @Override
@@ -261,20 +255,16 @@ public class DashBoardActivity extends AppCompatActivity
 
                 sessionManager.setSelectedSurnameDetails(String.valueOf(list_Surnames.get(position).getId()), list_Surnames.get(position).getSurname());
 
-                if(list_Surnames.get(position).getCount().equals("0"))
-                {
+                if (list_Surnames.get(position).getCount().equals("0")) {
 
-                    CommonMethods.showAlertDialog(context , "Information","Members not joined yet");
-                }
-                else
-                {
+                    CommonMethods.showAlertDialog(context, "Information", "Members not joined yet");
+                } else {
                     Intent intent = new Intent(context, MembersDataBySurnameActivity.class);
                     startActivity(intent);
                     finish();
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
                 }
-
 
 
             }
@@ -296,7 +286,6 @@ public class DashBoardActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);*/
 
 
-
 /**
  * Side Navigation Drawer
  */
@@ -314,7 +303,7 @@ public class DashBoardActivity extends AppCompatActivity
         View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header_dash_board);
 
         tvUserName = (TextView) headerLayout.findViewById(R.id.tvName);
-        imgProfilePic = (CircularImageView)headerLayout.findViewById(R.id.imgProfilePic);
+        imgProfilePic = (CircularImageView) headerLayout.findViewById(R.id.imgProfilePic);
         tvEmail = (TextView) headerLayout.findViewById(R.id.tvEmail);
 
 
@@ -335,7 +324,7 @@ public class DashBoardActivity extends AppCompatActivity
             SetUserProfilePictireFromBase64EnodedString();
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d(TAG , "Error in setup Profile Picture");
+            Log.d(TAG, "Error in setup Profile Picture");
         }
 
         imgProfilePic.setOnClickListener(new View.OnClickListener() {
@@ -371,7 +360,7 @@ public class DashBoardActivity extends AppCompatActivity
         } else {
 
             try {
-                tvUserName.setText(userData.getFirstName()+" "+userData.getSurnameName());
+                tvUserName.setText(userData.getFirstName() + " " + userData.getSurnameName());
                 tvEmail.setText(userData.getEmail());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -380,7 +369,7 @@ public class DashBoardActivity extends AppCompatActivity
 
             if (!userDetails.get(SessionManager.KEY_IS_ACTIVE).equals("0")) {
 
-               getAllSurnameData();
+                getAllSurnameData();
 
 
             } else {
@@ -405,7 +394,7 @@ public class DashBoardActivity extends AppCompatActivity
                 });
                 builder.setCancelable(false);
 
-               builder.show();
+                builder.show();
 
 
             }
@@ -414,15 +403,12 @@ public class DashBoardActivity extends AppCompatActivity
         }
 
 
-
-
-
-
     }
 
 
-    private void SetUserProfilePictireFromBase64EnodedString() {
-        CommonMethods.showDialog(spotsDialog);
+    private void SetUserProfilePictireFromBase64EnodedString()
+    {
+      //  CommonMethods.showDialog(spotsDialog);
 
         //tvUserName.setText(userDetails.get(SessionManager.KEY_USER_NAME));
         //tvEmail.setText(userDetails.get(SessionManager.KEY_USER_EMAIL));
@@ -436,9 +422,7 @@ public class DashBoardActivity extends AppCompatActivity
 
 
                 imgProfilePic.setImageBitmap(myBitmapAgain);
-            }
-            else
-            {
+            } else {
 
 
                 try {
@@ -451,12 +435,11 @@ public class DashBoardActivity extends AppCompatActivity
 
                     imgProfilePic.setImageBitmap(image);
                     String enc = CommonMethods.getStringImage(image);
-                  //  Toast.makeText(context, "BASE64 : "+enc, Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(context, "BASE64 : "+enc, Toast.LENGTH_SHORT).show();
                     sessionManager.setEncodedImage(enc);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
 
 
             }
@@ -485,10 +468,9 @@ public class DashBoardActivity extends AppCompatActivity
     }
 
 
-
-
     private void getAllSurnameData() {
 
+        CommonMethods.showDialog(spotsDialog);
         CommonMethods.showDialog(spotsDialog);
 
 
@@ -504,8 +486,8 @@ public class DashBoardActivity extends AppCompatActivity
 
 
         ApiInterface apiClient = ApiClient.getClient().create(ApiInterface.class);
-        Log.d(TAG, "URL getAllSurname : " + CommonMethods.WEBSITE + "getAllSurname?type=surnameall&casteid=" + userDetails.get(SessionManager.KEY_SELECTED_CASTE) + "&userid=" + userDetails.get(SessionManager.KEY_USER_ID) + "");
-        apiClient.getAllSurname("surnameall", Integer.parseInt(userDetails.get(SessionManager.KEY_SELECTED_CASTE)), userDetails.get(SessionManager.KEY_USER_ID)).enqueue(new Callback<SurnamesData>() {
+        Log.d(TAG, "URL getAllSurname : " + CommonMethods.WEBSITE + "getAllSurname?type=surnameall&casteid=" + userDetails.get(SessionManager.KEY_SELECTED_CASTE) + "&userid=" + userDetails.get(SessionManager.KEY_USER_ID) + "&fcmtoken="+  fcm_tokenid +"");
+        apiClient.getAllSurname("surnameall", Integer.parseInt(userDetails.get(SessionManager.KEY_SELECTED_CASTE)), userDetails.get(SessionManager.KEY_USER_ID),fcm_tokenid).enqueue(new Callback<SurnamesData>() {
             @Override
             public void onResponse(Call<SurnamesData> call, Response<SurnamesData> response) {
 
@@ -521,7 +503,7 @@ public class DashBoardActivity extends AppCompatActivity
                     boolean record_status = response.body().getRECORDS();
                     boolean approvalStatus = response.body().getAPPROVALSTATUS();
 
-                    sessionManager.setUserDetails(userDetails.get(SessionManager.KEY_USER_ID),userDetails.get(SessionManager.KEY_USER_MOBILE), approvalStatus);
+                    sessionManager.setUserDetails(userDetails.get(SessionManager.KEY_USER_ID), userDetails.get(SessionManager.KEY_USER_MOBILE), approvalStatus);
 
                     if (error_status == false) {
                         if (record_status == true) {
@@ -542,15 +524,12 @@ public class DashBoardActivity extends AppCompatActivity
                                 String userMobile = arr.get(i).getMobile();
 
 
-
-
                                 // setUserDetails(String str_userid, String str_username, String str_email, String str_mobile, String str_avatar) {
                                 sessionManager.setUserDetails(String.valueOf(userId), userMobile, arr.get(i).getAppovalStatus());
                                 sessionManager.setReferalcode(arr.get(i).getReferalCode());
                                 sessionManager.setUserActivationStatus(arr.get(i).getAppovalStatus());
 
                                 userDetails = sessionManager.getSessionDetails();
-
 
 
                                 try {
@@ -566,7 +545,7 @@ public class DashBoardActivity extends AppCompatActivity
 
 
                                     //get realm instance
-                                   // realm = Realm.getDefaultInstance();
+                                    // realm = Realm.getDefaultInstance();
 
                                     //realm.refresh();
 
@@ -643,7 +622,6 @@ public class DashBoardActivity extends AppCompatActivity
                                     userMaster.setDocument_url(arr.get(i).getDocumentUrl());
 
 
-
                                     realm.copyToRealm(userMaster);
                                     realm.commitTransaction();
                                     Log.d(TAG, "Userdata has been added in database");
@@ -651,8 +629,6 @@ public class DashBoardActivity extends AppCompatActivity
                                     e.printStackTrace();
                                 }
                             }
-
-
 
 
                             CommonMethods.hideDialog(spotsDialog);
@@ -683,8 +659,7 @@ public class DashBoardActivity extends AppCompatActivity
                     CommonMethods.onFailure(context, TAG, t);
 
 
-                    if(t.getMessage().contains("Unable to resolve host"))
-                    {
+                    if (t.getMessage().contains("Unable to resolve host")) {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("No Internet Connection");
@@ -735,6 +710,9 @@ public class DashBoardActivity extends AppCompatActivity
         try {
             getMenuInflater().inflate(R.menu.dash_board, menu);
             cart = (MenuItem) menu.findItem(R.id.menu_notification);
+            MenuItem search = (MenuItem) menu.findItem(R.id.menu_search);
+            search.setVisible(false);
+
 
 
             LinkedHashMap<String, String> lhm = new LinkedHashMap<String, String>();
@@ -805,8 +783,9 @@ public class DashBoardActivity extends AppCompatActivity
             return true;
         } else if (id == R.id.menu_search) {
 
-
+            sessionManager.setSearchType("search");
             Intent intent = new Intent(context, SearchActivity.class);
+            intent.putExtra(CommonMethods.ACTIVITY_NAME , TAG);
             startActivity(intent);
             finish();
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -823,10 +802,17 @@ public class DashBoardActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-
-        if (id == R.id.nav_directory) {
+        if (id == R.id.nav_home) {
 
             Intent intent = new Intent(context, DashBoardActivity.class);
+            startActivity(intent);
+            finish();
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+
+
+        } else if (id == R.id.nav_directory) {
+
+            Intent intent = new Intent(context, SurnamesActivity.class);
             startActivity(intent);
             finish();
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -835,7 +821,7 @@ public class DashBoardActivity extends AppCompatActivity
         } else if (id == R.id.nav_business) {
 
 
-            Intent intent = new Intent(context, BusinessSubCategoryActivity.class);
+            Intent intent = new Intent(context, BusinessDirectoryActivity.class);
             startActivity(intent);
             finish();
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -906,8 +892,7 @@ public class DashBoardActivity extends AppCompatActivity
      * Send Push NotificationMaster To User On First Installation Time
      */
     @SuppressLint("NewApi")
-    private void Notify(String title, String textMessage)
-    {
+    private void Notify(String title, String textMessage) {
         try {
             /**
              * Simple NotificationMaster
@@ -970,7 +955,6 @@ public class DashBoardActivity extends AppCompatActivity
 
             //Set BigText Style  Display as multiline notification
             builder.setStyle(new NotificationCompat.BigTextStyle().bigText(textMessage));
-
 
 
             builder.setAutoCancel(true);

@@ -20,6 +20,10 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.graphics.BitmapCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,6 +65,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -194,10 +200,9 @@ public class SignUpUserActivity extends AppCompatActivity {
     private String DOCUMENT_IMAGE_URL = "";
     private Camera camera;
     private File actualImage;
-    private String SELECTED_GENDER="";
+    private String SELECTED_GENDER = "";
 
     private Realm realm;
-
 
 
     @Override
@@ -206,7 +211,6 @@ public class SignUpUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up_user);
 
         ButterKnife.bind(this);
-
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -246,7 +250,7 @@ public class SignUpUserActivity extends AppCompatActivity {
 
 //                Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
 
-                Log.d(TAG , "Selected State :"+item);
+                Log.d(TAG, "Selected State :" + item);
                 if (position != 0) {
 
                     getAllCityDetailsFromServer();
@@ -263,25 +267,22 @@ public class SignUpUserActivity extends AppCompatActivity {
         });
 
 
-        edtSurname.setVisibility(View.GONE);
+        edtSurnameWrapper.setVisibility(View.GONE);
         spnSurname.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
 
                 //Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
-                Log.d(TAG , "Selected Surname :"+item);
+                Log.d(TAG, "Selected Surname :" + item);
 
 
-                if(!item.toLowerCase().equals("other") && !item.toLowerCase().equals("select surname"))
-                {
+                if (!item.toLowerCase().equals("other") && !item.toLowerCase().equals("select surname")) {
 
                     edtSurnameWrapper.setVisibility(View.GONE);
                     edtSurname.setText(item);
 
-                }
-                else if(item.toLowerCase().equals("other"))
-                {
+                } else if (item.toLowerCase().equals("other")) {
                     edtSurnameWrapper.setVisibility(View.VISIBLE);
 
                     edtSurname.setText("");
@@ -296,9 +297,6 @@ public class SignUpUserActivity extends AppCompatActivity {
                 Snackbar.make(spinner, "Nothing selected", Snackbar.LENGTH_LONG).show();
             }
         });
-
-
-
 
 
         if (Build.VERSION.SDK_INT > 9) {
@@ -330,15 +328,70 @@ public class SignUpUserActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
-      //  Toast.makeText(context, "Before Gender : "+SELECTED_GENDER, Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(context, "Before Gender : "+SELECTED_GENDER, Toast.LENGTH_SHORT).show();
 
         rdMale.setChecked(true);
         //Toast.makeText(context, "After Gender : "+SELECTED_GENDER, Toast.LENGTH_SHORT).show();
 
+
+
+      /*  edtFirstName.setFilters(new InputFilter[] {
+                new InputFilter() {
+                    @Override
+                    public CharSequence filter(CharSequence cs, int start,
+                                               int end, Spanned spanned, int dStart, int dEnd) {
+                        // TODO Auto-generated method stub
+                        if(cs.equals("")){ // for backspace
+                            return cs;
+                        }
+                        if(cs.toString().matches("[a-zA-Z ]+")){
+                            return cs;
+                        }
+                        return "";
+                    }
+                }
+        });
+*/
+
+
+       /* edtFirstName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                if (charSequence.length() > 0) {
+
+                    CharSequence inputStr = charSequence;
+                    Pattern pattern = Pattern.compile(new String("^[a-zA-Z\\s] "));
+                    Matcher matcher = pattern.matcher(inputStr);
+                    if (matcher.matches()) {
+                        //if pattern matches
+                        edtFirstNameWrapper.setErrorEnabled(false);
+                        edtFirstNameWrapper.setError("");
+                    } else {
+                        //if pattern does not matches
+                        edtFirstNameWrapper.setErrorEnabled(true);
+                        edtFirstNameWrapper.setError("Special characters not allowed");
+
+                    }
+
+
+                } else {
+                    edtFirstName.setText("");
+                }
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });*/
 
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -348,14 +401,21 @@ public class SignUpUserActivity extends AppCompatActivity {
                 String error = "";
 
 
-
                 if (edtFirstName.getText().toString().equals("")) {
 
-                    error = error + "Enter First Name";
+                    error = error + "\nEnter First Name";
                     edtFirstNameWrapper.setErrorEnabled(true);
                     edtFirstNameWrapper.setError("Enter first name");
                 } else {
-                    edtFirstNameWrapper.setErrorEnabled(false);
+
+                    if (edtFirstName.getText().toString().length() < 4) {
+                        error = error + "\nFirst Name should more then 4 characters";
+                        edtFirstNameWrapper.setErrorEnabled(true);
+                        edtFirstNameWrapper.setError("First Name should be more then 4 characters");
+                    } else {
+                        edtFirstNameWrapper.setErrorEnabled(false);
+                    }
+
 
                 }
 
@@ -364,9 +424,20 @@ public class SignUpUserActivity extends AppCompatActivity {
 
                     error = error + "\nEnter Mobile no,";
                     edtMobileWrapper.setErrorEnabled(true);
-                    edtMobileWrapper.setError("Enter area");
+                    edtMobileWrapper.setError("Enter Mobile no");
                 } else {
-                    edtMobileWrapper.setErrorEnabled(false);
+
+                    if (edtMobile.getText().toString().length() != 10) {
+                        error = error + "\nInvalid mobile no,";
+                        edtMobileWrapper.setErrorEnabled(true);
+                        edtMobileWrapper.setError("Invalid mobile no");
+
+
+                    } else {
+
+                        edtMobileWrapper.setErrorEnabled(false);
+                    }
+
 
                 }
 
@@ -377,7 +448,16 @@ public class SignUpUserActivity extends AppCompatActivity {
                     edtAreaWrapper.setErrorEnabled(true);
                     edtAreaWrapper.setError("Enter area");
                 } else {
-                    edtAreaWrapper.setErrorEnabled(false);
+
+
+                    if (edtArea.getText().toString().length() < 3) {
+                        error = error + "\nArea Name should be more then 3 characters";
+                        edtAreaWrapper.setErrorEnabled(true);
+                        edtAreaWrapper.setError("Area Name should more then 3 characters");
+                    } else {
+                        edtAreaWrapper.setErrorEnabled(false);
+                    }
+
 
                 }
 
@@ -387,7 +467,16 @@ public class SignUpUserActivity extends AppCompatActivity {
                     edtFatherWrapper.setErrorEnabled(true);
                     edtFatherWrapper.setError("Enter father name");
                 } else {
-                    edtFatherWrapper.setErrorEnabled(false);
+
+                    if (edtFather.getText().toString().length() < 4) {
+                        error = error + "\nFather name should more then  4 characters,";
+                        edtFatherWrapper.setErrorEnabled(true);
+                        edtFatherWrapper.setError("Father name should more then  4 characters,");
+                    } else {
+                        edtFatherWrapper.setErrorEnabled(false);
+                    }
+
+
 
                 }
 
@@ -397,7 +486,16 @@ public class SignUpUserActivity extends AppCompatActivity {
                     edtMotherNameWrapper.setErrorEnabled(true);
                     edtMotherNameWrapper.setError("Enter mother name");
                 } else {
-                    edtMotherNameWrapper.setErrorEnabled(false);
+
+
+                    if (edtMotherName.getText().toString().length() < 4) {
+                        error = error + "\nMother name should more then  4 characters,";
+                        edtMotherNameWrapper.setErrorEnabled(true);
+                        edtMotherNameWrapper.setError("Mother name should more then  4 characters,");
+                    } else {
+                        edtMotherNameWrapper.setErrorEnabled(false);
+                    }
+
 
                 }
 
@@ -407,7 +505,16 @@ public class SignUpUserActivity extends AppCompatActivity {
                     edtVillageNameWrapper.setErrorEnabled(true);
                     edtVillageNameWrapper.setError("Enter village name");
                 } else {
-                    edtVillageNameWrapper.setErrorEnabled(false);
+
+
+                    if (edtVillageName.getText().toString().length() < 4) {
+                        error = error + "\nVillage name should more then  4 characters,";
+                        edtVillageNameWrapper.setErrorEnabled(true);
+                        edtVillageNameWrapper.setError("Village name should more then  4 characters,");
+                    } else {
+                        edtVillageNameWrapper.setErrorEnabled(false);
+                    }
+
 
                 }
 
@@ -420,16 +527,26 @@ public class SignUpUserActivity extends AppCompatActivity {
                 if (spnSurname.getSelectedIndex() == 0) {
 
                     error = error + "\nSelect Surname,";
-                }
-                else
-                {
-                    if(edtSurname.getText().toString().equals(""))
-                    {
+                } else {
+                    if (edtSurname.getText().toString().equals("")) {
                         edtSurnameWrapper.setErrorEnabled(true);
                         edtSurnameWrapper.setError("Please enter surname");
                         error = error + "\nEnter Surname,";
 
                         edtSurname.requestFocus();
+
+                    }
+                    else
+                    {
+                        edtSurnameWrapper.setErrorEnabled(false);
+
+                        if (edtSurname.getText().toString().length() < 4) {
+                            error = error + "\nSurname  should more then  4 characters,";
+                            edtSurnameWrapper.setErrorEnabled(true);
+                            edtSurnameWrapper.setError("Surname  should more then  4 characters,");
+                        } else {
+                            edtSurnameWrapper.setErrorEnabled(false);
+                        }
 
                     }
                 }
@@ -453,19 +570,18 @@ public class SignUpUserActivity extends AppCompatActivity {
                 }
 
 
-                if(!error.equals(""))
-                {
+                if (!error.equals("")) {
                     error = error.substring(0, error.lastIndexOf(","));
                 }
 
                 if (error.equals("")) {
-                   // Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
 
 
                     sendUserDetailToServer();
 
                 } else {
-                  // Toast.makeText(context, "Oops...", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(context, "Oops...", Toast.LENGTH_SHORT).show();
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setTitle("Error information");
@@ -527,6 +643,7 @@ public class SignUpUserActivity extends AppCompatActivity {
                     public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
 
                         Toast.makeText(context, "Permission denied", Toast.LENGTH_SHORT).show();
+                        token.continuePermissionRequest();
                     }
                 }).check();
 
@@ -553,19 +670,14 @@ public class SignUpUserActivity extends AppCompatActivity {
         }
 
 
-
-
-        DOCUMENT_IMAGE_URL = DOCUMENT_IMAGE_URL.replace("http://blacksmith.studyfield.com/","");
-
+        DOCUMENT_IMAGE_URL = DOCUMENT_IMAGE_URL.replace("http://blacksmith.studyfield.com/", "");
 
 
         ApiInterface apiClient = ApiClient.getClient().create(ApiInterface.class);
-        Log.d(TAG, "URL newUserRegistration : " + CommonMethods.WEBSITE + "newUserRegistration?type=register&fname="+ edtFirstName.getText().toString() +"&surname="+ edtSurname.getText().toString() +"&mobileno="+ edtMobile.getText().toString() +"&fathersName="+ edtFather.getText().toString() +"&mothersName="+ edtMotherName.getText().toString() +"&village="+ edtVillageName.getText().toString() +"&dob=&gender="+ SELECTED_GENDER +"&maritalStatus="+ list_MaritalStatusId.get(spnMaritalStatus.getSelectedIndex()) +"&area="+ edtArea.getText().toString() +"&city="+ list_CityId.get(spnCity.getSelectedIndex()) +"&state="+ list_StateId.get(spnState.getSelectedIndex()) +"&avatar=&referralcode="+ edtReferalCode.getText().toString() +"&fcmtoken="+ fcm_tokenid +"&devicetype=android&castename="+ userDetails.get(SessionManager.KEY_SELECTED_CASTE) +"&document_url="+ DOCUMENT_IMAGE_URL +"");
+        Log.d(TAG, "URL newUserRegistration : " + CommonMethods.WEBSITE + "newUserRegistration?type=register&fname=" + edtFirstName.getText().toString() + "&surname=" + edtSurname.getText().toString() + "&mobileno=" + edtMobile.getText().toString() + "&fathersName=" + edtFather.getText().toString() + "&mothersName=" + edtMotherName.getText().toString() + "&village=" + edtVillageName.getText().toString() + "&dob=&gender=" + SELECTED_GENDER + "&maritalStatus=" + list_MaritalStatusId.get(spnMaritalStatus.getSelectedIndex()) + "&area=" + edtArea.getText().toString() + "&city=" + list_CityId.get(spnCity.getSelectedIndex()) + "&state=" + list_StateId.get(spnState.getSelectedIndex()) + "&avatar=&referralcode=" + edtReferalCode.getText().toString() + "&fcmtoken=" + fcm_tokenid + "&devicetype=android&castename=" + userDetails.get(SessionManager.KEY_SELECTED_CASTE) + "&document_url=" + DOCUMENT_IMAGE_URL + "");
 
 
-
-
-        apiClient.newUserRegistration("register",edtFirstName.getText().toString(),edtSurname.getText().toString(),edtMobile.getText().toString() , edtFather.getText().toString(),edtMotherName.getText().toString(), edtVillageName.getText().toString() ,"",SELECTED_GENDER, Integer.parseInt(list_MaritalStatusId.get(spnMaritalStatus.getSelectedIndex())), edtArea.getText().toString() ,Integer.parseInt(list_CityId.get(spnCity.getSelectedIndex()))  ,Integer.parseInt(list_StateId.get(spnState.getSelectedIndex())) ,"", edtReferalCode.getText().toString() ,fcm_tokenid ,"android", userDetails.get(SessionManager.KEY_SELECTED_CASTE), DOCUMENT_IMAGE_URL).enqueue(new Callback<UserDataResponse>() {
+        apiClient.newUserRegistration("register", edtFirstName.getText().toString(), edtSurname.getText().toString(), edtMobile.getText().toString(), edtFather.getText().toString(), edtMotherName.getText().toString(), edtVillageName.getText().toString(), "", SELECTED_GENDER, Integer.parseInt(list_MaritalStatusId.get(spnMaritalStatus.getSelectedIndex())), edtArea.getText().toString(), Integer.parseInt(list_CityId.get(spnCity.getSelectedIndex())), Integer.parseInt(list_StateId.get(spnState.getSelectedIndex())), "", edtReferalCode.getText().toString(), fcm_tokenid, "android", userDetails.get(SessionManager.KEY_SELECTED_CASTE), DOCUMENT_IMAGE_URL).enqueue(new Callback<UserDataResponse>() {
             @Override
             public void onResponse(Call<UserDataResponse> call, Response<UserDataResponse> response) {
 
@@ -581,7 +693,8 @@ public class SignUpUserActivity extends AppCompatActivity {
                     boolean error_status = response.body().getERRORSTATUS();
                     boolean record_status = response.body().getRECORDS();
 
-                    if (error_status == false) {
+                    if (error_status == false)
+                    {
                         if (record_status == true) {
 
                             List<UserDataResponse.DATum> arr = response.body().getDATA();
@@ -683,7 +796,6 @@ public class SignUpUserActivity extends AppCompatActivity {
                                 }
 
 
-
                             }
 
 
@@ -700,6 +812,15 @@ public class SignUpUserActivity extends AppCompatActivity {
 
                         CommonMethods.hideDialog(spotsDialog);
                         Toast.makeText(context, "" + str_error, Toast.LENGTH_SHORT).show();
+                        CommonMethods.showAlertDialog(context,"Signup Information",str_error);
+
+                        if(str_error.contains("Mobile"))
+                        {
+                            edtMobileWrapper.setErrorEnabled(true);
+                            edtMobileWrapper.setError(str_error);
+                            edtMobile.requestFocus();
+
+                        }
                     }
 
 
@@ -722,18 +843,15 @@ public class SignUpUserActivity extends AppCompatActivity {
         });
 
 
-
-
     }
 //onCreate Completed
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-       // super.onActivityResult(requestCode, resultCode, data);
+        // super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode != RESULT_CANCELED){
-            if (resultCode == Activity.RESULT_OK)
-            {
+        if (resultCode != RESULT_CANCELED) {
+            if (resultCode == Activity.RESULT_OK) {
 
 
                 if (requestCode == SELECT_FILE) {
@@ -1109,10 +1227,10 @@ public class SignUpUserActivity extends AppCompatActivity {
     }
 
 
-    private void getAllCityDetailsFromServer()
-    {
+    private void getAllCityDetailsFromServer() {
 
 
+        CommonMethods.showDialog(spotsDialog);
         CommonMethods.showDialog(spotsDialog);
 
         ApiInterface apiClient = ApiClient.getClient().create(ApiInterface.class);
@@ -1184,8 +1302,7 @@ public class SignUpUserActivity extends AppCompatActivity {
 
     }
 
-    private void getAllComboDetailFromServer()
-    {
+    private void getAllComboDetailFromServer() {
 
 
         CommonMethods.showDialog(spotsDialog);
@@ -1193,7 +1310,7 @@ public class SignUpUserActivity extends AppCompatActivity {
 
         ApiInterface apiClient = ApiClient.getClient().create(ApiInterface.class);
         Log.d(TAG, "URL getserviceForSpinnersData : " + CommonMethods.WEBSITE + "getserviceForSpinnersData?type=spinner&countryid=1");
-        apiClient.getserviceForSpinnersData("spinner", "1",userDetails.get(SessionManager.KEY_SELECTED_CASTE)).enqueue(new Callback<SpinnersData>() {
+        apiClient.getserviceForSpinnersData("spinner", "1", userDetails.get(SessionManager.KEY_SELECTED_CASTE)).enqueue(new Callback<SpinnersData>() {
             @Override
             public void onResponse(Call<SpinnersData> call, Response<SpinnersData> response) {
 
@@ -1236,8 +1353,7 @@ public class SignUpUserActivity extends AppCompatActivity {
                             list_Surname.add("Select Surname");
                             list_SurnameId.add("0");
 
-                            for (int i = 0; i < temp_list_SurnameData.size(); i++)
-                            {
+                            for (int i = 0; i < temp_list_SurnameData.size(); i++) {
                                 list_Surname.add(temp_list_SurnameData.get(i).getSurname());
                                 list_SurnameId.add(temp_list_SurnameData.get(i).getId().toString());
                             }

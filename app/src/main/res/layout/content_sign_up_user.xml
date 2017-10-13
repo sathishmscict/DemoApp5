@@ -76,6 +76,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textCapSentences"
+                            android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                             android:hint="@string/Name"
                             android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>
@@ -126,6 +127,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapSentences"
+                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:hint="@string/Surename" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -240,6 +242,7 @@
                         android:id="@+id/edtArea"
                         android:inputType="textCapSentences"
                         android:layout_width="match_parent"
+                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:layout_height="wrap_content"
                         android:hint="@string/currentarea" />
                 </android.support.design.widget.TextInputLayout>
@@ -257,6 +260,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapSentences"
+                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:hint="@string/fathername" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -273,6 +277,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapSentences"
+                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:hint="@string/mothersname" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -290,6 +295,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapSentences"
+                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:hint="@string/villagename" />
                 </android.support.design.widget.TextInputLayout>
 

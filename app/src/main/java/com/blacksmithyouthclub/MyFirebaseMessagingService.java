@@ -72,6 +72,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String intenttype = remoteMessage.getData().get("intenttype");
 
 
+        if(img_url == null)
+        {
+            img_url ="";
+
+        }
+
+
         try {
             //get realm instance
             this.realm = Realm.getDefaultInstance();
@@ -170,7 +177,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "intenttype : " + intenttype);
 
 
-            if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
+            if (!NotificationUtils.isAppIsInBackground(getApplicationContext()))
+            {
                 // app is in foreground, broadcast the push message
                 Intent pushNotification = new Intent(Config.PUSH_NOTIFICATION);
                 pushNotification.putExtra("message", message);
@@ -209,7 +217,23 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             } else {
                 // app is in background, show the notification in notification tray
-                Intent resultIntent = new Intent(getApplicationContext(), DashBoardActivity.class);
+
+                if (intenttype.equals("activation") || intenttype.isEmpty() || intenttype == null) {
+
+                    resultIntent = new Intent(getApplicationContext(), DashBoardActivity.class);
+
+                } else
+
+                {
+
+                    //sessionManager.setOfferDetails(offerid, "");
+                    resultIntent = new Intent(getApplicationContext(), NotificationActivity.class);
+
+
+                }
+
+
+                //Intent resultIntent = new Intent(getApplicationContext(), DashBoardActivity.class);
 
                 resultIntent.putExtra("message", message);
 

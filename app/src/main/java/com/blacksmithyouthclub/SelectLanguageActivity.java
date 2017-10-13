@@ -57,6 +57,15 @@ public class SelectLanguageActivity extends AppCompatActivity {
         btnEnglish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Locale locale = new Locale("en", "US");
+                Resources res = getResources();
+                DisplayMetrics dm = res.getDisplayMetrics();
+                Configuration conf = res.getConfiguration();
+                conf.locale = locale;
+                res.updateConfiguration(conf, dm);
+
+
                // setLocale("en");
                 Intent intent = new Intent(context, SelectCasteActivity.class);
                 startActivity(intent);
@@ -87,10 +96,10 @@ public class SelectLanguageActivity extends AppCompatActivity {
         DisplayMetrics dm = res.getDisplayMetrics();
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
+
         res.updateConfiguration(conf, dm);
-        Intent i = new Intent(context, ProfileActivity.class);
-        startActivity(i);
-        finish();
+
+
     }
 
 }

@@ -12,10 +12,10 @@ import java.util.List;
 public class SearchData {
 
 
-    String userId, firstName, originalSurname, village, mobile, address, avatar, fatherName;
+    String userId, firstName, originalSurname, village, mobile, address, avatar, fatherName, surnamename, businesssubcategoryname, membercount, businesssubcategorytitle, businesssubcategoryid, businesscategoryid, businesscategorytitle;
 
 
-    public SearchData(String userId, String firstName, String originalSurname, String village, String mobile, String address, String avatar, String fatherName) {
+    public SearchData(String userId, String firstName, String originalSurname, String village, String mobile, String address, String avatar, String fatherName, String surnamename, String businesssubcategoryname, String membercount, String businesssubcategorytitle, String businesssubcategoryid, String businesscategoryid, String businesscategorytitle) {
         this.userId = userId;
         this.firstName = firstName;
         this.originalSurname = originalSurname;
@@ -24,6 +24,17 @@ public class SearchData {
         this.address = address;
         this.avatar = avatar;
         this.fatherName = fatherName;
+        this.surnamename = surnamename;
+        this.businesssubcategoryname = businesssubcategoryname;
+        this.membercount = membercount;
+        this.businesssubcategorytitle = businesssubcategorytitle;
+
+        this.businesssubcategoryid = businesssubcategoryid;
+
+        this.businesscategoryid = businesscategoryid;
+        this.businesscategorytitle = businesscategorytitle;
+
+
     }
 
     public String getUserId() {
@@ -88,5 +99,61 @@ public class SearchData {
 
     public void setFatherName(String fatherName) {
         this.fatherName = fatherName;
+    }
+
+    public String getSurnamename() {
+        return surnamename;
+    }
+
+    public void setSurnamename(String surnamename) {
+        this.surnamename = surnamename;
+    }
+
+    public String getBusinesssubcategoryname() {
+        return businesssubcategoryname;
+    }
+
+    public void setBusinesssubcategoryname(String businesssubcategoryname) {
+        this.businesssubcategoryname = businesssubcategoryname;
+    }
+
+    public String getMembercount() {
+        return membercount;
+    }
+
+    public void setMembercount(String membercount) {
+        this.membercount = membercount;
+    }
+
+    public String getBusinesssubcategorytitle() {
+        return businesssubcategorytitle;
+    }
+
+    public void setBusinesssubcategorytitle(String businesssubcategorytitle) {
+        this.businesssubcategorytitle = businesssubcategorytitle;
+    }
+
+    public String getBusinesssubcategoryid() {
+        return businesssubcategoryid;
+    }
+
+    public void setBusinesssubcategoryid(String businesssubcategoryid) {
+        this.businesssubcategoryid = businesssubcategoryid;
+    }
+
+    public String getBusinesscategoryid() {
+        return businesscategoryid;
+    }
+
+    public void setBusinesscategoryid(String businesscategoryid) {
+        this.businesscategoryid = businesscategoryid;
+    }
+
+    public String getBusinesscategorytitle() {
+        return businesscategorytitle;
+    }
+
+    public void setBusinesscategorytitle(String businesscategorytitle) {
+        this.businesscategorytitle = businesscategorytitle;
     }
 }

@@ -59,6 +59,7 @@
                         android:layout_weight="1"
                         android:focusableInTouchMode="false"
                         android:textColor="@color/black"
+                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:gravity="center|top|left"
                         android:hint="@string/Name"
                         android:inputType="textMultiLine"
@@ -96,6 +97,7 @@
                         android:focusableInTouchMode="false"
                         android:gravity="center|top|left"
                         android:hint="@string/Surename"
+                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:inputType="textMultiLine"
                         android:maxLines="5"
 
@@ -140,6 +142,7 @@
                         android:hint="@string/villagename"
                         android:inputType="textMultiLine"
                         android:maxLines="5"
+                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:singleLine="true"
                         android:textColor="@color/black" />
                 </android.support.design.widget.TextInputLayout>

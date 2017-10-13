@@ -3,6 +3,7 @@ package com.blacksmithyouthclub.adapter;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ public class NotificaitonAdapterRecyclerView extends RecyclerView.Adapter<Notifi
 
     private final Context _context;
     private List<NotificationMaster> notifiationList;
+    private String TAG =NotificaitonAdapterRecyclerView.class.getSimpleName() ;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private final ImageView ivLogo;
@@ -87,11 +89,21 @@ public class NotificaitonAdapterRecyclerView extends RecyclerView.Adapter<Notifi
         try {
             //Glide.with(_context).load(list_categoty.get(position).getImageurl()).placeholder(R.drawable.app_logo).error(R.drawable.app_logo).crossFade(R.anim.fadein, 2000).override(500, 500).into(holder.ivCategory);
 
-            Picasso.with(_context)
-                    .load(noti.getImageURL())
-                    .placeholder(R.mipmap.ic_launcher)
-                    .error(R.mipmap.ic_launcher)
-                    .into(holder.ivLogo);
+            if(!noti.getImageURL().equals("") && noti.getImageURL().isEmpty())
+            {
+                Log.d(TAG , "Image URL : "+noti.getImageURL());
+                Picasso.with(_context)
+                        .load(noti.getImageURL())
+                        .placeholder(R.mipmap.ic_launcher)
+                        .error(R.mipmap.ic_launcher)
+                        .into(holder.ivLogo);
+            }
+            else{
+                Log.d(TAG , "Image URL not found: "+noti.getImageURL());
+
+            }
+
+
 
 
         } catch (Exception e) {

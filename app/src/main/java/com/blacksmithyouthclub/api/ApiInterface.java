@@ -61,7 +61,7 @@ public interface ApiInterface {
 
     @POST("getAllSurname")
     @FormUrlEncoded
-    Call<SurnamesData> getAllSurname(@Field("type") String type, @Field("casteid") int casteid, @Field("userid") String userId);
+    Call<SurnamesData> getAllSurname(@Field("type") String type, @Field("casteid") int casteid, @Field("userid") String userId, @Field("fcmtoken") String fcmtoken);
 
 
 

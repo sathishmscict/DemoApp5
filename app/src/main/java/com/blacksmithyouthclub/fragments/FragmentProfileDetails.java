@@ -426,10 +426,10 @@ public class FragmentProfileDetails extends Fragment {
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
 
                 //Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
-                Log.d(TAG, "Selected Surname :" + item);
+                Log.d(TAG, "Selected MaritalStatus :" + item);
 
 
-                if (!item.toLowerCase().contains("widowed") || !item.toLowerCase().equals("married")) {
+                if (item.toLowerCase().contains("widowed") || item.toLowerCase().equals("married")) {
 
                     edtDOAWrapper.setVisibility(View.VISIBLE);
                     edtDOA.setFocusableInTouchMode(true);
@@ -1041,12 +1041,17 @@ public class FragmentProfileDetails extends Fragment {
 
         edtDOA.setEnabled(false);
 
-        if (userData.getMaritalStatusId().toString().toLowerCase().equals("3") || userData.getMaritalStatusId().toString().toLowerCase().equals("4")) {
+        try {
+            if (userData.getMaritalStatusId().toString().toLowerCase().equals("3") || userData.getMaritalStatusId().toString().toLowerCase().equals("4")) {
 
-            edtDOAWrapper.setVisibility(View.VISIBLE);
-            edtDOA.setEnabled(false);
-        } else {
+                edtDOAWrapper.setVisibility(View.VISIBLE);
+                edtDOA.setEnabled(false);
+            } else {
+                edtDOAWrapper.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
             edtDOAWrapper.setVisibility(View.GONE);
+            e.printStackTrace();
         }
     }
 

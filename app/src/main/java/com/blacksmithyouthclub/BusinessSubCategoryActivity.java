@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,18 +16,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.blacksmithyouthclub.adapter.BusinessCategoryAdapterRecyclerView;
-import com.blacksmithyouthclub.adapter.SurnameAdapterRecyclerView;
+import com.blacksmithyouthclub.adapter.BusinessSubCategoryAdapterRecyclerView;
 import com.blacksmithyouthclub.api.ApiClient;
 import com.blacksmithyouthclub.api.ApiInterface;
 import com.blacksmithyouthclub.helper.CommonMethods;
 import com.blacksmithyouthclub.model.BusinessSubCategoryData;
-import com.blacksmithyouthclub.model.SurnamesData;
 import com.blacksmithyouthclub.session.SessionManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -51,7 +46,7 @@ public class BusinessSubCategoryActivity extends AppCompatActivity {
     private SpotsDialog spotsDialog;
     private String TAG = BusinessSubCategoryActivity.class.getSimpleName();
     private List<BusinessSubCategoryData.DATum> list_BusinessSubCategory = new ArrayList<BusinessSubCategoryData.DATum>();
-    private BusinessCategoryAdapterRecyclerView adapter;
+    private BusinessSubCategoryAdapterRecyclerView adapter;
     private MenuItem cart;
 
     @Override
@@ -77,7 +72,9 @@ public class BusinessSubCategoryActivity extends AppCompatActivity {
         sessionManager = new SessionManager(context);
         userDetails = sessionManager.getSessionDetails();
 
+        sessionManager.setSearchType(CommonMethods.SEARCH_BUSINESS_SUBCATEGORY);
 
+        setTitle(userDetails.get(SessionManager.KEY_SELECTED_BUSINESS_CATEGORY));
         spotsDialog = new SpotsDialog(context);
         spotsDialog.setCancelable(false);
 
@@ -92,14 +89,15 @@ public class BusinessSubCategoryActivity extends AppCompatActivity {
             public void onClick(View view, int position) {
 
 
-                sessionManager.setSelectedBusinessCategoryDetails(String.valueOf(list_BusinessSubCategory.get(position).getId()), list_BusinessSubCategory.get(position).getBusinessCategoryName());
+                sessionManager.setSelectedBusinessSubCategoryDetails(String.valueOf(list_BusinessSubCategory.get(position).getId()), list_BusinessSubCategory.get(position).getBusinessCategoryName());
 
                 if (list_BusinessSubCategory.get(position).getCount() == 0) {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setTitle("Data information");
 
-                    builder.setMessage("No members data found in \"" + list_BusinessSubCategory.get(position).getBusinessCategoryName() + "\" category");
+
+                    builder.setMessage("Sorry, we have not found any members in  \"" + list_BusinessSubCategory.get(position).getBusinessCategoryName() + "\" category");
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -134,23 +132,13 @@ public class BusinessSubCategoryActivity extends AppCompatActivity {
     }
 
     private void getBusinessSubCategoryDataWithCountFromServer() {
+
         CommonMethods.showDialog(spotsDialog);
 
 
-        String fcm_tokenid = "";
-        try {
-            MyFirebaseInstanceIDService mid = new MyFirebaseInstanceIDService();
-            fcm_tokenid = String.valueOf(mid.onTokenRefreshNew(context));
-
-        } catch (Exception e) {
-            fcm_tokenid = "";
-            e.printStackTrace();
-        }
-
-
         ApiInterface apiClient = ApiClient.getClient().create(ApiInterface.class);
-        Log.d(TAG, "URL getAllBusinessSubCategory : " + CommonMethods.WEBSITE + "getAllBusinessSubCategory?type=dashboard&businessid=0");
-        apiClient.getAllBusinessSubCategory("dashboard", 0).enqueue(new Callback<BusinessSubCategoryData>() {
+        Log.d(TAG, "URL getAllBusinessSubCategory : " + CommonMethods.WEBSITE + "getAllBusinessSubCategory?type=businesscategory&businessid="+ Integer.parseInt(userDetails.get(SessionManager.KEY_SELECTED_BUSINESS_CATEGORY_ID)) +"");
+        apiClient.getAllBusinessSubCategory("businesscategory", Integer.parseInt(userDetails.get(SessionManager.KEY_SELECTED_BUSINESS_CATEGORY_ID))).enqueue(new Callback<BusinessSubCategoryData>() {
             @Override
             public void onResponse(Call<BusinessSubCategoryData> call, Response<BusinessSubCategoryData> response) {
 
@@ -171,7 +159,7 @@ public class BusinessSubCategoryActivity extends AppCompatActivity {
                             list_BusinessSubCategory = response.body().getDATA();
 
 
-                            adapter = new BusinessCategoryAdapterRecyclerView(context, list_BusinessSubCategory);
+                            adapter = new BusinessSubCategoryAdapterRecyclerView(context, list_BusinessSubCategory);
                             rvBusiness.setAdapter(adapter);
 
 
@@ -243,7 +231,10 @@ public class BusinessSubCategoryActivity extends AppCompatActivity {
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         } else if (item.getItemId() == R.id.menu_search) {
 
+
+            sessionManager.setSearchType(CommonMethods.SEARCH_BUSINESS_SUBCATEGORY);
             Intent intent = new Intent(context, SearchActivity.class);
+            intent.putExtra(CommonMethods.ACTIVITY_NAME , TAG);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
             finish();

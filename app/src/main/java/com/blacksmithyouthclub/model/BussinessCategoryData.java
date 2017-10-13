@@ -78,6 +78,10 @@ public class BussinessCategoryData {
         @Expose
         private String businessName;
 
+        @SerializedName("subcategorycount")
+        @Expose
+        private String subcategorycount;
+
         public Integer getId() {
             return id;
         }
@@ -92,6 +96,14 @@ public class BussinessCategoryData {
 
         public void setBusinessName(String businessName) {
             this.businessName = businessName;
+        }
+
+        public String getSubcategorycount() {
+            return subcategorycount;
+        }
+
+        public void setSubcategorycount(String subcategorycount) {
+            this.subcategorycount = subcategorycount;
         }
     }
 }

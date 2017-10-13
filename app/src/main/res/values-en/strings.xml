@@ -8,6 +8,7 @@
     <string name="title_activity_events">Events</string>
     <string name="title_activity_advertisement">Advertisements</string>
     <string name="title_activity_contact_us">ContactUs</string>
+    <string name="title_activity_surnames">Surnames Data</string>
 
 
     <string name="no_network">Not able to connect to App</string>
@@ -82,6 +83,7 @@
 
     <!--Search Activity Related Keys-->
     <string name="search_hint">Search for Members</string>
+    <string name="search_hint_surname">Search by surname</string>
 
     <!--fragment Profile-->
     <string name="str_select_blood_group">Select Blood Group</string>
@@ -133,6 +135,7 @@
     <string name="server_error">System Error. Please try again later!</string>
     <string name="str_error_servercode_not_200">Something is wrong,try again</string>
 
+    <string name="str_menu_home">Home</string>
     <string name="str_menu_directory" >Directory</string>
     <string name="str_menu_business">Business</string>
     <string name="str_menu_profile">Profile</string>
@@ -143,6 +146,7 @@
     <string name="str_menu_logout">Logout</string>
     <string name="str_home_phone">Home Phone no</string>
     <string name="str_business_subcategory">Business Subcategory</string>
+    <string name="search_hint_business_category">Search by business</string>
 
 
 </resources>

@@ -32,7 +32,7 @@ public class SessionManager {
 
     public static final String KEY_USER_AVATAR_URL = "UserAvatarURL";
 
-    public static final String KEY_SELECTED_BUSINESS_SUBCATEGORY_ID="electedBusinessSubCategoryId",KEY_SELECTED_BUSINESS_SUBCATEGORY="SelectedBusinessSubCategory";
+    public static final String KEY_SELECTED_BUSINESS_SUBCATEGORY_ID="SelectedBusinessSubCategoryId",KEY_SELECTED_BUSINESS_SUBCATEGORY="SelectedBusinessSubCategory";
 
 
 
@@ -42,10 +42,12 @@ public class SessionManager {
     public static final String KEY_SEARCH_USERID  = "SearchUserId" , KEY_SEARCH_USERNAME ="SeacrchUserName";
     public static final String KEY_SELECTED_SURNAME_ID ="SelectedSurnameId", KEY_SELECTED_SURNAME = "SelectedSurname";
 
+    public static final String KEY_SELECTED_BUSINESS_CATEGORY_ID="BusinessCategoryId",KEY_SELECTED_BUSINESS_CATEGORY="BusinessCategory";
     public static final String KEY_SELECTED_CASTE  = "SelectedCaste";
     public static final String  KEY_IS_ACTIVE = "IsActive";
     public static final String KEY_ENODEDED_STRING = "Encoded_string";
     public static final String KEY_USER_ID = "UserId", KEY_USER_VERIFICATION_STATUS = "VerificationStatus",KEY_USER_REFERAL_CODE = "ReferralCode", KEY_USER_DEVICE_TYPE = "DeviceType",  KEY_USER_IS_ACTIVE = "IsActive", KEY_USER_IS_REFERRED = "IsReferred", KEY_USER_MOBILE = "UserMobile";
+    public static final  String KEY_SEARH_TYPE = "searchType";
 
 
     public SessionManager(Context context) {
@@ -85,6 +87,15 @@ public class SessionManager {
 
         HashMap<String, String> user = new HashMap<String, String>();
 
+
+
+
+
+
+        user.put(KEY_SELECTED_BUSINESS_CATEGORY_ID  , pref.getString(KEY_SELECTED_BUSINESS_CATEGORY_ID , "0"));
+        user.put(KEY_SELECTED_BUSINESS_CATEGORY  , pref.getString(KEY_SELECTED_BUSINESS_CATEGORY , ""));
+
+        user.put(KEY_SEARH_TYPE  , pref.getString(KEY_SEARH_TYPE , ""));
 
 
 
@@ -223,7 +234,18 @@ public class SessionManager {
     }
 
 
-    public  void setSelectedBusinessCategoryDetails(String businessSubCategoryId , String businessSubcategoryName)
+    public  void setSelectedBusinessCategoryDetails(String businessCategoryId , String businessCategoryName)
+    {
+
+
+        editor.putString(KEY_SELECTED_BUSINESS_CATEGORY_ID , businessCategoryId);
+        editor.putString(KEY_SELECTED_BUSINESS_CATEGORY , businessCategoryName);
+
+        editor.commit();
+
+    }
+
+    public  void setSelectedBusinessSubCategoryDetails(String businessSubCategoryId , String businessSubcategoryName)
     {
 
 
@@ -269,6 +291,12 @@ public class SessionManager {
         }
 
 
+        editor.commit();
+    }
+
+    public void setSearchType(String searchType) {
+
+        editor.putString(KEY_SEARH_TYPE , searchType);
         editor.commit();
     }
 }

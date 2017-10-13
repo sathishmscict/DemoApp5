@@ -84,6 +84,7 @@
                         android:focusableInTouchMode="false"
                         android:gravity="center|top|left"
                         android:hint="@string/currentarea"
+                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:inputType="textMultiLine"
                         android:maxLines="5"
                         android:singleLine="false"

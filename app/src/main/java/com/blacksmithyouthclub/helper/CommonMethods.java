@@ -40,9 +40,11 @@ import dmax.dialog.SpotsDialog;
 
 public class CommonMethods {
 
-    public static final String WEBSITE="http://blacksmith.studyfield.com/ServiceV2.asmx/";
+    public static final String WEBSITE="http://blacksmith.studyfield.com/Service.asmx/";
 
 
+
+    public static final String ACTIVITY_NAME = "ActivityName";
 
     public static final String KEY_FIRST_NAME = "FirstName";
     public static final String KEY_VILLAGE = "village";
@@ -56,6 +58,10 @@ public class CommonMethods {
     public static final Integer MY_SOCKET_TIMEOUT_MS=60000;
     public static final String KEY_LUHAR = "1";
     public static final String KEY_SUTHAR = "2";
+    public static final String SEARCH_BUSINESS_SUBCATEGORY = "businesssubcategory";
+    public static final String SEARCH_BUSINESS_CATEGORY = "businesscategory";
+    public static final String SEARCH_BUSINESS_SURNAME="search";
+    public static final String MEMBER_DATA = "MemberData";
 
 
     public static  void showError(Context context , String errorMessage) {
@@ -165,6 +171,10 @@ public class CommonMethods {
 
     public static final String convertToJsonDateFormat(String cur_date) {
 
+        if(cur_date.equals(""))
+        {
+           cur_date="01-01-1900";
+        }
         Log.d("Passed Date : ", cur_date);
         SimpleDateFormat dateFormat = null;
         Date date = null;
@@ -178,6 +188,7 @@ public class CommonMethods {
             System.out.println(date);
         } catch (Exception e) {
             Log.d("Convert DataFormat :: ", e.getMessage());
+
         }
 
 

@@ -87,6 +87,7 @@ public class MembersDataBySurnameActivity extends AppCompatActivity {
     }
 
     private void getMemebersDataBySurname() {
+
         CommonMethods.showDialog(spotsDialog);
 
 
@@ -113,7 +114,7 @@ public class MembersDataBySurnameActivity extends AppCompatActivity {
                             List<MembersDataBySurname.DATum> arr = response.body().getDATA();
 
 
-                            adapter = new SurnameWiseMemberDataAdapterRecyclerView(context, arr);
+                            adapter = new SurnameWiseMemberDataAdapterRecyclerView(context, arr,TAG);
                             rvMemebers.setAdapter(adapter);
 
                             CommonMethods.hideDialog(spotsDialog);
@@ -185,6 +186,10 @@ public class MembersDataBySurnameActivity extends AppCompatActivity {
         else if (item.getItemId() == R.id.menu_search) {
 
             Intent intent = new Intent(context, SearchActivity.class);
+
+            intent.putExtra(CommonMethods.ACTIVITY_NAME , TAG);
+            sessionManager.setSearchType(CommonMethods.SEARCH_BUSINESS_SURNAME);
+
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
             finish();

@@ -3,7 +3,6 @@ package com.blacksmithyouthclub.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,7 @@ import android.widget.TextView;
 
 import com.blacksmithyouthclub.R;
 import com.blacksmithyouthclub.model.BusinessSubCategoryData;
-import com.blacksmithyouthclub.model.MembersDataBySurname;
-import com.bumptech.glide.Glide;
-import com.github.siyamed.shapeimageview.CircularImageView;
+import com.blacksmithyouthclub.model.BussinessCategoryData;
 
 import java.util.List;
 
@@ -25,11 +22,11 @@ import java.util.List;
 public class BusinessCategoryAdapterRecyclerView extends RecyclerView.Adapter<BusinessCategoryAdapterRecyclerView.MyViewHolder> {
     private ImageView Images_dis;
     private Context context;
-    private List<BusinessSubCategoryData.DATum> list_BusinessData;
+    private List<BussinessCategoryData.DATum> list_BusinessData;
     private LayoutInflater inflater;
     private String TAG = BusinessCategoryAdapterRecyclerView.class.getSimpleName();
 
-    public BusinessCategoryAdapterRecyclerView(Context context, List<BusinessSubCategoryData.DATum> alldatas) {
+    public BusinessCategoryAdapterRecyclerView(Context context, List<BussinessCategoryData.DATum> alldatas) {
         this.context = context;
         list_BusinessData = alldatas;
         inflater = LayoutInflater.from(context);
@@ -61,11 +58,12 @@ public class BusinessCategoryAdapterRecyclerView extends RecyclerView.Adapter<Bu
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
-        final BusinessSubCategoryData.DATum BD = list_BusinessData.get(position);
+        final BussinessCategoryData.DATum BD = list_BusinessData.get(position);
 
 
-        holder.tvCategory.setText(BD.getBusinessCategoryName());
-        holder.tvCategoryCount.setText(BD.getCount().toString());
+        holder.tvCategory.setText(BD.getBusinessName());
+        holder.tvCategoryCount.setText(BD.getSubcategorycount().toString());
+        //holder.tvCategoryCount.setVisibility(View.GONE);
 
 
     }
