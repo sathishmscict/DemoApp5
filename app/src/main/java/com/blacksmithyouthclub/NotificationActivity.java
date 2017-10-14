@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.blacksmithyouthclub.adapter.NotificaitonAdapterRecyclerView;
@@ -30,6 +31,7 @@ import com.blacksmithyouthclub.session.SessionManager;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,7 +47,7 @@ public class NotificationActivity extends AppCompatActivity {
     @BindView(R.id.tvNodata)
     TextView tvNodata;
     private Realm realm;
-    private RealmResults<NotificationMaster> notificationsData;
+    private List<NotificationMaster> notificationsData;
     private String TAG = NotificationActivity.class.getSimpleName();
     private Context context = this;
     private SessionManager sessionManager;
@@ -230,7 +232,14 @@ public class NotificationActivity extends AppCompatActivity {
 
         realm.beginTransaction();
 
+       /* static int LIMIT = 50;
+        final RealmResults<Item> resultsFilter = realm.where(Item.class)
+                .between("id", 0, LIMIT)
+                .findAllSorted("id", Sort.ASCENDING);
+        */
+
         notificationsData = realm.where(NotificationMaster.class).findAllSorted("id", Sort.DESCENDING);
+        notificationsData = notificationsData.subList(0,10);
         //personsData.deleteAllFromRealm();
         realm.commitTransaction();
 
@@ -253,6 +262,52 @@ public class NotificationActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            Intent intent = getIntent();
+            // ... do what you wanna do with the intent
+            Bundle extras = intent.getExtras();
+            String tabNumber;
+
+            if(extras != null) {
+                tabNumber = extras.getString("message");
+                Log.d("TEMP", "Tab Number: " + tabNumber);
+                Log.d(TAG,"Message : "+tabNumber);
+                //Toast.makeText(context, "Message : "+tabNumber, Toast.LENGTH_SHORT).show();
+
+            } else {
+                Log.d("TEMP", "Extras are NULL");
+                Log.d("TEMP", "Message : NULLL");
+
+                // Toast.makeText(context, "Message : NULLL", Toast.LENGTH_SHORT).show();
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    @Override
+    public void onNewIntent(Intent intent){
+        Bundle extras = intent.getExtras();
+        String tabNumber;
+
+        if(extras != null) {
+            tabNumber = extras.getString("message");
+            Log.d("TEMP", "Tab Number: " + tabNumber);
+            Toast.makeText(context, "Message : "+tabNumber, Toast.LENGTH_SHORT).show();
+
+        } else {
+            Log.d("TEMP", "Extras are NULL");
+            Toast.makeText(context, "Message : NULLL", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

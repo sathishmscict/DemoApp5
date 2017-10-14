@@ -3,6 +3,7 @@ package com.blacksmithyouthclub;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
@@ -70,6 +71,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String img_url = remoteMessage.getData().get("imageurl");
         String type = remoteMessage.getData().get("type");
         String intenttype = remoteMessage.getData().get("intenttype");
+
+
+
+        /*Bundle bundle = intent.getExtras();
+        String title = bundle.getString("title");
+        String time = bundle.getString("time");
+        id = bundle.getInt("id");*/
 
 
         if(img_url == null)
@@ -203,7 +211,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     resultIntent = new Intent(getApplicationContext(), NotificationActivity.class);
 
 
+
                 }
+                resultIntent.putExtra("message", message);
+               //resultIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+
+
 
 
                 // check for image attachment

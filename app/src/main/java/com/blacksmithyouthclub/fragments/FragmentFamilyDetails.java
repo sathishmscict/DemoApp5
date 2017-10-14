@@ -451,7 +451,8 @@ public class FragmentFamilyDetails extends Fragment {
 
                 if (userData.getMaritalStatusId() == 3 || userData.getMaritalStatusId() == 4)
                 {
-                    if (gender.toString().toLowerCase().equals("male")) {
+                    if (gender.toString().toLowerCase().equals("male"))
+                    {
 
                         edtWifesNameWrapper.setVisibility(View.VISIBLE);
                         edtWifesFatherNameWrapper.setVisibility(View.VISIBLE);
@@ -475,6 +476,28 @@ public class FragmentFamilyDetails extends Fragment {
 
 
                     }
+                }
+                else
+                {
+
+                    edtWifesNameWrapper.setVisibility(View.GONE);
+                    edtWifesFatherNameWrapper.setVisibility(View.GONE);
+                    edtWifesMotherNameWrapper.setVisibility(View.GONE);
+                    spnWifesFatherSurname.setVisibility(View.GONE);
+                    edtWifesFatherVllageWrapper.setVisibility(View.GONE);
+                    edtWifesFatherSurnameWrapper.setEnabled(false);
+                    edtWifesFatherSurnameWrapper.setVisibility(View.GONE);
+                    spnWifesFatherSurname.setVisibility(View.GONE);
+
+
+                    edtHusbandNameWrapper.setVisibility(View.GONE);
+                    edtHusbandsFatherNameWrapper.setVisibility(View.GONE);
+                    edtHusbandsFatherNameWrapper.setVisibility(View.GONE);
+
+                    edtHusbandNameWrapper.setVisibility(View.GONE);
+                    edtHusbandsFatherNameWrapper.setVisibility(View.GONE);
+                    edtHusbandsMothernameWrapper.setVisibility(View.GONE);
+
                 }
 
 
@@ -512,6 +535,27 @@ public class FragmentFamilyDetails extends Fragment {
 
 
                     }
+                }
+                else
+                {
+
+                    edtWifesNameWrapper.setVisibility(View.GONE);
+                    edtWifesFatherNameWrapper.setVisibility(View.GONE);
+                    edtWifesMotherNameWrapper.setVisibility(View.GONE);
+                    spnWifesFatherSurname.setVisibility(View.GONE);
+                    edtWifesFatherVllageWrapper.setVisibility(View.GONE);
+                    edtWifesFatherSurnameWrapper.setEnabled(false);
+                    edtWifesFatherSurnameWrapper.setVisibility(View.GONE);
+                    spnWifesFatherSurname.setVisibility(View.GONE);
+
+
+
+
+                    edtHusbandNameWrapper.setVisibility(View.GONE);
+                    edtHusbandsFatherNameWrapper.setVisibility(View.GONE);
+                    edtHusbandsMothernameWrapper.setVisibility(View.GONE);
+
+
                 }
 
             }
@@ -612,6 +656,32 @@ public class FragmentFamilyDetails extends Fragment {
 
 
                 }
+                else
+                {
+
+
+                    edtWifesNameWrapper.setVisibility(View.GONE);
+                    edtWifesFatherNameWrapper.setVisibility(View.GONE);
+                    edtWifesMotherNameWrapper.setVisibility(View.GONE);
+                    spnWifesFatherSurname.setVisibility(View.GONE);
+                    edtWifesFatherVllageWrapper.setVisibility(View.GONE);
+                    edtWifesFatherSurnameWrapper.setEnabled(false);
+                    edtWifesFatherSurnameWrapper.setVisibility(View.GONE);
+
+
+
+                    edtHusbandNameWrapper.setVisibility(View.GONE);
+                    edtHusbandsFatherNameWrapper.setVisibility(View.GONE);
+                    edtHusbandsFatherNameWrapper.setVisibility(View.GONE);
+
+                    edtHusbandNameWrapper.setVisibility(View.GONE);
+                    edtHusbandsFatherNameWrapper.setVisibility(View.GONE);
+                    edtHusbandsMothernameWrapper.setVisibility(View.GONE);
+
+
+
+                }
+
 
 
 
@@ -647,6 +717,25 @@ public class FragmentFamilyDetails extends Fragment {
                         //edtHus.setVisibility(View.VISIBLE);
 
 
+
+                }
+                else
+                {
+                    edtWifesNameWrapper.setVisibility(View.GONE);
+                    edtWifesFatherNameWrapper.setVisibility(View.GONE);
+                    edtWifesMotherNameWrapper.setVisibility(View.GONE);
+                    spnWifesFatherSurname.setVisibility(View.GONE);
+                    edtWifesFatherVllageWrapper.setVisibility(View.GONE);
+                    edtWifesFatherSurnameWrapper.setEnabled(false);
+                    edtWifesFatherSurnameWrapper.setVisibility(View.GONE);
+                    spnWifesFatherSurname.setVisibility(View.GONE);
+
+
+
+
+                    edtHusbandNameWrapper.setVisibility(View.GONE);
+                    edtHusbandsFatherNameWrapper.setVisibility(View.GONE);
+                    edtHusbandsMothernameWrapper.setVisibility(View.GONE);
 
                 }
 

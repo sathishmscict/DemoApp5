@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -82,7 +83,7 @@ public class SurnamesActivity extends AppCompatActivity {
         fab.setVisibility(View.GONE);
 
 
-        setTitle(getString(R.string.title_activity_surnames));
+        setTitle(getString(R.string.str_menu_directory));
 
         try {
             getSupportActionBar().setHomeButtonEnabled(true);
@@ -106,7 +107,12 @@ public class SurnamesActivity extends AppCompatActivity {
         spotsDialog.setCancelable(false);
 
         LinearLayoutManager lManager = new LinearLayoutManager(context);
-        rvSurnames.setLayoutManager(lManager);
+        GridLayoutManager layoutManager = new GridLayoutManager(context,2);
+        rvSurnames.setLayoutManager(layoutManager);
+
+
+
+
 
 
         rvSurnames.addOnItemTouchListener(new CommonMethods.RecyclerTouchListener(this, rvSurnames, new CommonMethods.ClickListener() {

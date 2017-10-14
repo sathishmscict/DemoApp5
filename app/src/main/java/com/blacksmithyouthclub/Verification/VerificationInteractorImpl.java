@@ -52,7 +52,7 @@ public class VerificationInteractorImpl implements VerificationInteractor {
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        Log.d(TAG, "URL getVerificatonCode  : " + CommonMethods.WEBSITE + "getVerificationCode?type=verification&code=" + userDetails.get(SessionManager.KEY_CODE) + "&mobile=" + userDetails.get(SessionManager.KEY_USER_MOBILE) + "");
+        Log.d(TAG, "URL VerificationService  : " + CommonMethods.WEBSITE + "VerificationService?type=verification&code=" + userDetails.get(SessionManager.KEY_CODE) + "&mobile=" + userDetails.get(SessionManager.KEY_USER_MOBILE) + "");
 
 
         apiInterface.getVerificatonCode("verification", userDetails.get(SessionManager.KEY_CODE), userDetails.get(SessionManager.KEY_USER_MOBILE)).enqueue(new Callback<CommonReponse>() {

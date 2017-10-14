@@ -17,6 +17,7 @@ import android.os.StrictMode;
 import android.support.v4.app.NotificationCompat;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 
 
@@ -26,6 +27,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -103,51 +105,67 @@ public class NotificationUtils {
 
     private void showSmallNotification(NotificationCompat.Builder mBuilder, int icon, String title, String message,  PendingIntent resultPendingIntent, Uri alarmSound) {
 
-        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+        try {
+            NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
-        inboxStyle.addLine(message);
+            inboxStyle.addLine(message);
 
-        Notification notification;
-        notification = mBuilder.setSmallIcon(icon).setTicker(title).setWhen(0)
-                .setAutoCancel(true)
-                .setContentTitle(title)
-                .setContentIntent(resultPendingIntent)
-                .setSound(alarmSound)
-                .setStyle(inboxStyle)
+            Notification notification;
+            notification = mBuilder.setSmallIcon(icon).setTicker(title).setWhen(0)
+                    .setAutoCancel(true)
+                    .setContentTitle(title)
+                    .setContentIntent(resultPendingIntent)
+                    .setSound(alarmSound)
+                    .setStyle(inboxStyle)
 
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setVibrate(new long[]{500, 500, 500, 500})
-                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                .setContentText(message)
-                .build();
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setVibrate(new long[]{500, 500, 500, 500})
+                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                    .setContentText(message)
+                    .build();
 
-        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(Config.NOTIFICATION_ID, notification);
+            NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            Random r= new Random();
+            int notificationid = r.nextInt(10000);
+
+            Log.d(TAG ,"Notification Id : "+notificationid);
+            //notificationManager.notify(Config.NOTIFICATION_ID, notification);
+            notificationManager.notify(notificationid, notification);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void showBigNotification(Bitmap bitmap, NotificationCompat.Builder mBuilder, int icon, String title, String message, PendingIntent resultPendingIntent, Uri alarmSound) {
-        NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
-        bigPictureStyle.setBigContentTitle(title);
-        bigPictureStyle.setSummaryText(Html.fromHtml(message).toString());
-        bigPictureStyle.bigPicture(bitmap);
-        Notification notification;
-        notification = mBuilder.setSmallIcon(icon).setTicker(title).setWhen(0)
-                .setAutoCancel(true)
-                .setContentTitle(title)
-                .setContentIntent(resultPendingIntent)
-                .setSound(alarmSound)
-                .setStyle(bigPictureStyle)
+        try {
+            NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
+            bigPictureStyle.setBigContentTitle(title);
+            bigPictureStyle.setSummaryText(Html.fromHtml(message).toString());
+            bigPictureStyle.bigPicture(bitmap);
+            Notification notification;
+            notification = mBuilder.setSmallIcon(icon).setTicker(title).setWhen(0)
+                    .setAutoCancel(true)
+                    .setContentTitle(title)
+                    .setContentIntent(resultPendingIntent)
+                    .setSound(alarmSound)
+                    .setStyle(bigPictureStyle)
 
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                .setContentText(message)
-        .setVibrate(new long[]{500, 500, 500, 500})
-                .build();
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                    .setContentText(message)
+            .setVibrate(new long[]{500, 500, 500, 500})
+                    .build();
 
 
-
-        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(Config.NOTIFICATION_ID_BIG_IMAGE, notification);
+            NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            Random r= new Random();
+            int notificationid = r.nextInt(10000);
+            Log.d(TAG ,"Big Notification Id : "+notificationid);
+            //notificationManager.notify(Config.NOTIFICATION_ID_BIG_IMAGE, notification);
+            notificationManager.notify(notificationid, notification);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

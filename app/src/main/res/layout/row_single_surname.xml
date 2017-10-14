@@ -6,6 +6,8 @@
     style="@style/AppTheme.Card.Margins"
     android:layout_width="match_parent"
 
+
+    android:id="@+id/cvSurname"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
@@ -22,15 +24,17 @@
             android:layout_height="75dp"
             android:layout_marginLeft="1dp"
             android:layout_marginTop="0dp"
+
             android:drawableRight="@drawable/icon_next2"
             android:gravity="center"
             android:paddingRight="8dp"
+
 
             android:singleLine="true"
 
             android:text="Surname"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/colorPrimaryText" />
+            android:textColor="@color/white" />
 
 
     </LinearLayout>

@@ -499,6 +499,26 @@ public class SignUpUserActivity extends AppCompatActivity {
 
                 }
 
+                if (!edtReferalCode.getText().toString().equals("")) {
+
+
+                    if (edtReferalCode.getText().toString().length() < 8) {
+                        error = error + "\nReferral code should be  8 characters,";
+                        edtReferalCodeWrapper.setErrorEnabled(true);
+                        edtReferalCodeWrapper.setError("Referral code should be  8 characters");
+                    } else {
+                        edtReferalCodeWrapper.setErrorEnabled(false);
+                    }
+
+
+                }
+                else
+                {
+
+                    edtReferalCodeWrapper.setErrorEnabled(false);
+                }
+
+
                 if (edtVillageName.getText().toString().equals("")) {
 
                     error = error + "\nEnter village name,";
@@ -1309,7 +1329,7 @@ public class SignUpUserActivity extends AppCompatActivity {
 
 
         ApiInterface apiClient = ApiClient.getClient().create(ApiInterface.class);
-        Log.d(TAG, "URL getserviceForSpinnersData : " + CommonMethods.WEBSITE + "getserviceForSpinnersData?type=spinner&countryid=1");
+        Log.d(TAG, "URL getserviceForSpinnersData : " + CommonMethods.WEBSITE + "getserviceForSpinnersData?type=spinner&countryid=1&casteid="+ userDetails.get(SessionManager.KEY_SELECTED_CASTE) +"");
         apiClient.getserviceForSpinnersData("spinner", "1", userDetails.get(SessionManager.KEY_SELECTED_CASTE)).enqueue(new Callback<SpinnersData>() {
             @Override
             public void onResponse(Call<SpinnersData> call, Response<SpinnersData> response) {

@@ -16,6 +16,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.NotificationCompat;
@@ -109,11 +110,13 @@ public class DashBoardActivity extends AppCompatActivity
     private Realm realm;
     private UserMaster userData;
     UserMaster u = new UserMaster();
-    private RealmResults<NotificationMaster> notificationsData;
+    private List<NotificationMaster> notificationsData;
     private TextView tvUserName;
     private TextView tvEmail;
     private CircularImageView imgProfilePic;
 
+
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,7 +162,7 @@ public class DashBoardActivity extends AppCompatActivity
         try {
             //  Notify("" + getString(R.string.app_name), "Wel come Sathish Gadde" );
             if (getIntent().getBooleanExtra("IS_FIRSTTIME", false) == true) {
-                Notify("" + getString(R.string.app_name), "Wel come  " + userData.getFirstName() + " " + userData.getSurname());
+                Notify("" + getString(R.string.app_name), "Wel come  " + userData.getFirstName() + " " + userData.getSurnameName());
 
             }
         } catch (Exception e) {
@@ -361,13 +364,14 @@ public class DashBoardActivity extends AppCompatActivity
 
             try {
                 tvUserName.setText(userData.getFirstName() + " " + userData.getSurnameName());
-                tvEmail.setText(userData.getEmail());
+                tvEmail.setText("Referral Code : " + userData.getReferal_code());
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
 
-            if (!userDetails.get(SessionManager.KEY_IS_ACTIVE).equals("0")) {
+            if (!userDetails.get(SessionManager.KEY_IS_ACTIVE).equals("0"))
+            {
 
                 getAllSurnameData();
 
@@ -406,9 +410,8 @@ public class DashBoardActivity extends AppCompatActivity
     }
 
 
-    private void SetUserProfilePictireFromBase64EnodedString()
-    {
-      //  CommonMethods.showDialog(spotsDialog);
+    private void SetUserProfilePictireFromBase64EnodedString() {
+        //  CommonMethods.showDialog(spotsDialog);
 
         //tvUserName.setText(userDetails.get(SessionManager.KEY_USER_NAME));
         //tvEmail.setText(userDetails.get(SessionManager.KEY_USER_EMAIL));
@@ -486,159 +489,164 @@ public class DashBoardActivity extends AppCompatActivity
 
 
         ApiInterface apiClient = ApiClient.getClient().create(ApiInterface.class);
-        Log.d(TAG, "URL getAllSurname : " + CommonMethods.WEBSITE + "getAllSurname?type=surnameall&casteid=" + userDetails.get(SessionManager.KEY_SELECTED_CASTE) + "&userid=" + userDetails.get(SessionManager.KEY_USER_ID) + "&fcmtoken="+  fcm_tokenid +"");
-        apiClient.getAllSurname("surnameall", Integer.parseInt(userDetails.get(SessionManager.KEY_SELECTED_CASTE)), userDetails.get(SessionManager.KEY_USER_ID),fcm_tokenid).enqueue(new Callback<SurnamesData>() {
+        Log.d(TAG, "URL getAllSurname : " + CommonMethods.WEBSITE + "getAllSurname?type=surnameall&casteid=" + userDetails.get(SessionManager.KEY_SELECTED_CASTE) + "&userid=" + userDetails.get(SessionManager.KEY_USER_ID) + "&fcmtoken=" + fcm_tokenid + "");
+        apiClient.getAllSurname("surnameall", Integer.parseInt(userDetails.get(SessionManager.KEY_SELECTED_CASTE)), userDetails.get(SessionManager.KEY_USER_ID), fcm_tokenid).enqueue(new Callback<SurnamesData>() {
             @Override
             public void onResponse(Call<SurnamesData> call, Response<SurnamesData> response) {
 
 
                 Log.d(TAG, "getAllSurname Response Code : " + response.code());
 
-                if (response.code() == 200) {
+                if (response.code() == 200)
+                {
 
 
-                    String str_error = response.body().getMESSAGE();
-                    String str_error_original = response.body().getORIGINALMESSAGE();
-                    boolean error_status = response.body().getERRORSTATUS();
-                    boolean record_status = response.body().getRECORDS();
-                    boolean approvalStatus = response.body().getAPPROVALSTATUS();
+                    try {
+                        String str_error = response.body().getMESSAGE();
+                        String str_error_original = response.body().getORIGINALMESSAGE();
+                        boolean error_status = response.body().getERRORSTATUS();
+                        boolean record_status = response.body().getRECORDS();
+                        boolean approvalStatus = response.body().getAPPROVALSTATUS();
 
-                    sessionManager.setUserDetails(userDetails.get(SessionManager.KEY_USER_ID), userDetails.get(SessionManager.KEY_USER_MOBILE), approvalStatus);
+                        sessionManager.setUserDetails(userDetails.get(SessionManager.KEY_USER_ID), userDetails.get(SessionManager.KEY_USER_MOBILE), approvalStatus);
 
-                    if (error_status == false) {
-                        if (record_status == true) {
+                        if (error_status == false) {
+                            if (record_status == true) {
 
-                            list_Surnames = response.body().getDATA();
-
-
-                            adapter = new SurnameAdapterRecyclerView(context, list_Surnames);
-                            rvSurnames.setAdapter(adapter);
+                                list_Surnames = response.body().getDATA();
 
 
-                            List<SurnamesData.LOGINDATum> arr = response.body().getLOGINDATA();
-
-                            for (int i = 0; i < arr.size(); i++) {
-
-                                int userId = arr.get(i).getId();
-
-                                String userMobile = arr.get(i).getMobile();
+                                adapter = new SurnameAdapterRecyclerView(context, list_Surnames);
+                                rvSurnames.setAdapter(adapter);
 
 
-                                // setUserDetails(String str_userid, String str_username, String str_email, String str_mobile, String str_avatar) {
-                                sessionManager.setUserDetails(String.valueOf(userId), userMobile, arr.get(i).getAppovalStatus());
-                                sessionManager.setReferalcode(arr.get(i).getReferalCode());
-                                sessionManager.setUserActivationStatus(arr.get(i).getAppovalStatus());
+                                List<SurnamesData.LOGINDATum> arr = response.body().getLOGINDATA();
 
-                                userDetails = sessionManager.getSessionDetails();
+                                for (int i = 0; i < arr.size(); i++) {
+
+                                    int userId = arr.get(i).getId();
+
+                                    String userMobile = arr.get(i).getMobile();
 
 
-                                try {
+                                    // setUserDetails(String str_userid, String str_username, String str_email, String str_mobile, String str_avatar) {
+                                    sessionManager.setUserDetails(String.valueOf(userId), userMobile, arr.get(i).getAppovalStatus());
+                                    sessionManager.setReferalcode(arr.get(i).getReferalCode());
+                                    sessionManager.setUserActivationStatus(arr.get(i).getAppovalStatus());
+
+                                    userDetails = sessionManager.getSessionDetails();
 
 
                                     try {
+
+
+                                        try {
+                                            realm.beginTransaction();
+                                            realm.delete(UserMaster.class);
+                                            realm.commitTransaction();
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+
+
+                                        //get realm instance
+                                        // realm = Realm.getDefaultInstance();
+
+                                        //realm.refresh();
+
                                         realm.beginTransaction();
-                                        realm.delete(UserMaster.class);
+
+                                        UserMaster userMaster = new UserMaster();
+
+                                        userMaster.setUserid(arr.get(i).getId());
+                                        userMaster.setCasteName(arr.get(i).getCasteName());
+                                        userMaster.setFirstName(arr.get(i).getFirstName());
+                                        userMaster.setSurname(arr.get(i).getSurname());
+                                        userMaster.setOriginalSurname(arr.get(i).getOriginalSurname());
+                                        userMaster.setVillage(arr.get(i).getVillage());
+                                        userMaster.setMaritalStatusId(arr.get(i).getMaritalStatusId());
+                                        userMaster.setAbout(arr.get(i).getAbout());
+                                        userMaster.setEmail(arr.get(i).getEmail());
+                                        userMaster.setMobile(arr.get(i).getMobile());
+                                        userMaster.setDoa(arr.get(i).getDoa());
+                                        userMaster.setReligion(arr.get(i).getReligion());
+                                        userMaster.setAvatar(arr.get(i).getAvatar());
+                                        userMaster.setBloodGrpId(arr.get(i).getBloodGrpId());
+                                        userMaster.setDob(arr.get(i).getDob());
+                                        userMaster.setHeightId(arr.get(i).getHeightId());
+                                        userMaster.setWeight(arr.get(i).getWeight());
+                                        userMaster.setFathersName(arr.get(i).getFathersName());
+                                        userMaster.setMothersName(arr.get(i).getMothersName());
+                                        userMaster.setFathersFathersName(arr.get(i).getFathersFathersName());
+                                        userMaster.setFathersMothersName(arr.get(i).getFathersMothersName());
+                                        userMaster.setMothersFathersName(arr.get(i).getMothersFathersName());
+                                        userMaster.setMothersMothersName(arr.get(i).getMothersMothersName());
+                                        userMaster.setMothersFathersSurname(arr.get(i).getMothersFathersSurname());
+                                        userMaster.setMothersFathersVillage(arr.get(i).getMothersFathersVillage());
+                                        userMaster.setHusbandsName(arr.get(i).getHusbandsName());
+                                        userMaster.setHusbandsFathersName(arr.get(i).getHusbandsFathersName());
+                                        userMaster.setHusbandsMothersName(arr.get(i).getHusbandsMothersName());
+                                        userMaster.setWifesName(arr.get(i).getWifesName());
+                                        userMaster.setWifesFathersName(arr.get(i).getWifesFathersName());
+                                        userMaster.setWifesMothersName(arr.get(i).getWifesMothersName());
+                                        userMaster.setWifesFathersSurname(arr.get(i).getWifesFathersSurname());
+                                        userMaster.setWifesFathersVillage(arr.get(i).getWifesFathersVillage());
+                                        userMaster.setHomePhone(arr.get(i).getHomePhone());
+                                        userMaster.setAddress(arr.get(i).getAddress());
+                                        userMaster.setCurrentArea(arr.get(i).getCurrentArea());
+                                        userMaster.setCityId(arr.get(i).getCityId());
+                                        userMaster.setStateId(arr.get(i).getStateId());
+                                        userMaster.setCountryId(arr.get(i).getCountryId());
+                                        userMaster.setPincode(arr.get(i).getPincode());
+                                        userMaster.setBusinessId(arr.get(i).getBusinessId());
+                                        userMaster.setBusinesssubcategoryids(arr.get(i).getBusinesssubcategoryids());
+                                        userMaster.setOccupationspecialization(arr.get(i).getOccupationspecialization());
+                                        userMaster.setBusinessName(arr.get(i).getBusinessName());
+                                        userMaster.setEducationName(arr.get(i).getEducationName());
+                                        userMaster.setEducationSpecialization(arr.get(i).getEducationSpecialization());
+                                        userMaster.setUsertypeId(arr.get(i).getUsertypeId());
+                                        userMaster.setCreatedDate(arr.get(i).getCreatedDate());
+                                        userMaster.setAppovalStatus(arr.get(i).getAppovalStatus());
+                                        userMaster.setHobbyId(arr.get(i).getHobbyId());
+                                        userMaster.setGender(arr.get(i).getGender());
+                                        userMaster.setMaritalStatus(arr.get(i).getMaritalStatus());
+                                        userMaster.setBloodgrpName(arr.get(i).getBloodgrpName());
+                                        userMaster.setStateName(arr.get(i).getStateName());
+                                        userMaster.setCityName(arr.get(i).getCityName());
+                                        userMaster.setBusinessAddress(arr.get(i).getBusinessAddress());
+                                        userMaster.setBusinessLogo(arr.get(i).getBusinessLogo());
+                                        userMaster.setHeightName(arr.get(i).getHeightName());
+                                        userMaster.setSurnameName(arr.get(i).getSurnameName());
+                                        userMaster.setMob1(arr.get(i).getMob1());
+                                        userMaster.setMob2(arr.get(i).getMob2());
+                                        userMaster.setLandLine1(arr.get(i).getLandLine1());
+                                        userMaster.setLandLine2(arr.get(i).getLandLine2());
+                                        userMaster.setBusinessWebsite(arr.get(i).getBusinessWebsite());
+                                        userMaster.setWorkTitle(arr.get(i).getWorkTitle());
+                                        userMaster.setReferal_code(arr.get(i).getReferalCode());
+                                        userMaster.setDocument_url(arr.get(i).getDocumentUrl());
+
+
+                                        realm.copyToRealm(userMaster);
                                         realm.commitTransaction();
-                                    } catch (Exception e) {
+                                        Log.d(TAG, "Userdata has been added in database");
+                                    } catch (NumberFormatException e) {
                                         e.printStackTrace();
                                     }
-
-
-                                    //get realm instance
-                                    // realm = Realm.getDefaultInstance();
-
-                                    //realm.refresh();
-
-                                    realm.beginTransaction();
-
-                                    UserMaster userMaster = new UserMaster();
-
-                                    userMaster.setUserid(arr.get(i).getId());
-                                    userMaster.setCasteName(arr.get(i).getCasteName());
-                                    userMaster.setFirstName(arr.get(i).getFirstName());
-                                    userMaster.setSurname(arr.get(i).getSurname());
-                                    userMaster.setOriginalSurname(arr.get(i).getOriginalSurname());
-                                    userMaster.setVillage(arr.get(i).getVillage());
-                                    userMaster.setMaritalStatusId(arr.get(i).getMaritalStatusId());
-                                    userMaster.setAbout(arr.get(i).getAbout());
-                                    userMaster.setEmail(arr.get(i).getEmail());
-                                    userMaster.setMobile(arr.get(i).getMobile());
-                                    userMaster.setDoa(arr.get(i).getDoa());
-                                    userMaster.setReligion(arr.get(i).getReligion());
-                                    userMaster.setAvatar(arr.get(i).getAvatar());
-                                    userMaster.setBloodGrpId(arr.get(i).getBloodGrpId());
-                                    userMaster.setDob(arr.get(i).getDob());
-                                    userMaster.setHeightId(arr.get(i).getHeightId());
-                                    userMaster.setWeight(arr.get(i).getWeight());
-                                    userMaster.setFathersName(arr.get(i).getFathersName());
-                                    userMaster.setMothersName(arr.get(i).getMothersName());
-                                    userMaster.setFathersFathersName(arr.get(i).getFathersFathersName());
-                                    userMaster.setFathersMothersName(arr.get(i).getFathersMothersName());
-                                    userMaster.setMothersFathersName(arr.get(i).getMothersFathersName());
-                                    userMaster.setMothersMothersName(arr.get(i).getMothersMothersName());
-                                    userMaster.setMothersFathersSurname(arr.get(i).getMothersFathersSurname());
-                                    userMaster.setMothersFathersVillage(arr.get(i).getMothersFathersVillage());
-                                    userMaster.setHusbandsName(arr.get(i).getHusbandsName());
-                                    userMaster.setHusbandsFathersName(arr.get(i).getHusbandsFathersName());
-                                    userMaster.setHusbandsMothersName(arr.get(i).getHusbandsMothersName());
-                                    userMaster.setWifesName(arr.get(i).getWifesName());
-                                    userMaster.setWifesFathersName(arr.get(i).getWifesFathersName());
-                                    userMaster.setWifesMothersName(arr.get(i).getWifesMothersName());
-                                    userMaster.setWifesFathersSurname(arr.get(i).getWifesFathersSurname());
-                                    userMaster.setWifesFathersVillage(arr.get(i).getWifesFathersVillage());
-                                    userMaster.setHomePhone(arr.get(i).getHomePhone());
-                                    userMaster.setAddress(arr.get(i).getAddress());
-                                    userMaster.setCurrentArea(arr.get(i).getCurrentArea());
-                                    userMaster.setCityId(arr.get(i).getCityId());
-                                    userMaster.setStateId(arr.get(i).getStateId());
-                                    userMaster.setCountryId(arr.get(i).getCountryId());
-                                    userMaster.setPincode(arr.get(i).getPincode());
-                                    userMaster.setBusinessId(arr.get(i).getBusinessId());
-                                    userMaster.setBusinesssubcategoryids(arr.get(i).getBusinesssubcategoryids());
-                                    userMaster.setOccupationspecialization(arr.get(i).getOccupationspecialization());
-                                    userMaster.setBusinessName(arr.get(i).getBusinessName());
-                                    userMaster.setEducationName(arr.get(i).getEducationName());
-                                    userMaster.setEducationSpecialization(arr.get(i).getEducationSpecialization());
-                                    userMaster.setUsertypeId(arr.get(i).getUsertypeId());
-                                    userMaster.setCreatedDate(arr.get(i).getCreatedDate());
-                                    userMaster.setAppovalStatus(arr.get(i).getAppovalStatus());
-                                    userMaster.setHobbyId(arr.get(i).getHobbyId());
-                                    userMaster.setGender(arr.get(i).getGender());
-                                    userMaster.setMaritalStatus(arr.get(i).getMaritalStatus());
-                                    userMaster.setBloodgrpName(arr.get(i).getBloodgrpName());
-                                    userMaster.setStateName(arr.get(i).getStateName());
-                                    userMaster.setCityName(arr.get(i).getCityName());
-                                    userMaster.setBusinessAddress(arr.get(i).getBusinessAddress());
-                                    userMaster.setBusinessLogo(arr.get(i).getBusinessLogo());
-                                    userMaster.setHeightName(arr.get(i).getHeightName());
-                                    userMaster.setSurnameName(arr.get(i).getSurnameName());
-                                    userMaster.setMob1(arr.get(i).getMob1());
-                                    userMaster.setMob2(arr.get(i).getMob2());
-                                    userMaster.setLandLine1(arr.get(i).getLandLine1());
-                                    userMaster.setLandLine2(arr.get(i).getLandLine2());
-                                    userMaster.setBusinessWebsite(arr.get(i).getBusinessWebsite());
-                                    userMaster.setWorkTitle(arr.get(i).getWorkTitle());
-                                    userMaster.setReferal_code(arr.get(i).getReferalCode());
-                                    userMaster.setDocument_url(arr.get(i).getDocumentUrl());
-
-
-                                    realm.copyToRealm(userMaster);
-                                    realm.commitTransaction();
-                                    Log.d(TAG, "Userdata has been added in database");
-                                } catch (NumberFormatException e) {
-                                    e.printStackTrace();
                                 }
-                            }
 
+
+                                CommonMethods.hideDialog(spotsDialog);
+
+
+                            }
+                        } else {
 
                             CommonMethods.hideDialog(spotsDialog);
-
-
+                            Toast.makeText(context, "" + str_error, Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-
-                        CommonMethods.hideDialog(spotsDialog);
-                        Toast.makeText(context, "" + str_error, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
 
@@ -697,9 +705,24 @@ public class DashBoardActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
         }
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click back again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
+
+
     }
 
     @Override
@@ -712,7 +735,6 @@ public class DashBoardActivity extends AppCompatActivity
             cart = (MenuItem) menu.findItem(R.id.menu_notification);
             MenuItem search = (MenuItem) menu.findItem(R.id.menu_search);
             search.setVisible(false);
-
 
 
             LinkedHashMap<String, String> lhm = new LinkedHashMap<String, String>();
@@ -740,23 +762,49 @@ public class DashBoardActivity extends AppCompatActivity
         try {
             LayerDrawable icon = (LayerDrawable) cart.getIcon();
 
+          //  Realm realm2 = Realm.getDefaultInstance();
 
-            realm.refresh();
+           // realm.refresh();
 
             realm.beginTransaction();
 
+
             //notificationsData = realm.where(NotificationMaster.class).findAllSorted("id", Sort.DESCENDING);
-            notificationsData = realm.where(NotificationMaster.class).equalTo("isReaded", false).findAllSorted("id", Sort.DESCENDING);
+            //notificationsData = realm.where(NotificationMaster.class).equalTo("isReaded", false).findAllSorted("id", Sort.DESCENDING);
+            notificationsData = realm.where(NotificationMaster.class).findAllSorted("id", Sort.DESCENDING);
+            if(notificationsData.size() > 10)
+            {
+            notificationsData = notificationsData.subList(0, 10);
+
+
+            }
+
+
+            int counter = 0;
+            for(int i=0;i<notificationsData.size();i++)
+            {
+                if(notificationsData.get(i).isReaded() == false)
+                {
+                    ++counter;
+
+                }
+
+            }
+
+
             //personsData.deleteAllFromRealm();
             realm.commitTransaction();
+            //realm.close();
 
-            if (notificationsData.size() != 0) {
-                Utils.setBadgeCount(context, icon, notificationsData.size());
+            if (counter!= 0) {
+             //   Utils.setBadgeCount(context, icon, notificationsData.size());
+                Utils.setBadgeCount(context, icon, counter);
             }
 
 
             // startCountAnimation();
         } catch (Exception e) {
+            realm.commitTransaction();
             e.printStackTrace();
         }
 
@@ -785,7 +833,7 @@ public class DashBoardActivity extends AppCompatActivity
 
             sessionManager.setSearchType("search");
             Intent intent = new Intent(context, SearchActivity.class);
-            intent.putExtra(CommonMethods.ACTIVITY_NAME , TAG);
+            intent.putExtra(CommonMethods.ACTIVITY_NAME, TAG);
             startActivity(intent);
             finish();
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);

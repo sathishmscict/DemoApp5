@@ -91,7 +91,7 @@ public class SurnameWiseMemberDataAdapterRecyclerView extends RecyclerView.Adapt
         }
 
 
-        holder.tvMemberName.setText(MD.getFirstName());
+        holder.tvMemberName.setText(MD.getFirstName()+" "+MD.getSurnamename());
         holder.tvAddress.setText(MD.getAddress());
         holder.tvMemberMobile.setText(MD.getMobile());
         holder.tvVillage.setText(MD.getVillage());

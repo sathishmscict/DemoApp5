@@ -55,10 +55,11 @@ public class UserData implements Parcelable {
         this.fatherName = in.readString();
 
         this.businesssubcategoryname = in.readString();
-        this.surnamename = in.readString();
+        this.businesssubcategoryid = in.readString();
+
         this.businesssubcategorytitle = in.readString();
         this.membercount = in.readString();
-        this.businesssubcategoryid = in.readString();
+        this.surnamename = in.readString();
 
         this.businesscategoryid = in.readString();
         this.businesscategorytitle = in.readString();
@@ -107,8 +108,8 @@ public class UserData implements Parcelable {
         this.membercount = memberData.getMembercount();
         this.businesssubcategoryid = memberData.getBusinesssubcategoryid();
 
-        this.businesscategoryid = memberData.getBusinesssubcategoryid();
-        this.businesscategorytitle = memberData.getBusinesssubcategoryid();
+        this.businesscategoryid = memberData.getBusinesscategoryid();
+        this.businesscategorytitle = memberData.getBusinesscategorytitle();
 
 
     }

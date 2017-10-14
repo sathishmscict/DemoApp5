@@ -2,6 +2,8 @@ package com.blacksmithyouthclub.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,9 +39,13 @@ public class SurnameAdapterRecyclerView extends RecyclerView.Adapter<SurnameAdap
     {
 
         final TextView tvSurname ;
+        private final CardView cvSurname;
+
         public MyViewHolder(View itemView) {
             super(itemView);
             tvSurname=(TextView) itemView.findViewById(R.id.tvSurname);
+            cvSurname = (CardView)itemView.findViewById(R.id.cvSurname);
+
 
         }
     }
@@ -58,6 +64,18 @@ public class SurnameAdapterRecyclerView extends RecyclerView.Adapter<SurnameAdap
 
 
         holder.tvSurname.setText(SD.getSurname());
+
+        if(position%2 == 0)
+        {
+            holder.cvSurname.setCardBackgroundColor(Color.parseColor("#3F51B5"));
+
+
+        }
+        else
+        {
+            holder.cvSurname.setCardBackgroundColor(Color.parseColor("#3F51B5"));
+
+        }
 
 
 
