@@ -444,6 +444,7 @@ public class SearchActivity extends AppCompatActivity {
 
                             //sessionmanager.setActivityName("");
                             startActivity(intent);
+                            finish();
                             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                         }
 

@@ -150,7 +150,9 @@ public class VerificationActivity extends AppCompatActivity implements  Verifica
 
                             @Override
                             public void onPermissionRationaleShouldBeShown(PermissionRequest
-                                                                                   permission, PermissionToken token) {/* ... */}
+                                                                                   permission, PermissionToken token) {/* ... */
+                                token.continuePermissionRequest();
+                            }
                         }).check();
             }
         });

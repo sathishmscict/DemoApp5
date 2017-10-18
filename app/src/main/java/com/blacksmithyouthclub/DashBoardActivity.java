@@ -927,6 +927,7 @@ public class DashBoardActivity extends AppCompatActivity
 
 
             sessionManager.logoutUser();
+            finish();
 
 
         }

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 public class SingleAdvertisementActivity extends AppCompatActivity {
 
@@ -60,7 +61,12 @@ public class SingleAdvertisementActivity extends AppCompatActivity {
     private void setValue()
     {
         try {
-            Glide.with(context).load(Adver_IMG).into(imgadverimg);
+            //Glide.with(context).load(Adver_IMG).into(imgadverimg);
+            Picasso.with(context)
+                    .load(Adver_IMG)
+                    .placeholder(R.drawable.app_logo)
+                    .error(R.drawable.app_logo)
+                    .into(imgadverimg);
         } catch (Exception e) {
             e.printStackTrace();
         }

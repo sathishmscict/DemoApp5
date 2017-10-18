@@ -3,6 +3,7 @@ package com.blacksmithyouthclub.app;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 import android.util.LruCache;
@@ -37,6 +38,10 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        //Allowing Strict mode policy for Nougat support
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
 
         mInstance = this;
 

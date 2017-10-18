@@ -230,7 +230,7 @@ public class SignInActivity extends AppCompatActivity {
 
                                 try {
                                     //get realm instance
-                                    realm = Realm.getDefaultInstance();
+                                   // realm = Realm.getDefaultInstance();
 
                                     //realm.refresh();
 

@@ -239,7 +239,13 @@ public class NotificationActivity extends AppCompatActivity {
         */
 
         notificationsData = realm.where(NotificationMaster.class).findAllSorted("id", Sort.DESCENDING);
-        notificationsData = notificationsData.subList(0,10);
+        if(notificationsData.size() > 10)
+        {
+            notificationsData = notificationsData.subList(0, 10);
+
+
+        }
+      // notificationsData = notificationsData.subList(0,10);
         //personsData.deleteAllFromRealm();
         realm.commitTransaction();
 

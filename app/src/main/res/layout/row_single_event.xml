@@ -10,95 +10,96 @@
     android:orientation="horizontal">
 
 
-            <LinearLayout
-                android:paddingBottom="0dp"
-                android:orientation="vertical"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgeventbg"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="170dp"
+                android:scaleType="fitXY" />
 
-                <RelativeLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="140dp">
+        </RelativeLayout>
 
-                    <ImageView
-                        android:id="@+id/imgeventbg"
-                        android:scaleType="fitXY"
-                        android:layout_width="match_parent"
-                        android:layout_height="170dp" />
-                    
-                </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tveventtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16dp" />
 
-                    <TextView
-                        android:layout_weight="1"
-                        android:layout_marginTop="4dp"
-                        android:id="@+id/tveventtitle"
-                        android:textColor="#000"
-                        android:textSize="16dp"
-                        android:singleLine="true"
-                        android:layout_marginLeft="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tveventdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1.5"
+                android:gravity="right"
+                android:maxLines="3"
+                android:singleLine="true"
+                android:textSize="15dp" />
+        </LinearLayout>
+        <!--<LinearLayout
+            android:paddingBottom="2dp"
+            android:layout_marginLeft="1dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tveventdate"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="15dp"
+                android:maxLines="3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:paddingBottom="0dp">
 
-                    <TextView
-                        android:gravity="right"
-                        android:layout_marginRight="5dp"
-                        android:layout_gravity="end"
-                        android:singleLine="true"
-                        android:layout_weight="1.5"
-                        android:id="@+id/tveventdate"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginLeft="10dp"
-                        android:textSize="15dp"
-                        android:maxLines="3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-                <!--<LinearLayout
-                    android:paddingBottom="2dp"
-                    android:layout_marginLeft="1dp"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/tveventdate"
-                        android:layout_marginTop="0dp"
-                        android:layout_marginLeft="10dp"
-                        android:textSize="15dp"
-                        android:maxLines="3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>-->
-                <LinearLayout
-                    android:paddingBottom="0dp"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/tveventdesc"
-                        android:layout_marginTop="0dp"
-                        android:layout_marginLeft="1dp"
-                        android:textSize="15dp"
-                        android:maxLines="2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
+            <TextView
+                android:id="@+id/tveventdesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="0dp"
+                android:maxLines="2"
+                android:textSize="15dp" />
+        </LinearLayout>
 
-                <TextView
-                    android:paddingLeft="5dp"
-                    android:textColor="#000"
-                    android:textSize="14dp"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginRight="7dp"
-                    android:layout_gravity="end"
-                    android:text="Read More.."
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_marginBottom="3dp"
+            android:layout_marginRight="7dp"
+            android:paddingLeft="5dp"
+            android:text="Read More.."
+            android:textColor="#000"
+            android:textSize="14dp" />
+    </LinearLayout>
+</android.support.v7.widget.CardView>
 

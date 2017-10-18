@@ -198,13 +198,14 @@ public class FragmentContactDetails extends Fragment {
     }
 
 
-    private void FillDataOnControls () {
+    private void FillDataOnControls() {
         edtHomePhone.setText(userData.getHomePhone().toString());
         edtContactno2.setText(userData.getMob2().toString());
         edtAddress.setText(userData.getAddress().toString());
         edtCurrentArea.setText(userData.getCurrentArea().toString());
         edtPincode.setText(userData.getPincode().toString());
     }
+
     private void HideControls() {
         edtHomePhone.setEnabled(false);
         edtContactno2.setEnabled(false);
@@ -247,7 +248,7 @@ public class FragmentContactDetails extends Fragment {
 
         ApiInterface apiClient = ApiClient.getClient().create(ApiInterface.class);
         Log.d(TAG, "URL getserviceForSpinnersData : " + CommonMethods.WEBSITE + "getserviceForSpinnersData?type=spinner&countryid=1");
-        apiClient.getserviceForSpinnersData("spinner", "1",userDetails.get(SessionManager.KEY_SELECTED_CASTE)).enqueue(new Callback<SpinnersData>() {
+        apiClient.getserviceForSpinnersData("spinner", "1", userDetails.get(SessionManager.KEY_SELECTED_CASTE)).enqueue(new Callback<SpinnersData>() {
             @Override
             public void onResponse(Call<SpinnersData> call, Response<SpinnersData> response) {
 
@@ -443,11 +444,20 @@ public class FragmentContactDetails extends Fragment {
 
             ShowAllControlsEditableAndVisible();
         } else if (item.getItemId() == R.id.action_update) {
-           // profile_edit.setVisible(true);
-          //  profile_update.setVisible(false);
+            // profile_edit.setVisible(true);
+            //  profile_update.setVisible(false);
 
 
-            updateDetailsSendToServer();
+            if (spnState.getSelectedIndex() == 0) {
+                CommonMethods.showAlertDialog(getActivity(), "Contact Details Update Info", "Please select state");
+
+            } else if (spnCity.getSelectedIndex() == 0) {
+                CommonMethods.showAlertDialog(getActivity(), "Contact Details Update Info", "Please select city");
+            } else {
+
+                updateDetailsSendToServer();
+            }
+
             // HideControls();
         }
         return super.onOptionsItemSelected(item);
@@ -481,8 +491,7 @@ public class FragmentContactDetails extends Fragment {
                     boolean error_status = response.body().getERRORSTATUS();
                     boolean record_status = response.body().getRECORDS();
 
-                    if (error_status == false)
-                    {
+                    if (error_status == false) {
 
                         //If details has been updated successfully then option menu title has been changed
                         profile_edit.setVisible(true);
@@ -491,19 +500,15 @@ public class FragmentContactDetails extends Fragment {
 
                         List<UserDataResponse.DATum> arr = response.body().getDATA();
 
-                        for (int i = 0; i < arr.size(); i++)
-                        {
+                        for (int i = 0; i < arr.size(); i++) {
 
                             int userId = arr.get(i).getId();
 
                             String userMobile = arr.get(i).getMobile();
 
 
-
-
                             // setUserDetails(String str_userid, String str_username, String str_email, String str_mobile, String str_avatar) {
                             sessionManager.setUserDetails(String.valueOf(userId), userMobile, arr.get(i).getAppovalStatus());
-
 
 
                             try {
@@ -516,7 +521,6 @@ public class FragmentContactDetails extends Fragment {
 
                                 UserMaster userMaster = new UserMaster();
                                 userMaster = userData;
-
 
 
                                 //userMaster.setUserid(arr.get(i).getId());
@@ -597,8 +601,7 @@ public class FragmentContactDetails extends Fragment {
 
                                 HideControls();
                                 CommonMethods.hideDialog(spotsDialog);
-                                CommonMethods.showAlertDialog(getActivity(),"Contact Details Update Info","Your contact details has been successfully updated.");
-
+                                CommonMethods.showAlertDialog(getActivity(), "Contact Details Update Info", "Your contact details has been successfully updated.");
 
 
                             } catch (NumberFormatException e) {
@@ -606,14 +609,9 @@ public class FragmentContactDetails extends Fragment {
                             }
 
 
-
-
-
-
                         }
 
                         CommonMethods.hideDialog(spotsDialog);
-
 
 
                     } else {

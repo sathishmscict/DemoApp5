@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import dmax.dialog.SpotsDialog;
 
@@ -68,7 +69,12 @@ public class SingleEventActivity extends AppCompatActivity {
     private void setValue()
     {
         try {
-            Glide.with(context).load(Event_IMG).into(imgeventimg);
+//            Glide.with(context).load(Event_IMG).into(imgeventimg);
+            Picasso.with(context)
+                    .load(Event_IMG)
+                    .placeholder(R.drawable.app_logo)
+                    .error(R.drawable.app_logo)
+                    .into(imgeventimg);
         } catch (Exception e) {
             e.printStackTrace();
         }

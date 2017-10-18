@@ -224,7 +224,7 @@ public class BusinessSubCategoryActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Intent intent = new Intent(context, DashBoardActivity.class);
+            Intent intent = new Intent(context, BusinessDirectoryActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
             finish();
@@ -248,7 +248,7 @@ public class BusinessSubCategoryActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(context, DashBoardActivity.class);
+        Intent intent = new Intent(context, BusinessDirectoryActivity.class);
         startActivity(intent);
         finish();
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);

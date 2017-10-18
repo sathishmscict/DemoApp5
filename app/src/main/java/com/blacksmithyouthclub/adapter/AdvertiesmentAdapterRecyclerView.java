@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.blacksmithyouthclub.R;
 import com.blacksmithyouthclub.model.Advertiesment_Pojo;
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -57,13 +58,32 @@ public class AdvertiesmentAdapterRecyclerView extends RecyclerView.Adapter<Adver
         final Advertiesment_Pojo SP=Alldatas.get(position);
 
         try {
-            Glide.with(context).load(SP.getAdverImg()).error(R.mipmap.ic_launcher).into(holder.AdverImgBG);
+           // Glide.with(context).load(SP.getAdverImg()).error(R.mipmap.ic_launcher).into(holder.AdverImgBG);
+            if(!SP.getAdverImg().isEmpty())
+            {
+
+                Picasso.with(context)
+                        .load(SP.getAdverImg())
+                        .placeholder(R.drawable.app_logo)
+                        .error(R.drawable.app_logo)
+                        .into(holder.AdverImgBG);
+                holder.AdverImgBG.setVisibility(View.VISIBLE);
+
+                holder.AdverDesc.setVisibility(View.GONE);
+            }
+            else
+            {
+
+                holder.AdverImgBG.setVisibility(View.GONE);
+                holder.AdverDesc.setVisibility(View.VISIBLE);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         holder.AdverTitle.setText(SP.getAdverName());
         holder.AdverDesc.setText(SP.getAdverDesc());
-        holder.AdverDesc.setVisibility(View.GONE);
+
 
     }
 

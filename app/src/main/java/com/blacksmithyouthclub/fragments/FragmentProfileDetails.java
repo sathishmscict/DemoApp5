@@ -19,6 +19,8 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.graphics.BitmapCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,6 +29,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -79,6 +82,8 @@ import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 
 public class FragmentProfileDetails extends Fragment {
@@ -340,6 +345,28 @@ public class FragmentProfileDetails extends Fragment {
 
         FillDataOnControls();
 
+        edtWeight.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(s.length() == 2)
+                {
+                    hideSoftKeyboard();
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
 
         edtDOB.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -453,6 +480,18 @@ public class FragmentProfileDetails extends Fragment {
         getAllComboDetailFromServer();
 
         return rootView;
+    }
+
+
+    //onCreate view completed
+    /**
+     * Hides the soft keyboard
+     */
+    public void hideSoftKeyboard() {
+        if(getActivity().getCurrentFocus()!=null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        }
     }
 
     private void FillDataOnControls() {
@@ -1369,6 +1408,7 @@ public class FragmentProfileDetails extends Fragment {
 
                     if (error_status == false) {
                         if (record_status == true) {
+
 
                             sessionManager.setEncodedImage(BASE64STRING);
                             PROFILE_PICTURE_URL = response.body().getDATA().get(0).getImageurl();

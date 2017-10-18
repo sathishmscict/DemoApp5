@@ -693,174 +693,179 @@ public class SignUpUserActivity extends AppCompatActivity {
         DOCUMENT_IMAGE_URL = DOCUMENT_IMAGE_URL.replace("http://blacksmith.studyfield.com/", "");
 
 
-        ApiInterface apiClient = ApiClient.getClient().create(ApiInterface.class);
-        Log.d(TAG, "URL newUserRegistration : " + CommonMethods.WEBSITE + "newUserRegistration?type=register&fname=" + edtFirstName.getText().toString() + "&surname=" + edtSurname.getText().toString() + "&mobileno=" + edtMobile.getText().toString() + "&fathersName=" + edtFather.getText().toString() + "&mothersName=" + edtMotherName.getText().toString() + "&village=" + edtVillageName.getText().toString() + "&dob=&gender=" + SELECTED_GENDER + "&maritalStatus=" + list_MaritalStatusId.get(spnMaritalStatus.getSelectedIndex()) + "&area=" + edtArea.getText().toString() + "&city=" + list_CityId.get(spnCity.getSelectedIndex()) + "&state=" + list_StateId.get(spnState.getSelectedIndex()) + "&avatar=&referralcode=" + edtReferalCode.getText().toString() + "&fcmtoken=" + fcm_tokenid + "&devicetype=android&castename=" + userDetails.get(SessionManager.KEY_SELECTED_CASTE) + "&document_url=" + DOCUMENT_IMAGE_URL + "");
+        try {
+            ApiInterface apiClient = ApiClient.getClient().create(ApiInterface.class);
+            Log.d(TAG, "URL newUserRegistration : " + CommonMethods.WEBSITE + "newUserRegistration?type=register&fname=" + edtFirstName.getText().toString() + "&surname=" + edtSurname.getText().toString() + "&mobileno=" + edtMobile.getText().toString() + "&fathersName=" + edtFather.getText().toString() + "&mothersName=" + edtMotherName.getText().toString() + "&village=" + edtVillageName.getText().toString() + "&dob=&gender=" + SELECTED_GENDER + "&maritalStatus=" + list_MaritalStatusId.get(spnMaritalStatus.getSelectedIndex()) + "&area=" + edtArea.getText().toString() + "&city=" + list_CityId.get(spnCity.getSelectedIndex()) + "&state=" + list_StateId.get(spnState.getSelectedIndex()) + "&avatar=&referralcode=" + edtReferalCode.getText().toString() + "&fcmtoken=" + fcm_tokenid + "&devicetype=android&castename=" + userDetails.get(SessionManager.KEY_SELECTED_CASTE) + "&document_url=" + DOCUMENT_IMAGE_URL + "");
 
 
-        apiClient.newUserRegistration("register", edtFirstName.getText().toString(), edtSurname.getText().toString(), edtMobile.getText().toString(), edtFather.getText().toString(), edtMotherName.getText().toString(), edtVillageName.getText().toString(), "", SELECTED_GENDER, Integer.parseInt(list_MaritalStatusId.get(spnMaritalStatus.getSelectedIndex())), edtArea.getText().toString(), Integer.parseInt(list_CityId.get(spnCity.getSelectedIndex())), Integer.parseInt(list_StateId.get(spnState.getSelectedIndex())), "", edtReferalCode.getText().toString(), fcm_tokenid, "android", userDetails.get(SessionManager.KEY_SELECTED_CASTE), DOCUMENT_IMAGE_URL).enqueue(new Callback<UserDataResponse>() {
-            @Override
-            public void onResponse(Call<UserDataResponse> call, Response<UserDataResponse> response) {
+            apiClient.newUserRegistration("register", edtFirstName.getText().toString(), edtSurname.getText().toString(), edtMobile.getText().toString(), edtFather.getText().toString(), edtMotherName.getText().toString(), edtVillageName.getText().toString(), "", SELECTED_GENDER, Integer.parseInt(list_MaritalStatusId.get(spnMaritalStatus.getSelectedIndex())), edtArea.getText().toString(), Integer.parseInt(list_CityId.get(spnCity.getSelectedIndex())), Integer.parseInt(list_StateId.get(spnState.getSelectedIndex())), "", edtReferalCode.getText().toString(), fcm_tokenid, "android", userDetails.get(SessionManager.KEY_SELECTED_CASTE), DOCUMENT_IMAGE_URL).enqueue(new Callback<UserDataResponse>() {
+                @Override
+                public void onResponse(Call<UserDataResponse> call, Response<UserDataResponse> response) {
 
 
-                Log.d(TAG, "newUserRegistration Response Code : " + response.code());
+                    Log.d(TAG, "newUserRegistration Response Code : " + response.code());
 
-                if (response.code() == 200)
-                {
-
-
-                    String str_error = response.body().getMESSAGE();
-                    String str_error_original = response.body().getORIGINALMESSAGE();
-                    boolean error_status = response.body().getERRORSTATUS();
-                    boolean record_status = response.body().getRECORDS();
-
-                    if (error_status == false)
+                    if (response.code() == 200)
                     {
-                        if (record_status == true) {
-
-                            List<UserDataResponse.DATum> arr = response.body().getDATA();
-
-                            for (int i = 0; i < arr.size(); i++) {
-
-                                int userId = arr.get(i).getId();
-
-                                String userMobile = arr.get(i).getMobile();
 
 
-                                // setUserDetails(String str_userid, String str_username, String str_email, String str_mobile, String str_avatar) {
-                                sessionManager.setUserDetails(String.valueOf(userId), userMobile, arr.get(i).getAppovalStatus());
+                        String str_error = response.body().getMESSAGE();
+                        String str_error_original = response.body().getORIGINALMESSAGE();
+                        boolean error_status = response.body().getERRORSTATUS();
+                        boolean record_status = response.body().getRECORDS();
 
-                                try {
-                                    //get realm instance
-                                    realm = Realm.getDefaultInstance();
+                        if (error_status == false)
+                        {
+                            if (record_status == true) {
 
-                                    //realm.refresh();
+                                List<UserDataResponse.DATum> arr = response.body().getDATA();
 
-                                    realm.beginTransaction();
+                                for (int i = 0; i < arr.size(); i++) {
 
-                                    UserMaster userMaster = new UserMaster();
+                                    int userId = arr.get(i).getId();
 
-                                    userMaster.setUserid(arr.get(i).getId());
-                                    userMaster.setCasteName(arr.get(i).getCasteName());
-                                    userMaster.setFirstName(arr.get(i).getFirstName());
-                                    userMaster.setSurname(arr.get(i).getSurname());
-                                    userMaster.setOriginalSurname(arr.get(i).getOriginalSurname());
-                                    userMaster.setVillage(arr.get(i).getVillage());
-                                    userMaster.setMaritalStatus(arr.get(i).getMaritalStatus());
-                                    userMaster.setAbout(arr.get(i).getAbout());
-                                    userMaster.setEmail(arr.get(i).getEmail());
-                                    userMaster.setMobile(arr.get(i).getMobile());
-                                    userMaster.setDoa(arr.get(i).getDoa());
-                                    userMaster.setReligion(arr.get(i).getReligion());
-                                    userMaster.setAvatar(arr.get(i).getAvatar());
-                                    userMaster.setBloodGrpId(arr.get(i).getBloodGrpId());
-                                    userMaster.setDob(arr.get(i).getDob());
-                                    userMaster.setHeightId(arr.get(i).getHeightId());
-                                    userMaster.setWeight(arr.get(i).getWeight());
-                                    userMaster.setFathersName(arr.get(i).getFathersName());
-                                    userMaster.setMothersName(arr.get(i).getMothersName());
-                                    userMaster.setFathersFathersName(arr.get(i).getFathersFathersName());
-                                    userMaster.setFathersMothersName(arr.get(i).getFathersMothersName());
-                                    userMaster.setMothersFathersName(arr.get(i).getMothersFathersName());
-                                    userMaster.setMothersMothersName(arr.get(i).getMothersMothersName());
-                                    userMaster.setMothersFathersSurname(arr.get(i).getMothersFathersSurname());
-                                    userMaster.setMothersFathersVillage(arr.get(i).getMothersFathersVillage());
-                                    userMaster.setHusbandsName(arr.get(i).getHusbandsName());
-                                    userMaster.setHusbandsFathersName(arr.get(i).getHusbandsFathersName());
-                                    userMaster.setHusbandsMothersName(arr.get(i).getHusbandsMothersName());
-                                    userMaster.setWifesName(arr.get(i).getWifesName());
-                                    userMaster.setWifesFathersName(arr.get(i).getWifesFathersName());
-                                    userMaster.setWifesMothersName(arr.get(i).getWifesMothersName());
-                                    userMaster.setWifesFathersSurname(arr.get(i).getWifesFathersSurname());
-                                    userMaster.setWifesFathersVillage(arr.get(i).getWifesFathersVillage());
-                                    userMaster.setHomePhone(arr.get(i).getHomePhone());
-                                    userMaster.setAddress(arr.get(i).getAddress());
-                                    userMaster.setCurrentArea(arr.get(i).getCurrentArea());
-                                    userMaster.setCityId(arr.get(i).getCityId());
-                                    userMaster.setStateId(arr.get(i).getStateId());
-                                    userMaster.setCountryId(arr.get(i).getCountryId());
-                                    userMaster.setPincode(arr.get(i).getPincode());
-                                    userMaster.setBusinessId(arr.get(i).getBusinessId());
-                                    userMaster.setBusinesssubcategoryids(arr.get(i).getBusinesssubcategoryids());
-                                    userMaster.setOccupationspecialization(arr.get(i).getOccupationspecialization());
-                                    userMaster.setBusinessName(arr.get(i).getBusinessName());
-                                    userMaster.setEducationName(arr.get(i).getEducationName());
-                                    userMaster.setEducationSpecialization(arr.get(i).getEducationSpecialization());
-                                    userMaster.setUsertypeId(arr.get(i).getUsertypeId());
-                                    userMaster.setCreatedDate(arr.get(i).getCreatedDate());
-                                    userMaster.setAppovalStatus(arr.get(i).getAppovalStatus());
-                                    userMaster.setHobbyId(arr.get(i).getHobbyId());
-                                    userMaster.setGender(arr.get(i).getGender());
-                                    userMaster.setMaritalStatus(arr.get(i).getMaritalStatus());
-                                    userMaster.setBloodgrpName(arr.get(i).getBloodgrpName());
-                                    userMaster.setStateName(arr.get(i).getStateName());
-                                    userMaster.setCityName(arr.get(i).getCityName());
-                                    userMaster.setBusinessAddress(arr.get(i).getBusinessAddress());
-                                    userMaster.setBusinessLogo(arr.get(i).getBusinessLogo());
-                                    userMaster.setHeightName(arr.get(i).getHeightName());
-                                    userMaster.setSurnameName(arr.get(i).getSurnameName());
-                                    userMaster.setMob1(arr.get(i).getMob1());
-                                    userMaster.setMob2(arr.get(i).getMob2());
-                                    userMaster.setLandLine1(arr.get(i).getLandLine1());
-                                    userMaster.setLandLine2(arr.get(i).getLandLine2());
-                                    userMaster.setBusinessWebsite(arr.get(i).getBusinessWebsite());
-                                    userMaster.setWorkTitle(arr.get(i).getWorkTitle());
-                                    userMaster.setReferal_code(arr.get(i).getReferalCode());
-                                    userMaster.setDocument_url(arr.get(i).getDocumentUrl());
+                                    String userMobile = arr.get(i).getMobile();
 
 
-                                    realm.copyToRealm(userMaster);
-                                    realm.commitTransaction();
-                                    Log.d(TAG, "Userdata has been added in database");
-                                } catch (NumberFormatException e) {
-                                    e.printStackTrace();
+                                    // setUserDetails(String str_userid, String str_username, String str_email, String str_mobile, String str_avatar) {
+                                    sessionManager.setUserDetails(String.valueOf(userId), userMobile, arr.get(i).getAppovalStatus());
+
+                                    try {
+                                        //get realm instance
+                                        realm = Realm.getDefaultInstance();
+
+                                        //realm.refresh();
+
+                                        realm.beginTransaction();
+
+                                        UserMaster userMaster = new UserMaster();
+
+                                        userMaster.setUserid(arr.get(i).getId());
+                                        userMaster.setCasteName(arr.get(i).getCasteName());
+                                        userMaster.setFirstName(arr.get(i).getFirstName());
+                                        userMaster.setSurname(arr.get(i).getSurname());
+                                        userMaster.setOriginalSurname(arr.get(i).getOriginalSurname());
+                                        userMaster.setVillage(arr.get(i).getVillage());
+                                        userMaster.setMaritalStatus(arr.get(i).getMaritalStatus());
+                                        userMaster.setAbout(arr.get(i).getAbout());
+                                        userMaster.setEmail(arr.get(i).getEmail());
+                                        userMaster.setMobile(arr.get(i).getMobile());
+                                        userMaster.setDoa(arr.get(i).getDoa());
+                                        userMaster.setReligion(arr.get(i).getReligion());
+                                        userMaster.setAvatar(arr.get(i).getAvatar());
+                                        userMaster.setBloodGrpId(arr.get(i).getBloodGrpId());
+                                        userMaster.setDob(arr.get(i).getDob());
+                                        userMaster.setHeightId(arr.get(i).getHeightId());
+                                        userMaster.setWeight(arr.get(i).getWeight());
+                                        userMaster.setFathersName(arr.get(i).getFathersName());
+                                        userMaster.setMothersName(arr.get(i).getMothersName());
+                                        userMaster.setFathersFathersName(arr.get(i).getFathersFathersName());
+                                        userMaster.setFathersMothersName(arr.get(i).getFathersMothersName());
+                                        userMaster.setMothersFathersName(arr.get(i).getMothersFathersName());
+                                        userMaster.setMothersMothersName(arr.get(i).getMothersMothersName());
+                                        userMaster.setMothersFathersSurname(arr.get(i).getMothersFathersSurname());
+                                        userMaster.setMothersFathersVillage(arr.get(i).getMothersFathersVillage());
+                                        userMaster.setHusbandsName(arr.get(i).getHusbandsName());
+                                        userMaster.setHusbandsFathersName(arr.get(i).getHusbandsFathersName());
+                                        userMaster.setHusbandsMothersName(arr.get(i).getHusbandsMothersName());
+                                        userMaster.setWifesName(arr.get(i).getWifesName());
+                                        userMaster.setWifesFathersName(arr.get(i).getWifesFathersName());
+                                        userMaster.setWifesMothersName(arr.get(i).getWifesMothersName());
+                                        userMaster.setWifesFathersSurname(arr.get(i).getWifesFathersSurname());
+                                        userMaster.setWifesFathersVillage(arr.get(i).getWifesFathersVillage());
+                                        userMaster.setHomePhone(arr.get(i).getHomePhone());
+                                        userMaster.setAddress(arr.get(i).getAddress());
+                                        userMaster.setCurrentArea(arr.get(i).getCurrentArea());
+                                        userMaster.setCityId(arr.get(i).getCityId());
+                                        userMaster.setStateId(arr.get(i).getStateId());
+                                        userMaster.setCountryId(arr.get(i).getCountryId());
+                                        userMaster.setPincode(arr.get(i).getPincode());
+                                        userMaster.setBusinessId(arr.get(i).getBusinessId());
+                                        userMaster.setBusinesssubcategoryids(arr.get(i).getBusinesssubcategoryids());
+                                        userMaster.setOccupationspecialization(arr.get(i).getOccupationspecialization());
+                                        userMaster.setBusinessName(arr.get(i).getBusinessName());
+                                        userMaster.setEducationName(arr.get(i).getEducationName());
+                                        userMaster.setEducationSpecialization(arr.get(i).getEducationSpecialization());
+                                        userMaster.setUsertypeId(arr.get(i).getUsertypeId());
+                                        userMaster.setCreatedDate(arr.get(i).getCreatedDate());
+                                        userMaster.setAppovalStatus(arr.get(i).getAppovalStatus());
+                                        userMaster.setHobbyId(arr.get(i).getHobbyId());
+                                        userMaster.setGender(arr.get(i).getGender());
+                                        userMaster.setMaritalStatus(arr.get(i).getMaritalStatus());
+                                        userMaster.setBloodgrpName(arr.get(i).getBloodgrpName());
+                                        userMaster.setStateName(arr.get(i).getStateName());
+                                        userMaster.setCityName(arr.get(i).getCityName());
+                                        userMaster.setBusinessAddress(arr.get(i).getBusinessAddress());
+                                        userMaster.setBusinessLogo(arr.get(i).getBusinessLogo());
+                                        userMaster.setHeightName(arr.get(i).getHeightName());
+                                        userMaster.setSurnameName(arr.get(i).getSurnameName());
+                                        userMaster.setMob1(arr.get(i).getMob1());
+                                        userMaster.setMob2(arr.get(i).getMob2());
+                                        userMaster.setLandLine1(arr.get(i).getLandLine1());
+                                        userMaster.setLandLine2(arr.get(i).getLandLine2());
+                                        userMaster.setBusinessWebsite(arr.get(i).getBusinessWebsite());
+                                        userMaster.setWorkTitle(arr.get(i).getWorkTitle());
+                                        userMaster.setReferal_code(arr.get(i).getReferalCode());
+                                        userMaster.setDocument_url(arr.get(i).getDocumentUrl());
+
+
+                                        realm.copyToRealm(userMaster);
+                                        realm.commitTransaction();
+                                        Log.d(TAG, "Userdata has been added in database");
+                                    } catch (NumberFormatException e) {
+                                        e.printStackTrace();
+                                    }
+
+
                                 }
 
 
-                            }
+                                CommonMethods.hideDialog(spotsDialog);
 
+                                Intent intent = new Intent(context, VerificationActivity.class);
+                                startActivity(intent);
+                                finish();
+                                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+
+
+                            }
+                        } else {
 
                             CommonMethods.hideDialog(spotsDialog);
+                            Toast.makeText(context, "" + str_error, Toast.LENGTH_SHORT).show();
+                            CommonMethods.showAlertDialog(context,"Signup Information",str_error);
 
-                            Intent intent = new Intent(context, VerificationActivity.class);
-                            startActivity(intent);
-                            finish();
-                            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                            if(str_error.contains("Mobile"))
+                            {
+                                edtMobileWrapper.setErrorEnabled(true);
+                                edtMobileWrapper.setError(str_error);
+                                edtMobile.requestFocus();
 
-
+                            }
                         }
+
+
                     } else {
-
-                        CommonMethods.hideDialog(spotsDialog);
-                        Toast.makeText(context, "" + str_error, Toast.LENGTH_SHORT).show();
-                        CommonMethods.showAlertDialog(context,"Signup Information",str_error);
-
-                        if(str_error.contains("Mobile"))
-                        {
-                            edtMobileWrapper.setErrorEnabled(true);
-                            edtMobileWrapper.setError(str_error);
-                            edtMobile.requestFocus();
-
-                        }
+                        CommonMethods.showErrorMessageWhenStatusNot200(context, response.code());
                     }
 
 
-                } else {
-                    CommonMethods.showErrorMessageWhenStatusNot200(context, response.code());
+                    CommonMethods.hideDialog(spotsDialog);
+
                 }
 
+                @Override
+                public void onFailure(Call<UserDataResponse> call, Throwable t) {
 
-                CommonMethods.hideDialog(spotsDialog);
+                    CommonMethods.onFailure(context, TAG, t);
 
-            }
-
-            @Override
-            public void onFailure(Call<UserDataResponse> call, Throwable t) {
-
-                CommonMethods.onFailure(context, TAG, t);
-
-                CommonMethods.hideDialog(spotsDialog);
-            }
-        });
+                    CommonMethods.hideDialog(spotsDialog);
+                }
+            });
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            Log.d(TAG ,"Error in send details : "+e.getMessage());
+        }
 
 
     }
