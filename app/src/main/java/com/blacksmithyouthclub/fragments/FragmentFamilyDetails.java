@@ -394,7 +394,7 @@ public class FragmentFamilyDetails extends Fragment {
             edtWifesFatherSurname.setText(userData.getWifesFathersSurname().toString());
         } catch (Exception e) {
             e.printStackTrace();
-        Toast.makeText(context, "Error in FillData", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Error in FillData", Toast.LENGTH_SHORT).show();
         }
 
 

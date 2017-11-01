@@ -68,6 +68,7 @@ public class BusinessSubCategoryAdapterRecyclerView extends RecyclerView.Adapter
 
     @Override
     public int getItemCount() {
+
         return list_BusinessData.size();
     }
 
