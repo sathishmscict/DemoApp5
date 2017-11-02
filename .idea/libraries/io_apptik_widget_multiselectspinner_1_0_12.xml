@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="io.apptik.widget:multiselectspinner-1.0.12">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/multiselectspinner-1.0.12.aar/e23cf80ff1b050bea6d32b3b4d8314bd/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/multiselectspinner-1.0.12.aar/e23cf80ff1b050bea6d32b3b4d8314bd/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.apptik.widget/multiselectspinner/1.0.12/d4e1911cf86523401ceca55447eb57860305f662/multiselectspinner-1.0.12-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
